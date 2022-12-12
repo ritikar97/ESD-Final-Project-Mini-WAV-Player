@@ -1,0 +1,132 @@
+
+/**
+ * @file main.c
+ * @author Shuran Xu (shxu6388@colorado.edu)
+ * @brief This file implements the program entry point for the part3 8051 code question.
+ * @version 0.1
+ * @date 2022-10-22
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
+#include <at89c51ed2.h>       //also includes 8052.h and 8051.h
+#include <mcs51reg.h>
+#include <stdint.h>
+#include <stdio.h>
+#include "serial.h"
+#include "spi.h"
+#include "sdc.h"
+#include "lcd.h"
+#include "timer.h"
+#include "pff/source/pff.h"
+#include "pff/source/diskio.h"
+
+FATFS SDCard;
+
+_sdcc_external_startup()
+{
+    // enable the 1K internal XRAM
+    AUXR |= (XRS1 | XRS0);
+    AUXR &= ~(XRS2);
+
+    init_serial();
+    return 0;
+}
+
+void print_buffer(const BYTE *buff)
+{
+    for(int i=0;i<512;i++){
+        if(((i + 1) >> 4) == 0){
+            printf_tiny("\r\n");
+        }
+        printf_tiny("%x ", buff[i]);
+    }
+}
+
+void main(void)
+{
+    FRESULT res;
+    FILINFO fno;
+    DIR dir;
+    BYTE buff[512];     /* File read buffer */
+    UINT br;           /* File read count */
+    char file_name[64];
+
+    init_timer0();
+    lcdinit();
+    spi_init();
+
+    /* 1) mount drive... */
+     if( pf_mount( 0, &SDCard ) )
+     {
+        printf_tiny("Couldn't mount drive...\r\n");
+        while( 1 );
+     }
+
+     printf_tiny("SD card mounted\r\n");
+
+     /* 2) initialize card... */
+     if( disk_initialize( ) & STA_NOINIT )
+     {
+         switch( CardType )
+         {
+         case 0 :
+             printf_tiny("Couldn't find SD card\r\n");
+             break;
+         case 1 :
+             printf_tiny("Card type is MMC - Can't use this type\r\n");
+             break;
+         case 2 :
+             printf_tiny("Couldn't initialize SD Card drive...\r\n");
+             break;
+         default :
+             printf_tiny("Unknown Card Type error...\r\n");
+             break;
+         }
+     while( 1 );
+     }
+
+     printf_tiny("SD card initialized\r\n");
+
+     /* 3) scan files and read files */
+     res = pf_opendir(&dir, "/");
+     if (res == FR_OK) {
+
+        for (;;) {
+            res = pf_readdir(&dir, &fno);
+            if (res != FR_OK || fno.fname[0] == 0){
+                printf_tiny("No more files found\r\n");
+                break;
+            }
+            printf_tiny("reading file %s/%s ...\r\n", path, fno.fname);
+            sprintf(file_name, "%s/%s", path, fno.fname);
+
+            /* open the scanned file */
+            res = pf_open(file_name);
+            if (res != FR_OK){
+                printf_tiny("Error: failed to open %s\r\n", file_name);
+                break;
+            }
+
+            /* Read data to the memory */
+            do{
+                /* Read data to the buff[] */
+                res = pf_read(buff, 512, &br);
+                /* Check error */
+                if(res != FR_OK){
+                    printf_tiny("Error: failed to read %s\r\n", file_name);
+                    break;
+                }
+               /* Print the data read */
+                print_buffer((const BYTE *)buff);
+
+            }while(br == 512); //exit when reached EOF
+        }
+    }
+
+    printf_tiny("Finished reading files\r\n");
+    while( 1 );
+}
+
+

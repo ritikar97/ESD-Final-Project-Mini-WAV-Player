@@ -1,0 +1,959 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module i2c
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _TF1
+                                     12 	.globl _TR1
+                                     13 	.globl _TF0
+                                     14 	.globl _TR0
+                                     15 	.globl _IE1
+                                     16 	.globl _IT1
+                                     17 	.globl _IE0
+                                     18 	.globl _IT0
+                                     19 	.globl _SM0
+                                     20 	.globl _SM1
+                                     21 	.globl _SM2
+                                     22 	.globl _REN
+                                     23 	.globl _TB8
+                                     24 	.globl _RB8
+                                     25 	.globl _TI
+                                     26 	.globl _RI
+                                     27 	.globl _CY
+                                     28 	.globl _AC
+                                     29 	.globl _F0
+                                     30 	.globl _RS1
+                                     31 	.globl _RS0
+                                     32 	.globl _OV
+                                     33 	.globl _F1
+                                     34 	.globl _P
+                                     35 	.globl _RD
+                                     36 	.globl _WR
+                                     37 	.globl _T1
+                                     38 	.globl _T0
+                                     39 	.globl _INT1
+                                     40 	.globl _INT0
+                                     41 	.globl _TXD0
+                                     42 	.globl _TXD
+                                     43 	.globl _RXD0
+                                     44 	.globl _RXD
+                                     45 	.globl _P3_7
+                                     46 	.globl _P3_6
+                                     47 	.globl _P3_5
+                                     48 	.globl _P3_4
+                                     49 	.globl _P3_3
+                                     50 	.globl _P3_2
+                                     51 	.globl _P3_1
+                                     52 	.globl _P3_0
+                                     53 	.globl _P2_7
+                                     54 	.globl _P2_6
+                                     55 	.globl _P2_5
+                                     56 	.globl _P2_4
+                                     57 	.globl _P2_3
+                                     58 	.globl _P2_2
+                                     59 	.globl _P2_1
+                                     60 	.globl _P2_0
+                                     61 	.globl _P1_7
+                                     62 	.globl _P1_6
+                                     63 	.globl _P1_5
+                                     64 	.globl _P1_4
+                                     65 	.globl _P1_3
+                                     66 	.globl _P1_2
+                                     67 	.globl _P1_1
+                                     68 	.globl _P1_0
+                                     69 	.globl _P0_7
+                                     70 	.globl _P0_6
+                                     71 	.globl _P0_5
+                                     72 	.globl _P0_4
+                                     73 	.globl _P0_3
+                                     74 	.globl _P0_2
+                                     75 	.globl _P0_1
+                                     76 	.globl _P0_0
+                                     77 	.globl _PS
+                                     78 	.globl _PT1
+                                     79 	.globl _PX1
+                                     80 	.globl _PT0
+                                     81 	.globl _PX0
+                                     82 	.globl _EA
+                                     83 	.globl _ES
+                                     84 	.globl _ET1
+                                     85 	.globl _EX1
+                                     86 	.globl _ET0
+                                     87 	.globl _EX0
+                                     88 	.globl _BREG_F7
+                                     89 	.globl _BREG_F6
+                                     90 	.globl _BREG_F5
+                                     91 	.globl _BREG_F4
+                                     92 	.globl _BREG_F3
+                                     93 	.globl _BREG_F2
+                                     94 	.globl _BREG_F1
+                                     95 	.globl _BREG_F0
+                                     96 	.globl _P5_7
+                                     97 	.globl _P5_6
+                                     98 	.globl _P5_5
+                                     99 	.globl _P5_4
+                                    100 	.globl _P5_3
+                                    101 	.globl _P5_2
+                                    102 	.globl _P5_1
+                                    103 	.globl _P5_0
+                                    104 	.globl _P4_7
+                                    105 	.globl _P4_6
+                                    106 	.globl _P4_5
+                                    107 	.globl _P4_4
+                                    108 	.globl _P4_3
+                                    109 	.globl _P4_2
+                                    110 	.globl _P4_1
+                                    111 	.globl _P4_0
+                                    112 	.globl _PX0L
+                                    113 	.globl _PT0L
+                                    114 	.globl _PX1L
+                                    115 	.globl _PT1L
+                                    116 	.globl _PSL
+                                    117 	.globl _PT2L
+                                    118 	.globl _PPCL
+                                    119 	.globl _EC
+                                    120 	.globl _CCF0
+                                    121 	.globl _CCF1
+                                    122 	.globl _CCF2
+                                    123 	.globl _CCF3
+                                    124 	.globl _CCF4
+                                    125 	.globl _CR
+                                    126 	.globl _CF
+                                    127 	.globl _TF2
+                                    128 	.globl _EXF2
+                                    129 	.globl _RCLK
+                                    130 	.globl _TCLK
+                                    131 	.globl _EXEN2
+                                    132 	.globl _TR2
+                                    133 	.globl _C_T2
+                                    134 	.globl _CP_RL2
+                                    135 	.globl _T2CON_7
+                                    136 	.globl _T2CON_6
+                                    137 	.globl _T2CON_5
+                                    138 	.globl _T2CON_4
+                                    139 	.globl _T2CON_3
+                                    140 	.globl _T2CON_2
+                                    141 	.globl _T2CON_1
+                                    142 	.globl _T2CON_0
+                                    143 	.globl _PT2
+                                    144 	.globl _ET2
+                                    145 	.globl _TMOD
+                                    146 	.globl _TL1
+                                    147 	.globl _TL0
+                                    148 	.globl _TH1
+                                    149 	.globl _TH0
+                                    150 	.globl _TCON
+                                    151 	.globl _SP
+                                    152 	.globl _SCON
+                                    153 	.globl _SBUF0
+                                    154 	.globl _SBUF
+                                    155 	.globl _PSW
+                                    156 	.globl _PCON
+                                    157 	.globl _P3
+                                    158 	.globl _P2
+                                    159 	.globl _P1
+                                    160 	.globl _P0
+                                    161 	.globl _IP
+                                    162 	.globl _IE
+                                    163 	.globl _DP0L
+                                    164 	.globl _DPL
+                                    165 	.globl _DP0H
+                                    166 	.globl _DPH
+                                    167 	.globl _B
+                                    168 	.globl _ACC
+                                    169 	.globl _EECON
+                                    170 	.globl _KBF
+                                    171 	.globl _KBE
+                                    172 	.globl _KBLS
+                                    173 	.globl _BRL
+                                    174 	.globl _BDRCON
+                                    175 	.globl _T2MOD
+                                    176 	.globl _SPDAT
+                                    177 	.globl _SPSTA
+                                    178 	.globl _SPCON
+                                    179 	.globl _SADEN
+                                    180 	.globl _SADDR
+                                    181 	.globl _WDTPRG
+                                    182 	.globl _WDTRST
+                                    183 	.globl _P5
+                                    184 	.globl _P4
+                                    185 	.globl _IPH1
+                                    186 	.globl _IPL1
+                                    187 	.globl _IPH0
+                                    188 	.globl _IPL0
+                                    189 	.globl _IEN1
+                                    190 	.globl _IEN0
+                                    191 	.globl _CMOD
+                                    192 	.globl _CL
+                                    193 	.globl _CH
+                                    194 	.globl _CCON
+                                    195 	.globl _CCAPM4
+                                    196 	.globl _CCAPM3
+                                    197 	.globl _CCAPM2
+                                    198 	.globl _CCAPM1
+                                    199 	.globl _CCAPM0
+                                    200 	.globl _CCAP4L
+                                    201 	.globl _CCAP3L
+                                    202 	.globl _CCAP2L
+                                    203 	.globl _CCAP1L
+                                    204 	.globl _CCAP0L
+                                    205 	.globl _CCAP4H
+                                    206 	.globl _CCAP3H
+                                    207 	.globl _CCAP2H
+                                    208 	.globl _CCAP1H
+                                    209 	.globl _CCAP0H
+                                    210 	.globl _CKCON1
+                                    211 	.globl _CKCON0
+                                    212 	.globl _CKRL
+                                    213 	.globl _AUXR1
+                                    214 	.globl _AUXR
+                                    215 	.globl _TH2
+                                    216 	.globl _TL2
+                                    217 	.globl _RCAP2H
+                                    218 	.globl _RCAP2L
+                                    219 	.globl _T2CON
+                                    220 	.globl _start_i2c
+                                    221 	.globl _stop_i2c
+                                    222 	.globl _send_ack
+                                    223 	.globl _send_nack
+                                    224 	.globl _read_i2c
+                                    225 	.globl _write_i2c
+                                    226 ;--------------------------------------------------------
+                                    227 ; special function registers
+                                    228 ;--------------------------------------------------------
+                                    229 	.area RSEG    (ABS,DATA)
+      000000                        230 	.org 0x0000
+                           0000C8   231 _T2CON	=	0x00c8
+                           0000CA   232 _RCAP2L	=	0x00ca
+                           0000CB   233 _RCAP2H	=	0x00cb
+                           0000CC   234 _TL2	=	0x00cc
+                           0000CD   235 _TH2	=	0x00cd
+                           00008E   236 _AUXR	=	0x008e
+                           0000A2   237 _AUXR1	=	0x00a2
+                           000097   238 _CKRL	=	0x0097
+                           00008F   239 _CKCON0	=	0x008f
+                           0000AF   240 _CKCON1	=	0x00af
+                           0000FA   241 _CCAP0H	=	0x00fa
+                           0000FB   242 _CCAP1H	=	0x00fb
+                           0000FC   243 _CCAP2H	=	0x00fc
+                           0000FD   244 _CCAP3H	=	0x00fd
+                           0000FE   245 _CCAP4H	=	0x00fe
+                           0000EA   246 _CCAP0L	=	0x00ea
+                           0000EB   247 _CCAP1L	=	0x00eb
+                           0000EC   248 _CCAP2L	=	0x00ec
+                           0000ED   249 _CCAP3L	=	0x00ed
+                           0000EE   250 _CCAP4L	=	0x00ee
+                           0000DA   251 _CCAPM0	=	0x00da
+                           0000DB   252 _CCAPM1	=	0x00db
+                           0000DC   253 _CCAPM2	=	0x00dc
+                           0000DD   254 _CCAPM3	=	0x00dd
+                           0000DE   255 _CCAPM4	=	0x00de
+                           0000D8   256 _CCON	=	0x00d8
+                           0000F9   257 _CH	=	0x00f9
+                           0000E9   258 _CL	=	0x00e9
+                           0000D9   259 _CMOD	=	0x00d9
+                           0000A8   260 _IEN0	=	0x00a8
+                           0000B1   261 _IEN1	=	0x00b1
+                           0000B8   262 _IPL0	=	0x00b8
+                           0000B7   263 _IPH0	=	0x00b7
+                           0000B2   264 _IPL1	=	0x00b2
+                           0000B3   265 _IPH1	=	0x00b3
+                           0000C0   266 _P4	=	0x00c0
+                           0000E8   267 _P5	=	0x00e8
+                           0000A6   268 _WDTRST	=	0x00a6
+                           0000A7   269 _WDTPRG	=	0x00a7
+                           0000A9   270 _SADDR	=	0x00a9
+                           0000B9   271 _SADEN	=	0x00b9
+                           0000C3   272 _SPCON	=	0x00c3
+                           0000C4   273 _SPSTA	=	0x00c4
+                           0000C5   274 _SPDAT	=	0x00c5
+                           0000C9   275 _T2MOD	=	0x00c9
+                           00009B   276 _BDRCON	=	0x009b
+                           00009A   277 _BRL	=	0x009a
+                           00009C   278 _KBLS	=	0x009c
+                           00009D   279 _KBE	=	0x009d
+                           00009E   280 _KBF	=	0x009e
+                           0000D2   281 _EECON	=	0x00d2
+                           0000E0   282 _ACC	=	0x00e0
+                           0000F0   283 _B	=	0x00f0
+                           000083   284 _DPH	=	0x0083
+                           000083   285 _DP0H	=	0x0083
+                           000082   286 _DPL	=	0x0082
+                           000082   287 _DP0L	=	0x0082
+                           0000A8   288 _IE	=	0x00a8
+                           0000B8   289 _IP	=	0x00b8
+                           000080   290 _P0	=	0x0080
+                           000090   291 _P1	=	0x0090
+                           0000A0   292 _P2	=	0x00a0
+                           0000B0   293 _P3	=	0x00b0
+                           000087   294 _PCON	=	0x0087
+                           0000D0   295 _PSW	=	0x00d0
+                           000099   296 _SBUF	=	0x0099
+                           000099   297 _SBUF0	=	0x0099
+                           000098   298 _SCON	=	0x0098
+                           000081   299 _SP	=	0x0081
+                           000088   300 _TCON	=	0x0088
+                           00008C   301 _TH0	=	0x008c
+                           00008D   302 _TH1	=	0x008d
+                           00008A   303 _TL0	=	0x008a
+                           00008B   304 _TL1	=	0x008b
+                           000089   305 _TMOD	=	0x0089
+                                    306 ;--------------------------------------------------------
+                                    307 ; special function bits
+                                    308 ;--------------------------------------------------------
+                                    309 	.area RSEG    (ABS,DATA)
+      000000                        310 	.org 0x0000
+                           0000AD   311 _ET2	=	0x00ad
+                           0000BD   312 _PT2	=	0x00bd
+                           0000C8   313 _T2CON_0	=	0x00c8
+                           0000C9   314 _T2CON_1	=	0x00c9
+                           0000CA   315 _T2CON_2	=	0x00ca
+                           0000CB   316 _T2CON_3	=	0x00cb
+                           0000CC   317 _T2CON_4	=	0x00cc
+                           0000CD   318 _T2CON_5	=	0x00cd
+                           0000CE   319 _T2CON_6	=	0x00ce
+                           0000CF   320 _T2CON_7	=	0x00cf
+                           0000C8   321 _CP_RL2	=	0x00c8
+                           0000C9   322 _C_T2	=	0x00c9
+                           0000CA   323 _TR2	=	0x00ca
+                           0000CB   324 _EXEN2	=	0x00cb
+                           0000CC   325 _TCLK	=	0x00cc
+                           0000CD   326 _RCLK	=	0x00cd
+                           0000CE   327 _EXF2	=	0x00ce
+                           0000CF   328 _TF2	=	0x00cf
+                           0000DF   329 _CF	=	0x00df
+                           0000DE   330 _CR	=	0x00de
+                           0000DC   331 _CCF4	=	0x00dc
+                           0000DB   332 _CCF3	=	0x00db
+                           0000DA   333 _CCF2	=	0x00da
+                           0000D9   334 _CCF1	=	0x00d9
+                           0000D8   335 _CCF0	=	0x00d8
+                           0000AE   336 _EC	=	0x00ae
+                           0000BE   337 _PPCL	=	0x00be
+                           0000BD   338 _PT2L	=	0x00bd
+                           0000BC   339 _PSL	=	0x00bc
+                           0000BB   340 _PT1L	=	0x00bb
+                           0000BA   341 _PX1L	=	0x00ba
+                           0000B9   342 _PT0L	=	0x00b9
+                           0000B8   343 _PX0L	=	0x00b8
+                           0000C0   344 _P4_0	=	0x00c0
+                           0000C1   345 _P4_1	=	0x00c1
+                           0000C2   346 _P4_2	=	0x00c2
+                           0000C3   347 _P4_3	=	0x00c3
+                           0000C4   348 _P4_4	=	0x00c4
+                           0000C5   349 _P4_5	=	0x00c5
+                           0000C6   350 _P4_6	=	0x00c6
+                           0000C7   351 _P4_7	=	0x00c7
+                           0000E8   352 _P5_0	=	0x00e8
+                           0000E9   353 _P5_1	=	0x00e9
+                           0000EA   354 _P5_2	=	0x00ea
+                           0000EB   355 _P5_3	=	0x00eb
+                           0000EC   356 _P5_4	=	0x00ec
+                           0000ED   357 _P5_5	=	0x00ed
+                           0000EE   358 _P5_6	=	0x00ee
+                           0000EF   359 _P5_7	=	0x00ef
+                           0000F0   360 _BREG_F0	=	0x00f0
+                           0000F1   361 _BREG_F1	=	0x00f1
+                           0000F2   362 _BREG_F2	=	0x00f2
+                           0000F3   363 _BREG_F3	=	0x00f3
+                           0000F4   364 _BREG_F4	=	0x00f4
+                           0000F5   365 _BREG_F5	=	0x00f5
+                           0000F6   366 _BREG_F6	=	0x00f6
+                           0000F7   367 _BREG_F7	=	0x00f7
+                           0000A8   368 _EX0	=	0x00a8
+                           0000A9   369 _ET0	=	0x00a9
+                           0000AA   370 _EX1	=	0x00aa
+                           0000AB   371 _ET1	=	0x00ab
+                           0000AC   372 _ES	=	0x00ac
+                           0000AF   373 _EA	=	0x00af
+                           0000B8   374 _PX0	=	0x00b8
+                           0000B9   375 _PT0	=	0x00b9
+                           0000BA   376 _PX1	=	0x00ba
+                           0000BB   377 _PT1	=	0x00bb
+                           0000BC   378 _PS	=	0x00bc
+                           000080   379 _P0_0	=	0x0080
+                           000081   380 _P0_1	=	0x0081
+                           000082   381 _P0_2	=	0x0082
+                           000083   382 _P0_3	=	0x0083
+                           000084   383 _P0_4	=	0x0084
+                           000085   384 _P0_5	=	0x0085
+                           000086   385 _P0_6	=	0x0086
+                           000087   386 _P0_7	=	0x0087
+                           000090   387 _P1_0	=	0x0090
+                           000091   388 _P1_1	=	0x0091
+                           000092   389 _P1_2	=	0x0092
+                           000093   390 _P1_3	=	0x0093
+                           000094   391 _P1_4	=	0x0094
+                           000095   392 _P1_5	=	0x0095
+                           000096   393 _P1_6	=	0x0096
+                           000097   394 _P1_7	=	0x0097
+                           0000A0   395 _P2_0	=	0x00a0
+                           0000A1   396 _P2_1	=	0x00a1
+                           0000A2   397 _P2_2	=	0x00a2
+                           0000A3   398 _P2_3	=	0x00a3
+                           0000A4   399 _P2_4	=	0x00a4
+                           0000A5   400 _P2_5	=	0x00a5
+                           0000A6   401 _P2_6	=	0x00a6
+                           0000A7   402 _P2_7	=	0x00a7
+                           0000B0   403 _P3_0	=	0x00b0
+                           0000B1   404 _P3_1	=	0x00b1
+                           0000B2   405 _P3_2	=	0x00b2
+                           0000B3   406 _P3_3	=	0x00b3
+                           0000B4   407 _P3_4	=	0x00b4
+                           0000B5   408 _P3_5	=	0x00b5
+                           0000B6   409 _P3_6	=	0x00b6
+                           0000B7   410 _P3_7	=	0x00b7
+                           0000B0   411 _RXD	=	0x00b0
+                           0000B0   412 _RXD0	=	0x00b0
+                           0000B1   413 _TXD	=	0x00b1
+                           0000B1   414 _TXD0	=	0x00b1
+                           0000B2   415 _INT0	=	0x00b2
+                           0000B3   416 _INT1	=	0x00b3
+                           0000B4   417 _T0	=	0x00b4
+                           0000B5   418 _T1	=	0x00b5
+                           0000B6   419 _WR	=	0x00b6
+                           0000B7   420 _RD	=	0x00b7
+                           0000D0   421 _P	=	0x00d0
+                           0000D1   422 _F1	=	0x00d1
+                           0000D2   423 _OV	=	0x00d2
+                           0000D3   424 _RS0	=	0x00d3
+                           0000D4   425 _RS1	=	0x00d4
+                           0000D5   426 _F0	=	0x00d5
+                           0000D6   427 _AC	=	0x00d6
+                           0000D7   428 _CY	=	0x00d7
+                           000098   429 _RI	=	0x0098
+                           000099   430 _TI	=	0x0099
+                           00009A   431 _RB8	=	0x009a
+                           00009B   432 _TB8	=	0x009b
+                           00009C   433 _REN	=	0x009c
+                           00009D   434 _SM2	=	0x009d
+                           00009E   435 _SM1	=	0x009e
+                           00009F   436 _SM0	=	0x009f
+                           000088   437 _IT0	=	0x0088
+                           000089   438 _IE0	=	0x0089
+                           00008A   439 _IT1	=	0x008a
+                           00008B   440 _IE1	=	0x008b
+                           00008C   441 _TR0	=	0x008c
+                           00008D   442 _TF0	=	0x008d
+                           00008E   443 _TR1	=	0x008e
+                           00008F   444 _TF1	=	0x008f
+                                    445 ;--------------------------------------------------------
+                                    446 ; overlayable register banks
+                                    447 ;--------------------------------------------------------
+                                    448 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        449 	.ds 8
+                                    450 ;--------------------------------------------------------
+                                    451 ; internal ram data
+                                    452 ;--------------------------------------------------------
+                                    453 	.area DSEG    (DATA)
+                                    454 ;--------------------------------------------------------
+                                    455 ; overlayable items in internal ram
+                                    456 ;--------------------------------------------------------
+                                    457 ;--------------------------------------------------------
+                                    458 ; indirectly addressable internal ram data
+                                    459 ;--------------------------------------------------------
+                                    460 	.area ISEG    (DATA)
+                                    461 ;--------------------------------------------------------
+                                    462 ; absolute internal ram data
+                                    463 ;--------------------------------------------------------
+                                    464 	.area IABS    (ABS,DATA)
+                                    465 	.area IABS    (ABS,DATA)
+                                    466 ;--------------------------------------------------------
+                                    467 ; bit data
+                                    468 ;--------------------------------------------------------
+                                    469 	.area BSEG    (BIT)
+                                    470 ;--------------------------------------------------------
+                                    471 ; paged external ram data
+                                    472 ;--------------------------------------------------------
+                                    473 	.area PSEG    (PAG,XDATA)
+                                    474 ;--------------------------------------------------------
+                                    475 ; external ram data
+                                    476 ;--------------------------------------------------------
+                                    477 	.area XSEG    (XDATA)
+                                    478 ;--------------------------------------------------------
+                                    479 ; absolute external ram data
+                                    480 ;--------------------------------------------------------
+                                    481 	.area XABS    (ABS,XDATA)
+                                    482 ;--------------------------------------------------------
+                                    483 ; external initialized ram data
+                                    484 ;--------------------------------------------------------
+                                    485 	.area XISEG   (XDATA)
+                                    486 	.area HOME    (CODE)
+                                    487 	.area GSINIT0 (CODE)
+                                    488 	.area GSINIT1 (CODE)
+                                    489 	.area GSINIT2 (CODE)
+                                    490 	.area GSINIT3 (CODE)
+                                    491 	.area GSINIT4 (CODE)
+                                    492 	.area GSINIT5 (CODE)
+                                    493 	.area GSINIT  (CODE)
+                                    494 	.area GSFINAL (CODE)
+                                    495 	.area CSEG    (CODE)
+                                    496 ;--------------------------------------------------------
+                                    497 ; global & static initialisations
+                                    498 ;--------------------------------------------------------
+                                    499 	.area HOME    (CODE)
+                                    500 	.area GSINIT  (CODE)
+                                    501 	.area GSFINAL (CODE)
+                                    502 	.area GSINIT  (CODE)
+                                    503 ;--------------------------------------------------------
+                                    504 ; Home
+                                    505 ;--------------------------------------------------------
+                                    506 	.area HOME    (CODE)
+                                    507 	.area HOME    (CODE)
+                                    508 ;--------------------------------------------------------
+                                    509 ; code
+                                    510 ;--------------------------------------------------------
+                                    511 	.area CSEG    (CODE)
+                                    512 ;------------------------------------------------------------
+                                    513 ;Allocation info for local variables in function 'delay'
+                                    514 ;------------------------------------------------------------
+                                    515 ;	i2c.c:28: static inline void delay(void)
+                                    516 ;	-----------------------------------------
+                                    517 ;	 function delay
+                                    518 ;	-----------------------------------------
+      000000                        519 _delay:
+                           000007   520 	ar7 = 0x07
+                           000006   521 	ar6 = 0x06
+                           000005   522 	ar5 = 0x05
+                           000004   523 	ar4 = 0x04
+                           000003   524 	ar3 = 0x03
+                           000002   525 	ar2 = 0x02
+                           000001   526 	ar1 = 0x01
+                           000000   527 	ar0 = 0x00
+                                    528 ;	i2c.c:30: __asm__("NOP");
+      000000 00               [12]  529 	NOP
+                                    530 ;	i2c.c:31: __asm__("NOP");
+      000001 00               [12]  531 	NOP
+                                    532 ;	i2c.c:32: __asm__("NOP");
+      000002 00               [12]  533 	NOP
+                                    534 ;	i2c.c:33: __asm__("NOP");
+      000003 00               [12]  535 	NOP
+                                    536 ;	i2c.c:34: __asm__("NOP");
+      000004 00               [12]  537 	NOP
+                                    538 ;	i2c.c:36: __asm__("NOP");
+      000005 00               [12]  539 	NOP
+                                    540 ;	i2c.c:37: __asm__("NOP");
+      000006 00               [12]  541 	NOP
+                                    542 ;	i2c.c:38: __asm__("NOP");
+      000007 00               [12]  543 	NOP
+                                    544 ;	i2c.c:39: __asm__("NOP");
+      000008 00               [12]  545 	NOP
+                                    546 ;	i2c.c:40: __asm__("NOP");
+      000009 00               [12]  547 	NOP
+                                    548 ;	i2c.c:42: return;
+                                    549 ;	i2c.c:43: }
+      00000A 22               [24]  550 	ret
+                                    551 ;------------------------------------------------------------
+                                    552 ;Allocation info for local variables in function 'start_i2c'
+                                    553 ;------------------------------------------------------------
+                                    554 ;	i2c.c:49: void start_i2c(void)
+                                    555 ;	-----------------------------------------
+                                    556 ;	 function start_i2c
+                                    557 ;	-----------------------------------------
+      00000B                        558 _start_i2c:
+                                    559 ;	i2c.c:51: SCL = 1;
+                                    560 ;	assignBit
+      00000B D2 92            [12]  561 	setb	_P1_2
+                                    562 ;	i2c.c:52: SDA = 1;
+                                    563 ;	assignBit
+      00000D D2 93            [12]  564 	setb	_P1_3
+                                    565 ;	i2c.c:30: __asm__("NOP");
+      00000F 00               [12]  566 	NOP
+                                    567 ;	i2c.c:31: __asm__("NOP");
+      000010 00               [12]  568 	NOP
+                                    569 ;	i2c.c:32: __asm__("NOP");
+      000011 00               [12]  570 	NOP
+                                    571 ;	i2c.c:33: __asm__("NOP");
+      000012 00               [12]  572 	NOP
+                                    573 ;	i2c.c:34: __asm__("NOP");
+      000013 00               [12]  574 	NOP
+                                    575 ;	i2c.c:36: __asm__("NOP");
+      000014 00               [12]  576 	NOP
+                                    577 ;	i2c.c:37: __asm__("NOP");
+      000015 00               [12]  578 	NOP
+                                    579 ;	i2c.c:38: __asm__("NOP");
+      000016 00               [12]  580 	NOP
+                                    581 ;	i2c.c:39: __asm__("NOP");
+      000017 00               [12]  582 	NOP
+                                    583 ;	i2c.c:40: __asm__("NOP");
+      000018 00               [12]  584 	NOP
+                                    585 ;	i2c.c:54: SDA = 0;
+                                    586 ;	assignBit
+      000019 C2 93            [12]  587 	clr	_P1_3
+                                    588 ;	i2c.c:55: SCL = 0;
+                                    589 ;	assignBit
+      00001B C2 92            [12]  590 	clr	_P1_2
+                                    591 ;	i2c.c:56: }
+      00001D 22               [24]  592 	ret
+                                    593 ;------------------------------------------------------------
+                                    594 ;Allocation info for local variables in function 'stop_i2c'
+                                    595 ;------------------------------------------------------------
+                                    596 ;	i2c.c:62: void stop_i2c(void)
+                                    597 ;	-----------------------------------------
+                                    598 ;	 function stop_i2c
+                                    599 ;	-----------------------------------------
+      00001E                        600 _stop_i2c:
+                                    601 ;	i2c.c:64: SDA = 0;
+                                    602 ;	assignBit
+      00001E C2 93            [12]  603 	clr	_P1_3
+                                    604 ;	i2c.c:65: SCL = 1;
+                                    605 ;	assignBit
+      000020 D2 92            [12]  606 	setb	_P1_2
+                                    607 ;	i2c.c:30: __asm__("NOP");
+      000022 00               [12]  608 	NOP
+                                    609 ;	i2c.c:31: __asm__("NOP");
+      000023 00               [12]  610 	NOP
+                                    611 ;	i2c.c:32: __asm__("NOP");
+      000024 00               [12]  612 	NOP
+                                    613 ;	i2c.c:33: __asm__("NOP");
+      000025 00               [12]  614 	NOP
+                                    615 ;	i2c.c:34: __asm__("NOP");
+      000026 00               [12]  616 	NOP
+                                    617 ;	i2c.c:36: __asm__("NOP");
+      000027 00               [12]  618 	NOP
+                                    619 ;	i2c.c:37: __asm__("NOP");
+      000028 00               [12]  620 	NOP
+                                    621 ;	i2c.c:38: __asm__("NOP");
+      000029 00               [12]  622 	NOP
+                                    623 ;	i2c.c:39: __asm__("NOP");
+      00002A 00               [12]  624 	NOP
+                                    625 ;	i2c.c:40: __asm__("NOP");
+      00002B 00               [12]  626 	NOP
+                                    627 ;	i2c.c:67: SDA = 1;
+                                    628 ;	assignBit
+      00002C D2 93            [12]  629 	setb	_P1_3
+                                    630 ;	i2c.c:68: SCL = 0;
+                                    631 ;	assignBit
+      00002E C2 92            [12]  632 	clr	_P1_2
+                                    633 ;	i2c.c:69: }
+      000030 22               [24]  634 	ret
+                                    635 ;------------------------------------------------------------
+                                    636 ;Allocation info for local variables in function 'send_ack'
+                                    637 ;------------------------------------------------------------
+                                    638 ;	i2c.c:75: void send_ack(void)
+                                    639 ;	-----------------------------------------
+                                    640 ;	 function send_ack
+                                    641 ;	-----------------------------------------
+      000031                        642 _send_ack:
+                                    643 ;	i2c.c:77: SCL = 0;
+                                    644 ;	assignBit
+      000031 C2 92            [12]  645 	clr	_P1_2
+                                    646 ;	i2c.c:78: SDA = 0;
+                                    647 ;	assignBit
+      000033 C2 93            [12]  648 	clr	_P1_3
+                                    649 ;	i2c.c:79: SCL = 1;
+                                    650 ;	assignBit
+      000035 D2 92            [12]  651 	setb	_P1_2
+                                    652 ;	i2c.c:30: __asm__("NOP");
+      000037 00               [12]  653 	NOP
+                                    654 ;	i2c.c:31: __asm__("NOP");
+      000038 00               [12]  655 	NOP
+                                    656 ;	i2c.c:32: __asm__("NOP");
+      000039 00               [12]  657 	NOP
+                                    658 ;	i2c.c:33: __asm__("NOP");
+      00003A 00               [12]  659 	NOP
+                                    660 ;	i2c.c:34: __asm__("NOP");
+      00003B 00               [12]  661 	NOP
+                                    662 ;	i2c.c:36: __asm__("NOP");
+      00003C 00               [12]  663 	NOP
+                                    664 ;	i2c.c:37: __asm__("NOP");
+      00003D 00               [12]  665 	NOP
+                                    666 ;	i2c.c:38: __asm__("NOP");
+      00003E 00               [12]  667 	NOP
+                                    668 ;	i2c.c:39: __asm__("NOP");
+      00003F 00               [12]  669 	NOP
+                                    670 ;	i2c.c:40: __asm__("NOP");
+      000040 00               [12]  671 	NOP
+                                    672 ;	i2c.c:81: SCL = 0;
+                                    673 ;	assignBit
+      000041 C2 92            [12]  674 	clr	_P1_2
+                                    675 ;	i2c.c:82: SDA = 1;
+                                    676 ;	assignBit
+      000043 D2 93            [12]  677 	setb	_P1_3
+                                    678 ;	i2c.c:30: __asm__("NOP");
+      000045 00               [12]  679 	NOP
+                                    680 ;	i2c.c:31: __asm__("NOP");
+      000046 00               [12]  681 	NOP
+                                    682 ;	i2c.c:32: __asm__("NOP");
+      000047 00               [12]  683 	NOP
+                                    684 ;	i2c.c:33: __asm__("NOP");
+      000048 00               [12]  685 	NOP
+                                    686 ;	i2c.c:34: __asm__("NOP");
+      000049 00               [12]  687 	NOP
+                                    688 ;	i2c.c:36: __asm__("NOP");
+      00004A 00               [12]  689 	NOP
+                                    690 ;	i2c.c:37: __asm__("NOP");
+      00004B 00               [12]  691 	NOP
+                                    692 ;	i2c.c:38: __asm__("NOP");
+      00004C 00               [12]  693 	NOP
+                                    694 ;	i2c.c:39: __asm__("NOP");
+      00004D 00               [12]  695 	NOP
+                                    696 ;	i2c.c:40: __asm__("NOP");
+      00004E 00               [12]  697 	NOP
+                                    698 ;	i2c.c:83: delay();
+                                    699 ;	i2c.c:84: }
+      00004F 22               [24]  700 	ret
+                                    701 ;------------------------------------------------------------
+                                    702 ;Allocation info for local variables in function 'send_nack'
+                                    703 ;------------------------------------------------------------
+                                    704 ;	i2c.c:90: void send_nack(void)
+                                    705 ;	-----------------------------------------
+                                    706 ;	 function send_nack
+                                    707 ;	-----------------------------------------
+      000050                        708 _send_nack:
+                                    709 ;	i2c.c:92: SDA = 0;
+                                    710 ;	assignBit
+      000050 C2 93            [12]  711 	clr	_P1_3
+                                    712 ;	i2c.c:93: SCL = 1;
+                                    713 ;	assignBit
+      000052 D2 92            [12]  714 	setb	_P1_2
+                                    715 ;	i2c.c:30: __asm__("NOP");
+      000054 00               [12]  716 	NOP
+                                    717 ;	i2c.c:31: __asm__("NOP");
+      000055 00               [12]  718 	NOP
+                                    719 ;	i2c.c:32: __asm__("NOP");
+      000056 00               [12]  720 	NOP
+                                    721 ;	i2c.c:33: __asm__("NOP");
+      000057 00               [12]  722 	NOP
+                                    723 ;	i2c.c:34: __asm__("NOP");
+      000058 00               [12]  724 	NOP
+                                    725 ;	i2c.c:36: __asm__("NOP");
+      000059 00               [12]  726 	NOP
+                                    727 ;	i2c.c:37: __asm__("NOP");
+      00005A 00               [12]  728 	NOP
+                                    729 ;	i2c.c:38: __asm__("NOP");
+      00005B 00               [12]  730 	NOP
+                                    731 ;	i2c.c:39: __asm__("NOP");
+      00005C 00               [12]  732 	NOP
+                                    733 ;	i2c.c:40: __asm__("NOP");
+      00005D 00               [12]  734 	NOP
+                                    735 ;	i2c.c:95: SCL = 0;
+                                    736 ;	assignBit
+      00005E C2 92            [12]  737 	clr	_P1_2
+                                    738 ;	i2c.c:96: SDA = 1;
+                                    739 ;	assignBit
+      000060 D2 93            [12]  740 	setb	_P1_3
+                                    741 ;	i2c.c:30: __asm__("NOP");
+      000062 00               [12]  742 	NOP
+                                    743 ;	i2c.c:31: __asm__("NOP");
+      000063 00               [12]  744 	NOP
+                                    745 ;	i2c.c:32: __asm__("NOP");
+      000064 00               [12]  746 	NOP
+                                    747 ;	i2c.c:33: __asm__("NOP");
+      000065 00               [12]  748 	NOP
+                                    749 ;	i2c.c:34: __asm__("NOP");
+      000066 00               [12]  750 	NOP
+                                    751 ;	i2c.c:36: __asm__("NOP");
+      000067 00               [12]  752 	NOP
+                                    753 ;	i2c.c:37: __asm__("NOP");
+      000068 00               [12]  754 	NOP
+                                    755 ;	i2c.c:38: __asm__("NOP");
+      000069 00               [12]  756 	NOP
+                                    757 ;	i2c.c:39: __asm__("NOP");
+      00006A 00               [12]  758 	NOP
+                                    759 ;	i2c.c:40: __asm__("NOP");
+      00006B 00               [12]  760 	NOP
+                                    761 ;	i2c.c:97: delay();
+                                    762 ;	i2c.c:98: }
+      00006C 22               [24]  763 	ret
+                                    764 ;------------------------------------------------------------
+                                    765 ;Allocation info for local variables in function 'read_i2c'
+                                    766 ;------------------------------------------------------------
+                                    767 ;res                       Allocated to registers r7 
+                                    768 ;i                         Allocated to registers r5 r6 
+                                    769 ;------------------------------------------------------------
+                                    770 ;	i2c.c:104: uint8_t read_i2c(void)
+                                    771 ;	-----------------------------------------
+                                    772 ;	 function read_i2c
+                                    773 ;	-----------------------------------------
+      00006D                        774 _read_i2c:
+                                    775 ;	i2c.c:106: uint8_t res = 0;
+      00006D 7F 00            [12]  776 	mov	r7,#0x00
+                                    777 ;	i2c.c:107: for(int i=7;i>=0;i--){
+      00006F 7D 07            [12]  778 	mov	r5,#0x07
+      000071 7E 00            [12]  779 	mov	r6,#0x00
+      000073                        780 00104$:
+      000073 EE               [12]  781 	mov	a,r6
+      000074 20 E7 2B         [24]  782 	jb	acc.7,00101$
+                                    783 ;	i2c.c:108: SCL = 1;
+                                    784 ;	assignBit
+      000077 D2 92            [12]  785 	setb	_P1_2
+                                    786 ;	i2c.c:109: res |= (SDA << i);
+      000079 A2 93            [12]  787 	mov	c,_P1_3
+      00007B E4               [12]  788 	clr	a
+      00007C 33               [12]  789 	rlc	a
+      00007D FC               [12]  790 	mov	r4,a
+      00007E 8D 03            [24]  791 	mov	ar3,r5
+      000080 8B F0            [24]  792 	mov	b,r3
+      000082 05 F0            [12]  793 	inc	b
+      000084 EC               [12]  794 	mov	a,r4
+      000085 80 02            [24]  795 	sjmp	00120$
+      000087                        796 00118$:
+      000087 25 E0            [12]  797 	add	a,acc
+      000089                        798 00120$:
+      000089 D5 F0 FB         [24]  799 	djnz	b,00118$
+      00008C FC               [12]  800 	mov	r4,a
+      00008D 42 07            [12]  801 	orl	ar7,a
+                                    802 ;	i2c.c:110: SCL = 0;
+                                    803 ;	assignBit
+      00008F C2 92            [12]  804 	clr	_P1_2
+                                    805 ;	i2c.c:30: __asm__("NOP");
+      000091 00               [12]  806 	NOP
+                                    807 ;	i2c.c:31: __asm__("NOP");
+      000092 00               [12]  808 	NOP
+                                    809 ;	i2c.c:32: __asm__("NOP");
+      000093 00               [12]  810 	NOP
+                                    811 ;	i2c.c:33: __asm__("NOP");
+      000094 00               [12]  812 	NOP
+                                    813 ;	i2c.c:34: __asm__("NOP");
+      000095 00               [12]  814 	NOP
+                                    815 ;	i2c.c:36: __asm__("NOP");
+      000096 00               [12]  816 	NOP
+                                    817 ;	i2c.c:37: __asm__("NOP");
+      000097 00               [12]  818 	NOP
+                                    819 ;	i2c.c:38: __asm__("NOP");
+      000098 00               [12]  820 	NOP
+                                    821 ;	i2c.c:39: __asm__("NOP");
+      000099 00               [12]  822 	NOP
+                                    823 ;	i2c.c:40: __asm__("NOP");
+      00009A 00               [12]  824 	NOP
+                                    825 ;	i2c.c:107: for(int i=7;i>=0;i--){
+      00009B 1D               [12]  826 	dec	r5
+      00009C BD FF 01         [24]  827 	cjne	r5,#0xff,00121$
+      00009F 1E               [12]  828 	dec	r6
+      0000A0                        829 00121$:
+      0000A0 80 D1            [24]  830 	sjmp	00104$
+      0000A2                        831 00101$:
+                                    832 ;	i2c.c:114: return res;
+      0000A2 8F 82            [24]  833 	mov	dpl,r7
+                                    834 ;	i2c.c:115: }
+      0000A4 22               [24]  835 	ret
+                                    836 ;------------------------------------------------------------
+                                    837 ;Allocation info for local variables in function 'write_i2c'
+                                    838 ;------------------------------------------------------------
+                                    839 ;byte                      Allocated to registers r7 
+                                    840 ;i                         Allocated to registers r5 r6 
+                                    841 ;------------------------------------------------------------
+                                    842 ;	i2c.c:121: void write_i2c(uint8_t byte)
+                                    843 ;	-----------------------------------------
+                                    844 ;	 function write_i2c
+                                    845 ;	-----------------------------------------
+      0000A5                        846 _write_i2c:
+      0000A5 AF 82            [24]  847 	mov	r7,dpl
+                                    848 ;	i2c.c:123: for(int i=7;i>=0;i--){
+      0000A7 7D 07            [12]  849 	mov	r5,#0x07
+      0000A9 7E 00            [12]  850 	mov	r6,#0x00
+      0000AB                        851 00109$:
+      0000AB EE               [12]  852 	mov	a,r6
+      0000AC 20 E7 28         [24]  853 	jb	acc.7,00101$
+                                    854 ;	i2c.c:124: SCL = 0;
+                                    855 ;	assignBit
+      0000AF C2 92            [12]  856 	clr	_P1_2
+                                    857 ;	i2c.c:125: SDA = (byte >> i) & 0x1;
+      0000B1 8D F0            [24]  858 	mov	b,r5
+      0000B3 05 F0            [12]  859 	inc	b
+      0000B5 EF               [12]  860 	mov	a,r7
+      0000B6 80 02            [24]  861 	sjmp	00132$
+      0000B8                        862 00131$:
+      0000B8 C3               [12]  863 	clr	c
+      0000B9 13               [12]  864 	rrc	a
+      0000BA                        865 00132$:
+      0000BA D5 F0 FB         [24]  866 	djnz	b,00131$
+      0000BD 54 01            [12]  867 	anl	a,#0x01
+                                    868 ;	assignBit
+      0000BF FC               [12]  869 	mov	r4,a
+      0000C0 24 FF            [12]  870 	add	a,#0xff
+      0000C2 92 93            [24]  871 	mov	_P1_3,c
+                                    872 ;	i2c.c:126: SCL = 1;
+                                    873 ;	assignBit
+      0000C4 D2 92            [12]  874 	setb	_P1_2
+                                    875 ;	i2c.c:30: __asm__("NOP");
+      0000C6 00               [12]  876 	NOP
+                                    877 ;	i2c.c:31: __asm__("NOP");
+      0000C7 00               [12]  878 	NOP
+                                    879 ;	i2c.c:32: __asm__("NOP");
+      0000C8 00               [12]  880 	NOP
+                                    881 ;	i2c.c:33: __asm__("NOP");
+      0000C9 00               [12]  882 	NOP
+                                    883 ;	i2c.c:34: __asm__("NOP");
+      0000CA 00               [12]  884 	NOP
+                                    885 ;	i2c.c:36: __asm__("NOP");
+      0000CB 00               [12]  886 	NOP
+                                    887 ;	i2c.c:37: __asm__("NOP");
+      0000CC 00               [12]  888 	NOP
+                                    889 ;	i2c.c:38: __asm__("NOP");
+      0000CD 00               [12]  890 	NOP
+                                    891 ;	i2c.c:39: __asm__("NOP");
+      0000CE 00               [12]  892 	NOP
+                                    893 ;	i2c.c:40: __asm__("NOP");
+      0000CF 00               [12]  894 	NOP
+                                    895 ;	i2c.c:123: for(int i=7;i>=0;i--){
+      0000D0 1D               [12]  896 	dec	r5
+      0000D1 BD FF 01         [24]  897 	cjne	r5,#0xff,00133$
+      0000D4 1E               [12]  898 	dec	r6
+      0000D5                        899 00133$:
+      0000D5 80 D4            [24]  900 	sjmp	00109$
+      0000D7                        901 00101$:
+                                    902 ;	i2c.c:131: SCL = 0;
+                                    903 ;	assignBit
+      0000D7 C2 92            [12]  904 	clr	_P1_2
+                                    905 ;	i2c.c:30: __asm__("NOP");
+      0000D9 00               [12]  906 	NOP
+                                    907 ;	i2c.c:31: __asm__("NOP");
+      0000DA 00               [12]  908 	NOP
+                                    909 ;	i2c.c:32: __asm__("NOP");
+      0000DB 00               [12]  910 	NOP
+                                    911 ;	i2c.c:33: __asm__("NOP");
+      0000DC 00               [12]  912 	NOP
+                                    913 ;	i2c.c:34: __asm__("NOP");
+      0000DD 00               [12]  914 	NOP
+                                    915 ;	i2c.c:36: __asm__("NOP");
+      0000DE 00               [12]  916 	NOP
+                                    917 ;	i2c.c:37: __asm__("NOP");
+      0000DF 00               [12]  918 	NOP
+                                    919 ;	i2c.c:38: __asm__("NOP");
+      0000E0 00               [12]  920 	NOP
+                                    921 ;	i2c.c:39: __asm__("NOP");
+      0000E1 00               [12]  922 	NOP
+                                    923 ;	i2c.c:40: __asm__("NOP");
+      0000E2 00               [12]  924 	NOP
+                                    925 ;	i2c.c:133: while(SDA);
+      0000E3                        926 00102$:
+      0000E3 20 93 FD         [24]  927 	jb	_P1_3,00102$
+                                    928 ;	i2c.c:134: SCL = 1;
+                                    929 ;	assignBit
+      0000E6 D2 92            [12]  930 	setb	_P1_2
+                                    931 ;	i2c.c:30: __asm__("NOP");
+      0000E8 00               [12]  932 	NOP
+                                    933 ;	i2c.c:31: __asm__("NOP");
+      0000E9 00               [12]  934 	NOP
+                                    935 ;	i2c.c:32: __asm__("NOP");
+      0000EA 00               [12]  936 	NOP
+                                    937 ;	i2c.c:33: __asm__("NOP");
+      0000EB 00               [12]  938 	NOP
+                                    939 ;	i2c.c:34: __asm__("NOP");
+      0000EC 00               [12]  940 	NOP
+                                    941 ;	i2c.c:36: __asm__("NOP");
+      0000ED 00               [12]  942 	NOP
+                                    943 ;	i2c.c:37: __asm__("NOP");
+      0000EE 00               [12]  944 	NOP
+                                    945 ;	i2c.c:38: __asm__("NOP");
+      0000EF 00               [12]  946 	NOP
+                                    947 ;	i2c.c:39: __asm__("NOP");
+      0000F0 00               [12]  948 	NOP
+                                    949 ;	i2c.c:40: __asm__("NOP");
+      0000F1 00               [12]  950 	NOP
+                                    951 ;	i2c.c:136: SCL = 0;
+                                    952 ;	assignBit
+      0000F2 C2 92            [12]  953 	clr	_P1_2
+                                    954 ;	i2c.c:137: }
+      0000F4 22               [24]  955 	ret
+                                    956 	.area CSEG    (CODE)
+                                    957 	.area CONST   (CODE)
+                                    958 	.area XINIT   (CODE)
+                                    959 	.area CABS    (ABS,CODE)

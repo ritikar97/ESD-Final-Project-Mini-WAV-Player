@@ -1,0 +1,880 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 1.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  002710 L
+    .__.ABS.                                                    =  000000 G
+    .__.CPU.                                                    =  000000 L
+    .__.H$L.                                                    =  000001 L
+    A                                                           =  0000E0 L
+    A.0                                                         =  0000E0 L
+    A.1                                                         =  0000E1 L
+    A.2                                                         =  0000E2 L
+    A.3                                                         =  0000E3 L
+    A.4                                                         =  0000E4 L
+    A.5                                                         =  0000E5 L
+    A.6                                                         =  0000E6 L
+    A.7                                                         =  0000E7 L
+    AC                                                          =  0000D6 L
+    ACC                                                         =  0000E0 L
+    ACC.0                                                       =  0000E0 L
+    ACC.1                                                       =  0000E1 L
+    ACC.2                                                       =  0000E2 L
+    ACC.3                                                       =  0000E3 L
+    ACC.4                                                       =  0000E4 L
+    ACC.5                                                       =  0000E5 L
+    ACC.6                                                       =  0000E6 L
+    ACC.7                                                       =  0000E7 L
+    B                                                           =  0000F0 L
+    B.0                                                         =  0000F0 L
+    B.1                                                         =  0000F1 L
+    B.2                                                         =  0000F2 L
+    B.3                                                         =  0000F3 L
+    B.4                                                         =  0000F4 L
+    B.5                                                         =  0000F5 L
+    B.6                                                         =  0000F6 L
+    B.7                                                         =  0000F7 L
+    CPRL2                                                       =  0000C8 L
+    CT2                                                         =  0000C9 L
+    CY                                                          =  0000D7 L
+    DPH                                                         =  000083 L
+    DPL                                                         =  000082 L
+    EA                                                          =  0000AF L
+    ES                                                          =  0000AC L
+    ET0                                                         =  0000A9 L
+    ET1                                                         =  0000AB L
+    ET2                                                         =  0000AD L
+    EX0                                                         =  0000A8 L
+    EX1                                                         =  0000AA L
+    EXEN2                                                       =  0000CB L
+    EXF2                                                        =  0000CE L
+    F0                                                          =  0000D5 L
+    IE                                                          =  0000A8 L
+    IE.0                                                        =  0000A8 L
+    IE.1                                                        =  0000A9 L
+    IE.2                                                        =  0000AA L
+    IE.3                                                        =  0000AB L
+    IE.4                                                        =  0000AC L
+    IE.5                                                        =  0000AD L
+    IE.7                                                        =  0000AF L
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 2.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    IE0                                                         =  000089 L
+    IE1                                                         =  00008B L
+    INT0                                                        =  0000B2 L
+    INT1                                                        =  0000B3 L
+    IP                                                          =  0000B8 L
+    IP.0                                                        =  0000B8 L
+    IP.1                                                        =  0000B9 L
+    IP.2                                                        =  0000BA L
+    IP.3                                                        =  0000BB L
+    IP.4                                                        =  0000BC L
+    IP.5                                                        =  0000BD L
+    IT0                                                         =  000088 L
+    IT1                                                         =  00008A L
+    OV                                                          =  0000D2 L
+    P                                                           =  0000D0 L
+    P0                                                          =  000080 L
+    P0.0                                                        =  000080 L
+    P0.1                                                        =  000081 L
+    P0.2                                                        =  000082 L
+    P0.3                                                        =  000083 L
+    P0.4                                                        =  000084 L
+    P0.5                                                        =  000085 L
+    P0.6                                                        =  000086 L
+    P0.7                                                        =  000087 L
+    P1                                                          =  000090 L
+    P1.0                                                        =  000090 L
+    P1.1                                                        =  000091 L
+    P1.2                                                        =  000092 L
+    P1.3                                                        =  000093 L
+    P1.4                                                        =  000094 L
+    P1.5                                                        =  000095 L
+    P1.6                                                        =  000096 L
+    P1.7                                                        =  000097 L
+    P2                                                          =  0000A0 L
+    P2.0                                                        =  0000A0 L
+    P2.1                                                        =  0000A1 L
+    P2.2                                                        =  0000A2 L
+    P2.3                                                        =  0000A3 L
+    P2.4                                                        =  0000A4 L
+    P2.5                                                        =  0000A5 L
+    P2.6                                                        =  0000A6 L
+    P2.7                                                        =  0000A7 L
+    P3                                                          =  0000B0 L
+    P3.0                                                        =  0000B0 L
+    P3.1                                                        =  0000B1 L
+    P3.2                                                        =  0000B2 L
+    P3.3                                                        =  0000B3 L
+    P3.4                                                        =  0000B4 L
+    P3.5                                                        =  0000B5 L
+    P3.6                                                        =  0000B6 L
+    P3.7                                                        =  0000B7 L
+    PCON                                                        =  000087 L
+    PS                                                          =  0000BC L
+    PSW                                                         =  0000D0 L
+    PSW.0                                                       =  0000D0 L
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 3.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    PSW.1                                                       =  0000D1 L
+    PSW.2                                                       =  0000D2 L
+    PSW.3                                                       =  0000D3 L
+    PSW.4                                                       =  0000D4 L
+    PSW.5                                                       =  0000D5 L
+    PSW.6                                                       =  0000D6 L
+    PSW.7                                                       =  0000D7 L
+    PT0                                                         =  0000B9 L
+    PT1                                                         =  0000BB L
+    PT2                                                         =  0000BD L
+    PX0                                                         =  0000B8 L
+    PX1                                                         =  0000BA L
+    RB8                                                         =  00009A L
+    RCAP2H                                                      =  0000CB L
+    RCAP2L                                                      =  0000CA L
+    RCLK                                                        =  0000CD L
+    REN                                                         =  00009C L
+    RI                                                          =  000098 L
+    RS0                                                         =  0000D3 L
+    RS1                                                         =  0000D4 L
+    RXD                                                         =  0000B0 L
+    SBUF                                                        =  000099 L
+    SCON                                                        =  000098 L
+    SCON.0                                                      =  000098 L
+    SCON.1                                                      =  000099 L
+    SCON.2                                                      =  00009A L
+    SCON.3                                                      =  00009B L
+    SCON.4                                                      =  00009C L
+    SCON.5                                                      =  00009D L
+    SCON.6                                                      =  00009E L
+    SCON.7                                                      =  00009F L
+    SM0                                                         =  00009F L
+    SM1                                                         =  00009E L
+    SM2                                                         =  00009D L
+    SP                                                          =  000081 L
+    T2CON                                                       =  0000C8 L
+    T2CON.0                                                     =  0000C8 L
+    T2CON.1                                                     =  0000C9 L
+    T2CON.2                                                     =  0000CA L
+    T2CON.3                                                     =  0000CB L
+    T2CON.4                                                     =  0000CC L
+    T2CON.5                                                     =  0000CD L
+    T2CON.6                                                     =  0000CE L
+    T2CON.7                                                     =  0000CF L
+    TB8                                                         =  00009B L
+    TCLK                                                        =  0000CC L
+    TCON                                                        =  000088 L
+    TCON.0                                                      =  000088 L
+    TCON.1                                                      =  000089 L
+    TCON.2                                                      =  00008A L
+    TCON.3                                                      =  00008B L
+    TCON.4                                                      =  00008C L
+    TCON.5                                                      =  00008D L
+    TCON.6                                                      =  00008E L
+    TCON.7                                                      =  00008F L
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 4.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    TF0                                                         =  00008D L
+    TF1                                                         =  00008F L
+    TF2                                                         =  0000CF L
+    TH0                                                         =  00008C L
+    TH1                                                         =  00008D L
+    TH2                                                         =  0000CD L
+    TI                                                          =  000099 L
+    TL0                                                         =  00008A L
+    TL1                                                         =  00008B L
+    TL2                                                         =  0000CC L
+    TMOD                                                        =  000089 L
+    TR0                                                         =  00008C L
+    TR1                                                         =  00008E L
+    TR2                                                         =  0000CA L
+    TXD                                                         =  0000B1 L
+ 18 _DbcTbl                                                        000000 R
+  B _FatFs                                                         000000 R
+  B _Fsid                                                          000003 R
+    ___gptr_cmp                                                    ****** GX
+    ___memcpy                                                      ****** GX
+    ___memcpy_PARM_2                                               ****** GX
+    ___memcpy_PARM_3                                               ****** GX
+ 18 ___str_0                                                       00000A R
+ 18 ___str_1                                                       000019 R
+    __divulong                                                     ****** GX
+    __divulong_PARM_2                                              ****** GX
+    __gptrget                                                      ****** GX
+    __gptrput                                                      ****** GX
+    __mulint                                                       ****** GX
+    __mulint_PARM_2                                                ****** GX
+    __mullong                                                      ****** GX
+    __mullong_PARM_2                                               ****** GX
+ 17 _check_fs                                                      0038E3 R
+  B _check_fs_PARM_2                                               0000CE R
+  B _check_fs_fs_65536_213                                         0000D2 R
+  5 _check_fs_sloc0_1_0                                            0000DF R
+  5 _check_fs_sloc1_1_0                                            0000E0 R
+ 17 _clst2sect                                                     0008DC R
+  B _clst2sect_PARM_2                                              000029 R
+  B _clst2sect_fs_65536_102                                        00002D R
+  5 _clst2sect_sloc0_1_0                                           000020 R
+ 17 _create_chain                                                  0015F5 R
+  B _create_chain_PARM_2                                           000052 R
+  B _create_chain_ncl_65536_121                                    000059 R
+  B _create_chain_obj_65536_120                                    000056 R
+  B _create_chain_res_65536_121                                    000061 R
+  B _create_chain_scl_65536_121                                    00005D R
+  5 _create_chain_sloc0_1_0                                        000050 R
+  5 _create_chain_sloc1_1_0                                        000054 R
+  5 _create_chain_sloc2_1_0                                        000057 R
+  5 _create_chain_sloc3_1_0                                        00005B R
+  5 _create_chain_sloc4_1_0                                        00005F R
+ 17 _create_name                                                   0032A1 R
+  B _create_name_PARM_2                                            0000B3 R
+  B _create_name_c_65536_187                                       0000B9 R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 5.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+  B _create_name_dp_65536_186                                      0000B6 R
+  B _create_name_i_65536_187                                       0000BE R
+  B _create_name_ni_65536_187                                      0000BA R
+  B _create_name_si_65536_187                                      0000BC R
+  5 _create_name_sloc0_1_0                                         0000CD R
+  5 _create_name_sloc1_1_0                                         0000D0 R
+  5 _create_name_sloc2_1_0                                         0000D3 R
+  5 _create_name_sloc3_1_0                                         0000D4 R
+  5 _create_name_sloc4_1_0                                         0000D6 R
+  9 _create_name_sloc5_1_0                                         000000 R
+ 17 _dbc_1st                                                       000290 R
+  B _dbc_1st_c_65536_81                                            000017 R
+ 17 _dbc_2nd                                                       0002CF R
+  B _dbc_2nd_c_65536_84                                            000018 R
+ 17 _dir_alloc                                                     0026F6 R
+  B _dir_alloc_PARM_2                                              00007D R
+  B _dir_alloc_dp_65536_154                                        00007F R
+  B _dir_alloc_n_65536_155                                         000083 R
+  B _dir_alloc_res_65536_155                                       000082 R
+  5 _dir_alloc_sloc0_1_0                                           000094 R
+  5 _dir_alloc_sloc1_1_0                                           000097 R
+ 17 _dir_clear                                                     001C12 R
+  B _dir_clear_PARM_2                                              000062 R
+  B _dir_clear_fs_65536_134                                        000066 R
+  5 _dir_clear_sloc0_1_0                                           000063 R
+  5 _dir_clear_sloc1_1_0                                           000066 R
+  5 _dir_clear_sloc2_1_0                                           000069 R
+  5 _dir_clear_sloc3_1_0                                           00006B R
+  5 _dir_clear_sloc4_1_0                                           00006E R
+ 17 _dir_find                                                      002BA8 R
+  B _dir_find_dp_65536_172                                         00009F R
+  B _dir_find_res_65536_173                                        0000A2 R
+  5 _dir_find_sloc0_1_0                                            0000AE R
+  5 _dir_find_sloc1_1_0                                            0000B1 R
+  5 _dir_find_sloc2_1_0                                            0000B4 R
+  5 _dir_find_sloc3_1_0                                            0000B7 R
+ 17 _dir_next                                                      002270 R
+  B _dir_next_PARM_2                                               000074 R
+  B _dir_next_clst_65536_146                                       000079 R
+  B _dir_next_dp_65536_145                                         000076 R
+  5 _dir_next_sloc0_1_0                                            00007E R
+  5 _dir_next_sloc1_1_0                                            000081 R
+  5 _dir_next_sloc2_1_0                                            000085 R
+  5 _dir_next_sloc3_1_0                                            000089 R
+  5 _dir_next_sloc4_1_0                                            00008D R
+  5 _dir_next_sloc5_1_0                                            000090 R
+ 17 _dir_read                                                      0029B8 R
+  B _dir_read_PARM_2                                               000099 R
+  B _dir_read_dp_65536_166                                         00009B R
+  B _dir_read_res_65536_167                                        00009E R
+  5 _dir_read_sloc0_1_0                                            0000A1 R
+  5 _dir_read_sloc1_1_0                                            0000A4 R
+  5 _dir_read_sloc2_1_0                                            0000A8 R
+  5 _dir_read_sloc3_1_0                                            0000AA R
+  5 _dir_read_sloc4_1_0                                            0000AB R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 6.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+ 17 _dir_register                                                  002DC3 R
+  B _dir_register_dp_65536_176                                     0000A3 R
+  B _dir_register_res_65536_177                                    0000A6 R
+  5 _dir_register_sloc0_1_0                                        0000BA R
+  5 _dir_register_sloc1_1_0                                        0000BD R
+ 17 _dir_remove                                                    002F11 R
+  B _dir_remove_dp_65536_180                                       0000A7 R
+  5 _dir_remove_sloc0_1_0                                          0000C0 R
+ 17 _dir_sdi                                                       001DC4 R
+  B _dir_sdi_PARM_2                                                000069 R
+  B _dir_sdi_clst_65536_139                                        000070 R
+  B _dir_sdi_dp_65536_138                                          00006D R
+  5 _dir_sdi_sloc0_1_0                                             00006F R
+  5 _dir_sdi_sloc1_1_0                                             000073 R
+  5 _dir_sdi_sloc2_1_0                                             000077 R
+  5 _dir_sdi_sloc3_1_0                                             00007A R
+    _disk_initialize                                               ****** GX
+    _disk_ioctl                                                    ****** GX
+    _disk_ioctl_PARM_2                                             ****** GX
+    _disk_ioctl_PARM_3                                             ****** GX
+    _disk_read                                                     ****** GX
+    _disk_read_PARM_2                                              ****** GX
+    _disk_read_PARM_3                                              ****** GX
+    _disk_read_PARM_4                                              ****** GX
+    _disk_status                                                   ****** GX
+    _disk_write                                                    ****** GX
+    _disk_write_PARM_2                                             ****** GX
+    _disk_write_PARM_3                                             ****** GX
+    _disk_write_PARM_4                                             ****** GX
+ 17 _f_close                                                       006B7F GR
+  B _f_close_fp_65536_321                                          000190 R
+  B _f_close_fs_65536_322                                          000194 R
+  B _f_close_res_65536_322                                         000193 R
+ 17 _f_closedir                                                    00781B GR
+  B _f_closedir_dp_65536_359                                       0001B8 R
+  B _f_closedir_fs_65536_360                                       0001BB R
+ 17 _f_getfree                                                     007A19 GR
+  B _f_getfree_PARM_2                                              0001F9 GR
+  B _f_getfree_PARM_3                                              0001FC GR
+  B _f_getfree_fs_65536_375                                        000203 R
+  B _f_getfree_i_65536_375                                         00020A R
+  B _f_getfree_nfree_65536_375                                     000206 R
+  B _f_getfree_obj_65536_375                                       00020C R
+  B _f_getfree_path_65536_374                                      0001FF R
+  B _f_getfree_res_65536_375                                       000202 R
+  5 _f_getfree_sloc0_1_0                                           000198 R
+  5 _f_getfree_sloc1_1_0                                           00019C R
+  5 _f_getfree_sloc2_1_0                                           0001A0 R
+  5 _f_getfree_sloc3_1_0                                           0001A4 R
+ 17 _f_lseek                                                       006BFC GR
+  B _f_lseek_PARM_2                                                000197 GR
+  B _f_lseek_bcs_65536_326                                         0001A6 R
+  B _f_lseek_clst_65536_326                                        0001A2 R
+  B _f_lseek_fp_65536_325                                          00019B R
+  B _f_lseek_fs_65536_326                                          00019F R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 7.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+  B _f_lseek_nsect_65536_326                                       0001AA R
+  B _f_lseek_res_65536_326                                         00019E R
+  5 _f_lseek_sloc0_1_0                                             000182 R
+  5 _f_lseek_sloc1_1_0                                             000185 R
+  5 _f_lseek_sloc2_1_0                                             000189 R
+  5 _f_lseek_sloc3_1_0                                             00018D R
+  5 _f_lseek_sloc4_1_0                                             000191 R
+ 17 _f_mkdir                                                       008433 GR
+  B _f_mkdir_dj_65536_416                                          000288 R
+  B _f_mkdir_fs_65536_416                                          000285 R
+  B _f_mkdir_path_65536_415                                        000281 R
+  B _f_mkdir_res_65536_416                                         000284 R
+  5 _f_mkdir_sloc0_1_0                                             0001AB R
+  5 _f_mkdir_sloc1_1_0                                             0001AF R
+  B _f_mkdir_sobj_65536_416                                        0002B2 R
+ 17 _f_mount                                                       004A2F GR
+  B _f_mount_PARM_2                                                000106 GR
+  B _f_mount_PARM_3                                                000109 GR
+  B _f_mount_fs_65536_239                                          00010A R
+  B _f_mount_rp_65536_240                                          00010D R
+ 17 _f_open                                                        004B24 GR
+  B _f_open_PARM_2                                                 000110 GR
+  B _f_open_PARM_3                                                 000113 GR
+  B _f_open_clst_65536_244                                         000145 R
+  B _f_open_dj_65536_244                                           000118 R
+  B _f_open_fp_65536_243                                           000114 R
+  B _f_open_fs_65536_244                                           000142 R
+  B _f_open_ofs_65536_244                                          00014D R
+  B _f_open_res_65536_244                                          000117 R
+  B _f_open_sc_65536_244                                           000149 R
+  5 _f_open_sloc0_1_0                                              000107 R
+  5 _f_open_sloc1_1_0                                              00010A R
+  5 _f_open_sloc2_1_0                                              00010E R
+  5 _f_open_sloc3_1_0                                              000111 R
+ 17 _f_opendir                                                     00762F GR
+  B _f_opendir_PARM_2                                              0001AE GR
+  B _f_opendir_dp_65536_350                                        0001B1 R
+  B _f_opendir_fs_65536_351                                        0001B5 R
+  B _f_opendir_res_65536_351                                       0001B4 R
+  5 _f_opendir_sloc0_1_0                                           000195 R
+ 17 _f_read                                                        005437 GR
+  B _f_read_PARM_2                                                 000151 GR
+  B _f_read_PARM_3                                                 000154 GR
+  B _f_read_PARM_4                                                 000156 GR
+  B _f_read_cc_65536_273                                           000166 R
+  B _f_read_clst_65536_273                                         000160 R
+  B _f_read_csect_65536_273                                        000168 R
+  B _f_read_fp_65536_272                                           000159 R
+  B _f_read_fs_65536_273                                           00015D R
+  B _f_read_rbuff_65536_273                                        00016A R
+  B _f_read_rcnt_65536_273                                         000164 R
+  B _f_read_res_65536_273                                          00015C R
+  5 _f_read_sloc0_1_0                                              000115 R
+  5 _f_read_sloc10_1_0                                             000135 R
+  5 _f_read_sloc11_1_0                                             000139 R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 8.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+  5 _f_read_sloc12_1_0                                             00013C R
+  5 _f_read_sloc13_1_0                                             00013E R
+  5 _f_read_sloc1_1_0                                              000119 R
+  5 _f_read_sloc2_1_0                                              00011C R
+  5 _f_read_sloc3_1_0                                              00011F R
+  5 _f_read_sloc4_1_0                                              000122 R
+  5 _f_read_sloc5_1_0                                              000125 R
+  5 _f_read_sloc6_1_0                                              000128 R
+  5 _f_read_sloc7_1_0                                              00012B R
+  5 _f_read_sloc8_1_0                                              00012E R
+  5 _f_read_sloc9_1_0                                              000131 R
+ 17 _f_readdir                                                     007871 GR
+  B _f_readdir_PARM_2                                              0001BE GR
+  B _f_readdir_dp_65536_362                                        0001C1 R
+  B _f_readdir_fs_65536_363                                        0001C5 R
+  B _f_readdir_res_65536_363                                       0001C4 R
+ 17 _f_rename                                                      008874 GR
+  B _f_rename_PARM_2                                               0002C1 GR
+  B _f_rename_buf_65536_428                                        00031F R
+  B _f_rename_djn_65536_428                                        0002F5 R
+  B _f_rename_djo_65536_428                                        0002CB R
+  B _f_rename_fs_65536_428                                         0002C8 R
+  B _f_rename_path_old_65536_427                                   0002C4 R
+  B _f_rename_res_65536_428                                        0002C7 R
+  5 _f_rename_sloc0_1_0                                            0001B0 R
+ 17 _f_stat                                                        00797A GR
+  B _f_stat_PARM_2                                                 0001C8 GR
+  B _f_stat_dj_65536_369                                           0001CF R
+  B _f_stat_path_65536_368                                         0001CB R
+  B _f_stat_res_65536_369                                          0001CE R
+ 17 _f_sync                                                        006856 GR
+  B _f_sync_fp_65536_314                                           000189 R
+  B _f_sync_fs_65536_315                                           00018D R
+  B _f_sync_res_65536_315                                          00018C R
+  5 _f_sync_sloc0_1_0                                              000178 R
+  5 _f_sync_sloc1_1_0                                              00017B R
+  5 _f_sync_sloc2_1_0                                              00017E R
+ 17 _f_truncate                                                    007E80 GR
+  B _f_truncate_fp_65536_390                                       00021B R
+  B _f_truncate_fs_65536_391                                       00021F R
+  B _f_truncate_res_65536_391                                      00021E R
+  5 _f_truncate_sloc0_1_0                                          0001A7 R
+ 17 _f_unlink                                                      008240 GR
+  B _f_unlink_dclst_65536_401                                      00027D R
+  B _f_unlink_dj_65536_401                                         000229 R
+  B _f_unlink_fs_65536_401                                         000226 R
+  B _f_unlink_path_65536_400                                       000222 R
+  B _f_unlink_res_65536_401                                        000225 R
+  B _f_unlink_sdj_65536_401                                        000253 R
+ 17 _f_write                                                       005D5D GR
+  B _f_write_PARM_2                                                00016D GR
+  B _f_write_PARM_3                                                000170 GR
+  B _f_write_PARM_4                                                000172 GR
+  B _f_write_cc_65536_293                                          000182 R
+  B _f_write_clst_65536_293                                        00017C R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+  B _f_write_csect_65536_293                                       000184 R
+  B _f_write_fp_65536_292                                          000175 R
+  B _f_write_fs_65536_293                                          000179 R
+  B _f_write_res_65536_293                                         000178 R
+  5 _f_write_sloc0_1_0                                             000142 R
+  5 _f_write_sloc10_1_0                                            000160 R
+  5 _f_write_sloc11_1_0                                            000164 R
+  5 _f_write_sloc12_1_0                                            000167 R
+  5 _f_write_sloc13_1_0                                            000168 R
+  5 _f_write_sloc14_1_0                                            00016B R
+  5 _f_write_sloc15_1_0                                            00016D R
+  5 _f_write_sloc16_1_0                                            000171 R
+  5 _f_write_sloc17_1_0                                            000175 R
+  5 _f_write_sloc1_1_0                                             000145 R
+  5 _f_write_sloc2_1_0                                             000148 R
+  5 _f_write_sloc3_1_0                                             00014B R
+  5 _f_write_sloc4_1_0                                             00014E R
+  5 _f_write_sloc5_1_0                                             000151 R
+  5 _f_write_sloc6_1_0                                             000154 R
+  5 _f_write_sloc7_1_0                                             000157 R
+  5 _f_write_sloc8_1_0                                             00015A R
+  5 _f_write_sloc9_1_0                                             00015D R
+  B _f_write_wbuff_65536_293                                       000186 R
+  B _f_write_wcnt_65536_293                                        000180 R
+ 17 _find_volume                                                   003BD4 R
+  B _find_volume_PARM_2                                            0000D5 R
+  B _find_volume_fs_65536_218                                      0000D7 R
+  B _find_volume_mbr_pt_65536_219                                  0000DA R
+  5 _find_volume_sloc0_1_0                                         0000E2 R
+  5 _find_volume_sloc1_1_0                                         0000E4 R
+  5 _find_volume_sloc2_1_0                                         0000E7 R
+ 17 _follow_path                                                   0035B8 R
+  B _follow_path_PARM_2                                            0000C0 R
+  B _follow_path_dp_65536_194                                      0000C3 R
+  B _follow_path_res_65536_195                                     0000C6 R
+  5 _follow_path_sloc0_1_0                                         0000D9 R
+  5 _follow_path_sloc1_1_0                                         0000DC R
+ 17 _get_fat                                                       0009FE R
+  B _get_fat_PARM_2                                                000030 R
+  B _get_fat_obj_65536_104                                         000034 R
+  5 _get_fat_sloc0_1_0                                             000024 R
+  5 _get_fat_sloc1_1_0                                             000028 R
+  5 _get_fat_sloc2_1_0                                             00002A R
+  5 _get_fat_sloc3_1_0                                             00002E R
+  5 _get_fat_sloc4_1_0                                             000030 R
+  B _get_fat_val_65536_105                                         000037 R
+    _get_fattime                                                   ****** GX
+ 17 _get_fileinfo                                                  002FCF R
+  B _get_fileinfo_PARM_2                                           0000AA R
+  B _get_fileinfo_c_65536_184                                      0000B2 R
+  B _get_fileinfo_di_65536_184                                     0000B0 R
+  B _get_fileinfo_dp_65536_183                                     0000AD R
+  5 _get_fileinfo_sloc0_1_0                                        0000C3 R
+  5 _get_fileinfo_sloc1_1_0                                        0000C6 R
+  5 _get_fileinfo_sloc2_1_0                                        0000C9 R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 10.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+  5 _get_fileinfo_sloc3_1_0                                        0000CA R
+ 17 _get_ldnumber                                                  0037D1 R
+  B _get_ldnumber_i_65536_208                                      0000CA R
+  B _get_ldnumber_path_65536_207                                   0000C7 R
+  B _get_ldnumber_vol_65536_208                                    0000CC R
+ 17 _ld_clust                                                      002870 R
+  B _ld_clust_PARM_2                                               000085 R
+  B _ld_clust_cl_65536_161                                         00008B R
+  B _ld_clust_fs_65536_160                                         000088 R
+  5 _ld_clust_sloc0_1_0                                            00009A R
+ 17 _ld_dword                                                      000045 R
+  B _ld_dword_ptr_65536_75                                         000008 R
+  6 _ld_dword_sloc0_1_0                                            000000 R
+ 17 _ld_word                                                       000000 R
+  B _ld_word_ptr_65536_73                                          000005 R
+    _memcmp                                                        ****** GX
+    _memcmp_PARM_2                                                 ****** GX
+    _memcmp_PARM_3                                                 ****** GX
+    _memset                                                        ****** GX
+    _memset_PARM_2                                                 ****** GX
+    _memset_PARM_3                                                 ****** GX
+ 17 _mount_volume                                                  003D6D R
+  B _mount_volume_PARM_2                                           0000EA R
+  B _mount_volume_PARM_3                                           0000ED R
+  B _mount_volume_fasize_65536_224                                 0000F5 R
+  B _mount_volume_fmt_65536_224                                    0000FD R
+  B _mount_volume_path_65536_223                                   0000EE R
+  5 _mount_volume_sloc0_1_0                                        0000EB R
+  5 _mount_volume_sloc1_1_0                                        0000EF R
+  5 _mount_volume_sloc2_1_0                                        0000F2 R
+  5 _mount_volume_sloc3_1_0                                        0000F5 R
+  5 _mount_volume_sloc4_1_0                                        0000F8 R
+  5 _mount_volume_sloc5_1_0                                        0000FC R
+  5 _mount_volume_sloc6_1_0                                        000100 R
+  5 _mount_volume_sloc7_1_0                                        000104 R
+  B _mount_volume_szbfat_65536_224                                 0000F9 R
+  B _mount_volume_tsect_65536_224                                  0000F1 R
+ 17 _move_window                                                   000518 R
+  B _move_window_PARM_2                                            00001D R
+  B _move_window_fs_65536_93                                       000021 R
+  B _move_window_res_65536_94                                      000024 R
+  5 _move_window_sloc0_1_0                                         000012 R
+ 17 _put_fat                                                       000DB2 R
+  B _put_fat_PARM_2                                                00003B R
+  B _put_fat_PARM_3                                                00003F R
+  B _put_fat_fs_65536_109                                          000043 R
+  B _put_fat_res_65536_110                                         000046 R
+  5 _put_fat_sloc0_1_0                                             000034 R
+  5 _put_fat_sloc1_1_0                                             000037 R
+  5 _put_fat_sloc2_1_0                                             00003B R
+  5 _put_fat_sloc3_1_0                                             00003D R
+  5 _put_fat_sloc4_1_0                                             000040 R
+ 17 _remove_chain                                                  001315 R
+  B _remove_chain_PARM_2                                           000047 R
+  B _remove_chain_PARM_3                                           00004B R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 11.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+  B _remove_chain_obj_65536_114                                    00004F R
+  5 _remove_chain_sloc0_1_0                                        000044 R
+  5 _remove_chain_sloc1_1_0                                        000048 R
+  5 _remove_chain_sloc2_1_0                                        00004C R
+ 17 _st_clust                                                      00292E R
+  B _st_clust_PARM_2                                               00008F R
+  B _st_clust_PARM_3                                               000092 R
+  B _st_clust_fs_65536_163                                         000096 R
+  5 _st_clust_sloc0_1_0                                            00009D R
+ 17 _st_dword                                                      000176 R
+  B _st_dword_PARM_2                                               000010 R
+  B _st_dword_ptr_65536_79                                         000014 R
+ 17 _st_word                                                       000102 R
+  B _st_word_PARM_2                                                00000B R
+  B _st_word_ptr_65536_77                                          00000D R
+    _strchr                                                        ****** GX
+    _strchr_PARM_2                                                 ****** GX
+ 17 _sync_fs                                                       000637 R
+  B _sync_fs_fs_65536_98                                           000025 R
+  B _sync_fs_res_65536_99                                          000028 R
+  5 _sync_fs_sloc0_1_0                                             000016 R
+  5 _sync_fs_sloc1_1_0                                             000019 R
+  5 _sync_fs_sloc2_1_0                                             00001C R
+ 17 _sync_window                                                   00032B R
+  B _sync_window_fs_65536_87                                       000019 R
+  B _sync_window_res_65536_88                                      00001C R
+  5 _sync_window_sloc0_1_0                                         000000 R
+  5 _sync_window_sloc1_1_0                                         000003 R
+  5 _sync_window_sloc2_1_0                                         000006 R
+  5 _sync_window_sloc3_1_0                                         000007 R
+  5 _sync_window_sloc4_1_0                                         00000A R
+  5 _sync_window_sloc5_1_0                                         00000E R
+ 17 _validate                                                      00493E R
+  B _validate_PARM_2                                               0000FF R
+  B _validate_obj_65536_235                                        000102 R
+  B _validate_res_65536_236                                        000105 R
+    a                                                           =  0000E0 L
+    a.0                                                         =  0000E0 L
+    a.1                                                         =  0000E1 L
+    a.2                                                         =  0000E2 L
+    a.3                                                         =  0000E3 L
+    a.4                                                         =  0000E4 L
+    a.5                                                         =  0000E5 L
+    a.6                                                         =  0000E6 L
+    a.7                                                         =  0000E7 L
+    ac                                                          =  0000D6 L
+    acc                                                         =  0000E0 L
+    acc.0                                                       =  0000E0 L
+    acc.1                                                       =  0000E1 L
+    acc.2                                                       =  0000E2 L
+    acc.3                                                       =  0000E3 L
+    acc.4                                                       =  0000E4 L
+    acc.5                                                       =  0000E5 L
+    acc.6                                                       =  0000E6 L
+    acc.7                                                       =  0000E7 L
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 12.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    ar0                                                         =  000000 
+    ar1                                                         =  000001 
+    ar2                                                         =  000002 
+    ar3                                                         =  000003 
+    ar4                                                         =  000004 
+    ar5                                                         =  000005 
+    ar6                                                         =  000006 
+    ar7                                                         =  000007 
+    b                                                           =  0000F0 L
+    b.0                                                         =  0000F0 L
+    b.1                                                         =  0000F1 L
+    b.2                                                         =  0000F2 L
+    b.3                                                         =  0000F3 L
+    b.4                                                         =  0000F4 L
+    b.5                                                         =  0000F5 L
+    b.6                                                         =  0000F6 L
+    b.7                                                         =  0000F7 L
+    cprl2                                                       =  0000C8 L
+    ct2                                                         =  0000C9 L
+    cy                                                          =  0000D7 L
+    dph                                                         =  000083 L
+    dpl                                                         =  000082 L
+    ea                                                          =  0000AF L
+    es                                                          =  0000AC L
+    et0                                                         =  0000A9 L
+    et1                                                         =  0000AB L
+    et2                                                         =  0000AD L
+    ex0                                                         =  0000A8 L
+    ex1                                                         =  0000AA L
+    exen2                                                       =  0000CB L
+    exf2                                                        =  0000CE L
+    f0                                                          =  0000D5 L
+    ie                                                          =  0000A8 L
+    ie.0                                                        =  0000A8 L
+    ie.1                                                        =  0000A9 L
+    ie.2                                                        =  0000AA L
+    ie.3                                                        =  0000AB L
+    ie.4                                                        =  0000AC L
+    ie.5                                                        =  0000AD L
+    ie.7                                                        =  0000AF L
+    ie0                                                         =  000089 L
+    ie1                                                         =  00008B L
+    int0                                                        =  0000B2 L
+    int1                                                        =  0000B3 L
+    ip                                                          =  0000B8 L
+    ip.0                                                        =  0000B8 L
+    ip.1                                                        =  0000B9 L
+    ip.2                                                        =  0000BA L
+    ip.3                                                        =  0000BB L
+    ip.4                                                        =  0000BC L
+    ip.5                                                        =  0000BD L
+    it0                                                         =  000088 L
+    it1                                                         =  00008A L
+    ov                                                          =  0000D2 L
+    p                                                           =  0000D0 L
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 13.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    p0                                                          =  000080 L
+    p0.0                                                        =  000080 L
+    p0.1                                                        =  000081 L
+    p0.2                                                        =  000082 L
+    p0.3                                                        =  000083 L
+    p0.4                                                        =  000084 L
+    p0.5                                                        =  000085 L
+    p0.6                                                        =  000086 L
+    p0.7                                                        =  000087 L
+    p1                                                          =  000090 L
+    p1.0                                                        =  000090 L
+    p1.1                                                        =  000091 L
+    p1.2                                                        =  000092 L
+    p1.3                                                        =  000093 L
+    p1.4                                                        =  000094 L
+    p1.5                                                        =  000095 L
+    p1.6                                                        =  000096 L
+    p1.7                                                        =  000097 L
+    p2                                                          =  0000A0 L
+    p2.0                                                        =  0000A0 L
+    p2.1                                                        =  0000A1 L
+    p2.2                                                        =  0000A2 L
+    p2.3                                                        =  0000A3 L
+    p2.4                                                        =  0000A4 L
+    p2.5                                                        =  0000A5 L
+    p2.6                                                        =  0000A6 L
+    p2.7                                                        =  0000A7 L
+    p3                                                          =  0000B0 L
+    p3.0                                                        =  0000B0 L
+    p3.1                                                        =  0000B1 L
+    p3.2                                                        =  0000B2 L
+    p3.3                                                        =  0000B3 L
+    p3.4                                                        =  0000B4 L
+    p3.5                                                        =  0000B5 L
+    p3.6                                                        =  0000B6 L
+    p3.7                                                        =  0000B7 L
+    pcon                                                        =  000087 L
+    ps                                                          =  0000BC L
+    psw                                                         =  0000D0 L
+    psw.0                                                       =  0000D0 L
+    psw.1                                                       =  0000D1 L
+    psw.2                                                       =  0000D2 L
+    psw.3                                                       =  0000D3 L
+    psw.4                                                       =  0000D4 L
+    psw.5                                                       =  0000D5 L
+    psw.6                                                       =  0000D6 L
+    psw.7                                                       =  0000D7 L
+    pt0                                                         =  0000B9 L
+    pt1                                                         =  0000BB L
+    pt2                                                         =  0000BD L
+    px0                                                         =  0000B8 L
+    px1                                                         =  0000BA L
+    rb8                                                         =  00009A L
+    rcap2h                                                      =  0000CB L
+    rcap2l                                                      =  0000CA L
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 14.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    rclk                                                        =  0000CD L
+    ren                                                         =  00009C L
+    ri                                                          =  000098 L
+    rs0                                                         =  0000D3 L
+    rs1                                                         =  0000D4 L
+    rxd                                                         =  0000B0 L
+    sbuf                                                        =  000099 L
+    scon                                                        =  000098 L
+    scon.0                                                      =  000098 L
+    scon.1                                                      =  000099 L
+    scon.2                                                      =  00009A L
+    scon.3                                                      =  00009B L
+    scon.4                                                      =  00009C L
+    scon.5                                                      =  00009D L
+    scon.6                                                      =  00009E L
+    scon.7                                                      =  00009F L
+    sm0                                                         =  00009F L
+    sm1                                                         =  00009E L
+    sm2                                                         =  00009D L
+    sp                                                          =  000081 L
+    t2con                                                       =  0000C8 L
+    t2con.0                                                     =  0000C8 L
+    t2con.1                                                     =  0000C9 L
+    t2con.2                                                     =  0000CA L
+    t2con.3                                                     =  0000CB L
+    t2con.4                                                     =  0000CC L
+    t2con.5                                                     =  0000CD L
+    t2con.6                                                     =  0000CE L
+    t2con.7                                                     =  0000CF L
+    tb8                                                         =  00009B L
+    tclk                                                        =  0000CC L
+    tcon                                                        =  000088 L
+    tcon.0                                                      =  000088 L
+    tcon.1                                                      =  000089 L
+    tcon.2                                                      =  00008A L
+    tcon.3                                                      =  00008B L
+    tcon.4                                                      =  00008C L
+    tcon.5                                                      =  00008D L
+    tcon.6                                                      =  00008E L
+    tcon.7                                                      =  00008F L
+    tf0                                                         =  00008D L
+    tf1                                                         =  00008F L
+    tf2                                                         =  0000CF L
+    th0                                                         =  00008C L
+    th1                                                         =  00008D L
+    th2                                                         =  0000CD L
+    ti                                                          =  000099 L
+    tl0                                                         =  00008A L
+    tl1                                                         =  00008B L
+    tl2                                                         =  0000CC L
+    tmod                                                        =  000089 L
+    tr0                                                         =  00008C L
+    tr1                                                         =  00008E L
+    tr2                                                         =  0000CA L
+    txd                                                         =  0000B1 L
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 15.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 16.
+Hexadecimal [24-Bits]
+
+Area Table
+
+   0 _CODE                                      size      0   flags    0
+   1 RSEG                                       size      0   flags    8
+   2 RSEG0                                      size      0   flags    8
+   3 RSEG1                                      size      0   flags    8
+   4 REG_BANK_0                                 size      8   flags    4
+   5 DSEG                                       size    1B3   flags    0
+   6 OSEG                                       size      4   flags    4
+   7 ISEG                                       size      0   flags    0
+   8 IABS                                       size      0   flags    8
+   9 BSEG                                       size      1   flags   80
+   A PSEG                                       size      0   flags   50
+   B XSEG                                       size    33F   flags   40
+   C XABS                                       size      0   flags   48
+   D XISEG                                      size      0   flags   40
+   E HOME                                       size      0   flags   20
+   F GSINIT0                                    size      0   flags   20
+  10 GSINIT1                                    size      0   flags   20
+  11 GSINIT2                                    size      0   flags   20
+  12 GSINIT3                                    size      0   flags   20
+  13 GSINIT4                                    size      0   flags   20
+  14 GSINIT5                                    size      0   flags   20
+  15 GSINIT                                     size      0   flags   20
+  16 GSFINAL                                    size      0   flags   20
+  17 CSEG                                       size   8C2E   flags   20
+  18 CONST                                      size     22   flags   20
+  19 XINIT                                      size      0   flags   20
+  1A CABS                                       size      0   flags   28
+

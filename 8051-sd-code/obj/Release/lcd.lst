@@ -1,0 +1,1561 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module lcd
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _TF1
+                                     12 	.globl _TR1
+                                     13 	.globl _TF0
+                                     14 	.globl _TR0
+                                     15 	.globl _IE1
+                                     16 	.globl _IT1
+                                     17 	.globl _IE0
+                                     18 	.globl _IT0
+                                     19 	.globl _SM0
+                                     20 	.globl _SM1
+                                     21 	.globl _SM2
+                                     22 	.globl _REN
+                                     23 	.globl _TB8
+                                     24 	.globl _RB8
+                                     25 	.globl _TI
+                                     26 	.globl _RI
+                                     27 	.globl _CY
+                                     28 	.globl _AC
+                                     29 	.globl _F0
+                                     30 	.globl _RS1
+                                     31 	.globl _RS0
+                                     32 	.globl _OV
+                                     33 	.globl _F1
+                                     34 	.globl _P
+                                     35 	.globl _RD
+                                     36 	.globl _WR
+                                     37 	.globl _T1
+                                     38 	.globl _T0
+                                     39 	.globl _INT1
+                                     40 	.globl _INT0
+                                     41 	.globl _TXD0
+                                     42 	.globl _TXD
+                                     43 	.globl _RXD0
+                                     44 	.globl _RXD
+                                     45 	.globl _P3_7
+                                     46 	.globl _P3_6
+                                     47 	.globl _P3_5
+                                     48 	.globl _P3_4
+                                     49 	.globl _P3_3
+                                     50 	.globl _P3_2
+                                     51 	.globl _P3_1
+                                     52 	.globl _P3_0
+                                     53 	.globl _P2_7
+                                     54 	.globl _P2_6
+                                     55 	.globl _P2_5
+                                     56 	.globl _P2_4
+                                     57 	.globl _P2_3
+                                     58 	.globl _P2_2
+                                     59 	.globl _P2_1
+                                     60 	.globl _P2_0
+                                     61 	.globl _P1_7
+                                     62 	.globl _P1_6
+                                     63 	.globl _P1_5
+                                     64 	.globl _P1_4
+                                     65 	.globl _P1_3
+                                     66 	.globl _P1_2
+                                     67 	.globl _P1_1
+                                     68 	.globl _P1_0
+                                     69 	.globl _P0_7
+                                     70 	.globl _P0_6
+                                     71 	.globl _P0_5
+                                     72 	.globl _P0_4
+                                     73 	.globl _P0_3
+                                     74 	.globl _P0_2
+                                     75 	.globl _P0_1
+                                     76 	.globl _P0_0
+                                     77 	.globl _PS
+                                     78 	.globl _PT1
+                                     79 	.globl _PX1
+                                     80 	.globl _PT0
+                                     81 	.globl _PX0
+                                     82 	.globl _EA
+                                     83 	.globl _ES
+                                     84 	.globl _ET1
+                                     85 	.globl _EX1
+                                     86 	.globl _ET0
+                                     87 	.globl _EX0
+                                     88 	.globl _BREG_F7
+                                     89 	.globl _BREG_F6
+                                     90 	.globl _BREG_F5
+                                     91 	.globl _BREG_F4
+                                     92 	.globl _BREG_F3
+                                     93 	.globl _BREG_F2
+                                     94 	.globl _BREG_F1
+                                     95 	.globl _BREG_F0
+                                     96 	.globl _P5_7
+                                     97 	.globl _P5_6
+                                     98 	.globl _P5_5
+                                     99 	.globl _P5_4
+                                    100 	.globl _P5_3
+                                    101 	.globl _P5_2
+                                    102 	.globl _P5_1
+                                    103 	.globl _P5_0
+                                    104 	.globl _P4_7
+                                    105 	.globl _P4_6
+                                    106 	.globl _P4_5
+                                    107 	.globl _P4_4
+                                    108 	.globl _P4_3
+                                    109 	.globl _P4_2
+                                    110 	.globl _P4_1
+                                    111 	.globl _P4_0
+                                    112 	.globl _PX0L
+                                    113 	.globl _PT0L
+                                    114 	.globl _PX1L
+                                    115 	.globl _PT1L
+                                    116 	.globl _PSL
+                                    117 	.globl _PT2L
+                                    118 	.globl _PPCL
+                                    119 	.globl _EC
+                                    120 	.globl _CCF0
+                                    121 	.globl _CCF1
+                                    122 	.globl _CCF2
+                                    123 	.globl _CCF3
+                                    124 	.globl _CCF4
+                                    125 	.globl _CR
+                                    126 	.globl _CF
+                                    127 	.globl _TF2
+                                    128 	.globl _EXF2
+                                    129 	.globl _RCLK
+                                    130 	.globl _TCLK
+                                    131 	.globl _EXEN2
+                                    132 	.globl _TR2
+                                    133 	.globl _C_T2
+                                    134 	.globl _CP_RL2
+                                    135 	.globl _T2CON_7
+                                    136 	.globl _T2CON_6
+                                    137 	.globl _T2CON_5
+                                    138 	.globl _T2CON_4
+                                    139 	.globl _T2CON_3
+                                    140 	.globl _T2CON_2
+                                    141 	.globl _T2CON_1
+                                    142 	.globl _T2CON_0
+                                    143 	.globl _PT2
+                                    144 	.globl _ET2
+                                    145 	.globl _TMOD
+                                    146 	.globl _TL1
+                                    147 	.globl _TL0
+                                    148 	.globl _TH1
+                                    149 	.globl _TH0
+                                    150 	.globl _TCON
+                                    151 	.globl _SP
+                                    152 	.globl _SCON
+                                    153 	.globl _SBUF0
+                                    154 	.globl _SBUF
+                                    155 	.globl _PSW
+                                    156 	.globl _PCON
+                                    157 	.globl _P3
+                                    158 	.globl _P2
+                                    159 	.globl _P1
+                                    160 	.globl _P0
+                                    161 	.globl _IP
+                                    162 	.globl _IE
+                                    163 	.globl _DP0L
+                                    164 	.globl _DPL
+                                    165 	.globl _DP0H
+                                    166 	.globl _DPH
+                                    167 	.globl _B
+                                    168 	.globl _ACC
+                                    169 	.globl _EECON
+                                    170 	.globl _KBF
+                                    171 	.globl _KBE
+                                    172 	.globl _KBLS
+                                    173 	.globl _BRL
+                                    174 	.globl _BDRCON
+                                    175 	.globl _T2MOD
+                                    176 	.globl _SPDAT
+                                    177 	.globl _SPSTA
+                                    178 	.globl _SPCON
+                                    179 	.globl _SADEN
+                                    180 	.globl _SADDR
+                                    181 	.globl _WDTPRG
+                                    182 	.globl _WDTRST
+                                    183 	.globl _P5
+                                    184 	.globl _P4
+                                    185 	.globl _IPH1
+                                    186 	.globl _IPL1
+                                    187 	.globl _IPH0
+                                    188 	.globl _IPL0
+                                    189 	.globl _IEN1
+                                    190 	.globl _IEN0
+                                    191 	.globl _CMOD
+                                    192 	.globl _CL
+                                    193 	.globl _CH
+                                    194 	.globl _CCON
+                                    195 	.globl _CCAPM4
+                                    196 	.globl _CCAPM3
+                                    197 	.globl _CCAPM2
+                                    198 	.globl _CCAPM1
+                                    199 	.globl _CCAPM0
+                                    200 	.globl _CCAP4L
+                                    201 	.globl _CCAP3L
+                                    202 	.globl _CCAP2L
+                                    203 	.globl _CCAP1L
+                                    204 	.globl _CCAP0L
+                                    205 	.globl _CCAP4H
+                                    206 	.globl _CCAP3H
+                                    207 	.globl _CCAP2H
+                                    208 	.globl _CCAP1H
+                                    209 	.globl _CCAP0H
+                                    210 	.globl _CKCON1
+                                    211 	.globl _CKCON0
+                                    212 	.globl _CKRL
+                                    213 	.globl _AUXR1
+                                    214 	.globl _AUXR
+                                    215 	.globl _TH2
+                                    216 	.globl _TL2
+                                    217 	.globl _RCAP2H
+                                    218 	.globl _RCAP2L
+                                    219 	.globl _T2CON
+                                    220 	.globl _display_lcd_char_PARM_2
+                                    221 	.globl _lcdcreatechar_PARM_2
+                                    222 	.globl _lcdgotoxy_PARM_2
+                                    223 	.globl _lcd_set_ram_addr
+                                    224 	.globl _lcd_read_data_from_ram
+                                    225 	.globl _lcdinit
+                                    226 	.globl _lcdbusywait
+                                    227 	.globl _lcdgotoaddr
+                                    228 	.globl _lcdgotoxy
+                                    229 	.globl _lcdputch
+                                    230 	.globl _lcdputstr
+                                    231 	.globl _get_cursor_pos
+                                    232 	.globl _lcdclear
+                                    233 	.globl _lcdcreatechar
+                                    234 	.globl _display_lcd_char
+                                    235 ;--------------------------------------------------------
+                                    236 ; special function registers
+                                    237 ;--------------------------------------------------------
+                                    238 	.area RSEG    (ABS,DATA)
+      000000                        239 	.org 0x0000
+                           0000C8   240 _T2CON	=	0x00c8
+                           0000CA   241 _RCAP2L	=	0x00ca
+                           0000CB   242 _RCAP2H	=	0x00cb
+                           0000CC   243 _TL2	=	0x00cc
+                           0000CD   244 _TH2	=	0x00cd
+                           00008E   245 _AUXR	=	0x008e
+                           0000A2   246 _AUXR1	=	0x00a2
+                           000097   247 _CKRL	=	0x0097
+                           00008F   248 _CKCON0	=	0x008f
+                           0000AF   249 _CKCON1	=	0x00af
+                           0000FA   250 _CCAP0H	=	0x00fa
+                           0000FB   251 _CCAP1H	=	0x00fb
+                           0000FC   252 _CCAP2H	=	0x00fc
+                           0000FD   253 _CCAP3H	=	0x00fd
+                           0000FE   254 _CCAP4H	=	0x00fe
+                           0000EA   255 _CCAP0L	=	0x00ea
+                           0000EB   256 _CCAP1L	=	0x00eb
+                           0000EC   257 _CCAP2L	=	0x00ec
+                           0000ED   258 _CCAP3L	=	0x00ed
+                           0000EE   259 _CCAP4L	=	0x00ee
+                           0000DA   260 _CCAPM0	=	0x00da
+                           0000DB   261 _CCAPM1	=	0x00db
+                           0000DC   262 _CCAPM2	=	0x00dc
+                           0000DD   263 _CCAPM3	=	0x00dd
+                           0000DE   264 _CCAPM4	=	0x00de
+                           0000D8   265 _CCON	=	0x00d8
+                           0000F9   266 _CH	=	0x00f9
+                           0000E9   267 _CL	=	0x00e9
+                           0000D9   268 _CMOD	=	0x00d9
+                           0000A8   269 _IEN0	=	0x00a8
+                           0000B1   270 _IEN1	=	0x00b1
+                           0000B8   271 _IPL0	=	0x00b8
+                           0000B7   272 _IPH0	=	0x00b7
+                           0000B2   273 _IPL1	=	0x00b2
+                           0000B3   274 _IPH1	=	0x00b3
+                           0000C0   275 _P4	=	0x00c0
+                           0000E8   276 _P5	=	0x00e8
+                           0000A6   277 _WDTRST	=	0x00a6
+                           0000A7   278 _WDTPRG	=	0x00a7
+                           0000A9   279 _SADDR	=	0x00a9
+                           0000B9   280 _SADEN	=	0x00b9
+                           0000C3   281 _SPCON	=	0x00c3
+                           0000C4   282 _SPSTA	=	0x00c4
+                           0000C5   283 _SPDAT	=	0x00c5
+                           0000C9   284 _T2MOD	=	0x00c9
+                           00009B   285 _BDRCON	=	0x009b
+                           00009A   286 _BRL	=	0x009a
+                           00009C   287 _KBLS	=	0x009c
+                           00009D   288 _KBE	=	0x009d
+                           00009E   289 _KBF	=	0x009e
+                           0000D2   290 _EECON	=	0x00d2
+                           0000E0   291 _ACC	=	0x00e0
+                           0000F0   292 _B	=	0x00f0
+                           000083   293 _DPH	=	0x0083
+                           000083   294 _DP0H	=	0x0083
+                           000082   295 _DPL	=	0x0082
+                           000082   296 _DP0L	=	0x0082
+                           0000A8   297 _IE	=	0x00a8
+                           0000B8   298 _IP	=	0x00b8
+                           000080   299 _P0	=	0x0080
+                           000090   300 _P1	=	0x0090
+                           0000A0   301 _P2	=	0x00a0
+                           0000B0   302 _P3	=	0x00b0
+                           000087   303 _PCON	=	0x0087
+                           0000D0   304 _PSW	=	0x00d0
+                           000099   305 _SBUF	=	0x0099
+                           000099   306 _SBUF0	=	0x0099
+                           000098   307 _SCON	=	0x0098
+                           000081   308 _SP	=	0x0081
+                           000088   309 _TCON	=	0x0088
+                           00008C   310 _TH0	=	0x008c
+                           00008D   311 _TH1	=	0x008d
+                           00008A   312 _TL0	=	0x008a
+                           00008B   313 _TL1	=	0x008b
+                           000089   314 _TMOD	=	0x0089
+                                    315 ;--------------------------------------------------------
+                                    316 ; special function bits
+                                    317 ;--------------------------------------------------------
+                                    318 	.area RSEG    (ABS,DATA)
+      000000                        319 	.org 0x0000
+                           0000AD   320 _ET2	=	0x00ad
+                           0000BD   321 _PT2	=	0x00bd
+                           0000C8   322 _T2CON_0	=	0x00c8
+                           0000C9   323 _T2CON_1	=	0x00c9
+                           0000CA   324 _T2CON_2	=	0x00ca
+                           0000CB   325 _T2CON_3	=	0x00cb
+                           0000CC   326 _T2CON_4	=	0x00cc
+                           0000CD   327 _T2CON_5	=	0x00cd
+                           0000CE   328 _T2CON_6	=	0x00ce
+                           0000CF   329 _T2CON_7	=	0x00cf
+                           0000C8   330 _CP_RL2	=	0x00c8
+                           0000C9   331 _C_T2	=	0x00c9
+                           0000CA   332 _TR2	=	0x00ca
+                           0000CB   333 _EXEN2	=	0x00cb
+                           0000CC   334 _TCLK	=	0x00cc
+                           0000CD   335 _RCLK	=	0x00cd
+                           0000CE   336 _EXF2	=	0x00ce
+                           0000CF   337 _TF2	=	0x00cf
+                           0000DF   338 _CF	=	0x00df
+                           0000DE   339 _CR	=	0x00de
+                           0000DC   340 _CCF4	=	0x00dc
+                           0000DB   341 _CCF3	=	0x00db
+                           0000DA   342 _CCF2	=	0x00da
+                           0000D9   343 _CCF1	=	0x00d9
+                           0000D8   344 _CCF0	=	0x00d8
+                           0000AE   345 _EC	=	0x00ae
+                           0000BE   346 _PPCL	=	0x00be
+                           0000BD   347 _PT2L	=	0x00bd
+                           0000BC   348 _PSL	=	0x00bc
+                           0000BB   349 _PT1L	=	0x00bb
+                           0000BA   350 _PX1L	=	0x00ba
+                           0000B9   351 _PT0L	=	0x00b9
+                           0000B8   352 _PX0L	=	0x00b8
+                           0000C0   353 _P4_0	=	0x00c0
+                           0000C1   354 _P4_1	=	0x00c1
+                           0000C2   355 _P4_2	=	0x00c2
+                           0000C3   356 _P4_3	=	0x00c3
+                           0000C4   357 _P4_4	=	0x00c4
+                           0000C5   358 _P4_5	=	0x00c5
+                           0000C6   359 _P4_6	=	0x00c6
+                           0000C7   360 _P4_7	=	0x00c7
+                           0000E8   361 _P5_0	=	0x00e8
+                           0000E9   362 _P5_1	=	0x00e9
+                           0000EA   363 _P5_2	=	0x00ea
+                           0000EB   364 _P5_3	=	0x00eb
+                           0000EC   365 _P5_4	=	0x00ec
+                           0000ED   366 _P5_5	=	0x00ed
+                           0000EE   367 _P5_6	=	0x00ee
+                           0000EF   368 _P5_7	=	0x00ef
+                           0000F0   369 _BREG_F0	=	0x00f0
+                           0000F1   370 _BREG_F1	=	0x00f1
+                           0000F2   371 _BREG_F2	=	0x00f2
+                           0000F3   372 _BREG_F3	=	0x00f3
+                           0000F4   373 _BREG_F4	=	0x00f4
+                           0000F5   374 _BREG_F5	=	0x00f5
+                           0000F6   375 _BREG_F6	=	0x00f6
+                           0000F7   376 _BREG_F7	=	0x00f7
+                           0000A8   377 _EX0	=	0x00a8
+                           0000A9   378 _ET0	=	0x00a9
+                           0000AA   379 _EX1	=	0x00aa
+                           0000AB   380 _ET1	=	0x00ab
+                           0000AC   381 _ES	=	0x00ac
+                           0000AF   382 _EA	=	0x00af
+                           0000B8   383 _PX0	=	0x00b8
+                           0000B9   384 _PT0	=	0x00b9
+                           0000BA   385 _PX1	=	0x00ba
+                           0000BB   386 _PT1	=	0x00bb
+                           0000BC   387 _PS	=	0x00bc
+                           000080   388 _P0_0	=	0x0080
+                           000081   389 _P0_1	=	0x0081
+                           000082   390 _P0_2	=	0x0082
+                           000083   391 _P0_3	=	0x0083
+                           000084   392 _P0_4	=	0x0084
+                           000085   393 _P0_5	=	0x0085
+                           000086   394 _P0_6	=	0x0086
+                           000087   395 _P0_7	=	0x0087
+                           000090   396 _P1_0	=	0x0090
+                           000091   397 _P1_1	=	0x0091
+                           000092   398 _P1_2	=	0x0092
+                           000093   399 _P1_3	=	0x0093
+                           000094   400 _P1_4	=	0x0094
+                           000095   401 _P1_5	=	0x0095
+                           000096   402 _P1_6	=	0x0096
+                           000097   403 _P1_7	=	0x0097
+                           0000A0   404 _P2_0	=	0x00a0
+                           0000A1   405 _P2_1	=	0x00a1
+                           0000A2   406 _P2_2	=	0x00a2
+                           0000A3   407 _P2_3	=	0x00a3
+                           0000A4   408 _P2_4	=	0x00a4
+                           0000A5   409 _P2_5	=	0x00a5
+                           0000A6   410 _P2_6	=	0x00a6
+                           0000A7   411 _P2_7	=	0x00a7
+                           0000B0   412 _P3_0	=	0x00b0
+                           0000B1   413 _P3_1	=	0x00b1
+                           0000B2   414 _P3_2	=	0x00b2
+                           0000B3   415 _P3_3	=	0x00b3
+                           0000B4   416 _P3_4	=	0x00b4
+                           0000B5   417 _P3_5	=	0x00b5
+                           0000B6   418 _P3_6	=	0x00b6
+                           0000B7   419 _P3_7	=	0x00b7
+                           0000B0   420 _RXD	=	0x00b0
+                           0000B0   421 _RXD0	=	0x00b0
+                           0000B1   422 _TXD	=	0x00b1
+                           0000B1   423 _TXD0	=	0x00b1
+                           0000B2   424 _INT0	=	0x00b2
+                           0000B3   425 _INT1	=	0x00b3
+                           0000B4   426 _T0	=	0x00b4
+                           0000B5   427 _T1	=	0x00b5
+                           0000B6   428 _WR	=	0x00b6
+                           0000B7   429 _RD	=	0x00b7
+                           0000D0   430 _P	=	0x00d0
+                           0000D1   431 _F1	=	0x00d1
+                           0000D2   432 _OV	=	0x00d2
+                           0000D3   433 _RS0	=	0x00d3
+                           0000D4   434 _RS1	=	0x00d4
+                           0000D5   435 _F0	=	0x00d5
+                           0000D6   436 _AC	=	0x00d6
+                           0000D7   437 _CY	=	0x00d7
+                           000098   438 _RI	=	0x0098
+                           000099   439 _TI	=	0x0099
+                           00009A   440 _RB8	=	0x009a
+                           00009B   441 _TB8	=	0x009b
+                           00009C   442 _REN	=	0x009c
+                           00009D   443 _SM2	=	0x009d
+                           00009E   444 _SM1	=	0x009e
+                           00009F   445 _SM0	=	0x009f
+                           000088   446 _IT0	=	0x0088
+                           000089   447 _IE0	=	0x0089
+                           00008A   448 _IT1	=	0x008a
+                           00008B   449 _IE1	=	0x008b
+                           00008C   450 _TR0	=	0x008c
+                           00008D   451 _TF0	=	0x008d
+                           00008E   452 _TR1	=	0x008e
+                           00008F   453 _TF1	=	0x008f
+                                    454 ;--------------------------------------------------------
+                                    455 ; overlayable register banks
+                                    456 ;--------------------------------------------------------
+                                    457 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        458 	.ds 8
+                                    459 ;--------------------------------------------------------
+                                    460 ; internal ram data
+                                    461 ;--------------------------------------------------------
+                                    462 	.area DSEG    (DATA)
+                                    463 ;--------------------------------------------------------
+                                    464 ; overlayable items in internal ram
+                                    465 ;--------------------------------------------------------
+                                    466 ;--------------------------------------------------------
+                                    467 ; indirectly addressable internal ram data
+                                    468 ;--------------------------------------------------------
+                                    469 	.area ISEG    (DATA)
+                                    470 ;--------------------------------------------------------
+                                    471 ; absolute internal ram data
+                                    472 ;--------------------------------------------------------
+                                    473 	.area IABS    (ABS,DATA)
+                                    474 	.area IABS    (ABS,DATA)
+                                    475 ;--------------------------------------------------------
+                                    476 ; bit data
+                                    477 ;--------------------------------------------------------
+                                    478 	.area BSEG    (BIT)
+                                    479 ;--------------------------------------------------------
+                                    480 ; paged external ram data
+                                    481 ;--------------------------------------------------------
+                                    482 	.area PSEG    (PAG,XDATA)
+                                    483 ;--------------------------------------------------------
+                                    484 ; external ram data
+                                    485 ;--------------------------------------------------------
+                                    486 	.area XSEG    (XDATA)
+      000000                        487 _lcd_set_ram_addr_addr_65536_10:
+      000000                        488 	.ds 1
+      000001                        489 _read_lcd_data_65536_14:
+      000001                        490 	.ds 3
+      000004                        491 _write_data_lcd_data_65536_16:
+      000004                        492 	.ds 1
+      000005                        493 _write_cmd_lcd_data_65536_18:
+      000005                        494 	.ds 1
+      000006                        495 _lcdinit_data_196608_22:
+      000006                        496 	.ds 1
+      000007                        497 _lcdinit_data_196608_25:
+      000007                        498 	.ds 1
+      000008                        499 _lcdinit_data_196608_28:
+      000008                        500 	.ds 1
+      000009                        501 _lcdinit_data_196608_31:
+      000009                        502 	.ds 1
+      00000A                        503 _lcdinit_data_196608_34:
+      00000A                        504 	.ds 1
+      00000B                        505 _lcdgotoaddr_addr_65536_37:
+      00000B                        506 	.ds 1
+      00000C                        507 _lcdgotoaddr_data_196608_40:
+      00000C                        508 	.ds 1
+      00000D                        509 _lcdgotoxy_PARM_2:
+      00000D                        510 	.ds 1
+      00000E                        511 _lcdgotoxy_row_65536_42:
+      00000E                        512 	.ds 1
+      00000F                        513 _lcdputch_cc_65536_50:
+      00000F                        514 	.ds 1
+      000010                        515 _lcdputch_data_196608_53:
+      000010                        516 	.ds 1
+      000011                        517 _lcdputstr_ss_65536_55:
+      000011                        518 	.ds 3
+      000014                        519 _get_cursor_pos_cursor_pos_65536_65:
+      000014                        520 	.ds 1
+      000015                        521 _get_cursor_pos_data_196608_67:
+      000015                        522 	.ds 3
+      000018                        523 _lcdclear_data_196608_71:
+      000018                        524 	.ds 1
+      000019                        525 _lcdcreatechar_PARM_2:
+      000019                        526 	.ds 3
+      00001C                        527 _lcdcreatechar_ccode_65536_87:
+      00001C                        528 	.ds 1
+      00001D                        529 _lcdcreatechar_data_327680_92:
+      00001D                        530 	.ds 1
+      00001E                        531 _display_lcd_char_PARM_2:
+      00001E                        532 	.ds 1
+      00001F                        533 _display_lcd_char_ccode_65536_94:
+      00001F                        534 	.ds 1
+      000020                        535 _display_lcd_char_data_196608_97:
+      000020                        536 	.ds 1
+                                    537 ;--------------------------------------------------------
+                                    538 ; absolute external ram data
+                                    539 ;--------------------------------------------------------
+                                    540 	.area XABS    (ABS,XDATA)
+                                    541 ;--------------------------------------------------------
+                                    542 ; external initialized ram data
+                                    543 ;--------------------------------------------------------
+                                    544 	.area XISEG   (XDATA)
+      000000                        545 _ptr:
+      000000                        546 	.ds 2
+                                    547 	.area HOME    (CODE)
+                                    548 	.area GSINIT0 (CODE)
+                                    549 	.area GSINIT1 (CODE)
+                                    550 	.area GSINIT2 (CODE)
+                                    551 	.area GSINIT3 (CODE)
+                                    552 	.area GSINIT4 (CODE)
+                                    553 	.area GSINIT5 (CODE)
+                                    554 	.area GSINIT  (CODE)
+                                    555 	.area GSFINAL (CODE)
+                                    556 	.area CSEG    (CODE)
+                                    557 ;--------------------------------------------------------
+                                    558 ; global & static initialisations
+                                    559 ;--------------------------------------------------------
+                                    560 	.area HOME    (CODE)
+                                    561 	.area GSINIT  (CODE)
+                                    562 	.area GSFINAL (CODE)
+                                    563 	.area GSINIT  (CODE)
+                                    564 ;--------------------------------------------------------
+                                    565 ; Home
+                                    566 ;--------------------------------------------------------
+                                    567 	.area HOME    (CODE)
+                                    568 	.area HOME    (CODE)
+                                    569 ;--------------------------------------------------------
+                                    570 ; code
+                                    571 ;--------------------------------------------------------
+                                    572 	.area CSEG    (CODE)
+                                    573 ;------------------------------------------------------------
+                                    574 ;Allocation info for local variables in function 'lcd_set_ram_addr'
+                                    575 ;------------------------------------------------------------
+                                    576 ;addr                      Allocated with name '_lcd_set_ram_addr_addr_65536_10'
+                                    577 ;------------------------------------------------------------
+                                    578 ;	lcd.c:32: void lcd_set_ram_addr(uint8_t addr)
+                                    579 ;	-----------------------------------------
+                                    580 ;	 function lcd_set_ram_addr
+                                    581 ;	-----------------------------------------
+      000000                        582 _lcd_set_ram_addr:
+                           000007   583 	ar7 = 0x07
+                           000006   584 	ar6 = 0x06
+                           000005   585 	ar5 = 0x05
+                           000004   586 	ar4 = 0x04
+                           000003   587 	ar3 = 0x03
+                           000002   588 	ar2 = 0x02
+                           000001   589 	ar1 = 0x01
+                           000000   590 	ar0 = 0x00
+      000000 E5 82            [12]  591 	mov	a,dpl
+      000002 90r00r00         [24]  592 	mov	dptr,#_lcd_set_ram_addr_addr_65536_10
+      000005 F0               [24]  593 	movx	@dptr,a
+                                    594 ;	lcd.c:35: lcdbusywait();
+      000006 12r01r56         [24]  595 	lcall	_lcdbusywait
+                                    596 ;	lcd.c:37: RS = 0;
+                                    597 ;	assignBit
+      000009 C2 94            [12]  598 	clr	_P1_4
+                                    599 ;	lcd.c:38: RW = 0;
+                                    600 ;	assignBit
+      00000B C2 95            [12]  601 	clr	_P1_5
+                                    602 ;	lcd.c:40: *ptr = addr;
+      00000D 90r00r00         [24]  603 	mov	dptr,#_ptr
+      000010 E0               [24]  604 	movx	a,@dptr
+      000011 FE               [12]  605 	mov	r6,a
+      000012 A3               [24]  606 	inc	dptr
+      000013 E0               [24]  607 	movx	a,@dptr
+      000014 FF               [12]  608 	mov	r7,a
+      000015 90r00r00         [24]  609 	mov	dptr,#_lcd_set_ram_addr_addr_65536_10
+      000018 E0               [24]  610 	movx	a,@dptr
+      000019 FD               [12]  611 	mov	r5,a
+      00001A 7C 00            [12]  612 	mov	r4,#0x00
+      00001C 8E 82            [24]  613 	mov	dpl,r6
+      00001E 8F 83            [24]  614 	mov	dph,r7
+      000020 ED               [12]  615 	mov	a,r5
+      000021 F0               [24]  616 	movx	@dptr,a
+      000022 EC               [12]  617 	mov	a,r4
+      000023 A3               [24]  618 	inc	dptr
+      000024 F0               [24]  619 	movx	@dptr,a
+                                    620 ;	lcd.c:41: }
+      000025 22               [24]  621 	ret
+                                    622 ;------------------------------------------------------------
+                                    623 ;Allocation info for local variables in function 'lcd_read_data_from_ram'
+                                    624 ;------------------------------------------------------------
+                                    625 ;	lcd.c:45: uint8_t lcd_read_data_from_ram(void)
+                                    626 ;	-----------------------------------------
+                                    627 ;	 function lcd_read_data_from_ram
+                                    628 ;	-----------------------------------------
+      000026                        629 _lcd_read_data_from_ram:
+                                    630 ;	lcd.c:47: RS = 0;
+                                    631 ;	assignBit
+      000026 C2 94            [12]  632 	clr	_P1_4
+                                    633 ;	lcd.c:48: RW = 1;
+                                    634 ;	assignBit
+      000028 D2 95            [12]  635 	setb	_P1_5
+                                    636 ;	lcd.c:50: lcdbusywait();
+      00002A 12r01r56         [24]  637 	lcall	_lcdbusywait
+                                    638 ;	lcd.c:52: RS = 1;
+                                    639 ;	assignBit
+      00002D D2 94            [12]  640 	setb	_P1_4
+                                    641 ;	lcd.c:53: RW = 1;
+                                    642 ;	assignBit
+      00002F D2 95            [12]  643 	setb	_P1_5
+                                    644 ;	lcd.c:55: return (uint8_t)*ptr;
+      000031 90r00r00         [24]  645 	mov	dptr,#_ptr
+      000034 E0               [24]  646 	movx	a,@dptr
+      000035 FE               [12]  647 	mov	r6,a
+      000036 A3               [24]  648 	inc	dptr
+      000037 E0               [24]  649 	movx	a,@dptr
+      000038 FF               [12]  650 	mov	r7,a
+      000039 8E 82            [24]  651 	mov	dpl,r6
+      00003B 8F 83            [24]  652 	mov	dph,r7
+      00003D E0               [24]  653 	movx	a,@dptr
+      00003E FE               [12]  654 	mov	r6,a
+      00003F A3               [24]  655 	inc	dptr
+      000040 E0               [24]  656 	movx	a,@dptr
+      000041 8E 82            [24]  657 	mov	dpl,r6
+                                    658 ;	lcd.c:56: }
+      000043 22               [24]  659 	ret
+                                    660 ;------------------------------------------------------------
+                                    661 ;Allocation info for local variables in function 'read_lcd'
+                                    662 ;------------------------------------------------------------
+                                    663 ;data                      Allocated with name '_read_lcd_data_65536_14'
+                                    664 ;------------------------------------------------------------
+                                    665 ;	lcd.c:60: static inline void read_lcd(unsigned char *data)
+                                    666 ;	-----------------------------------------
+                                    667 ;	 function read_lcd
+                                    668 ;	-----------------------------------------
+      000044                        669 _read_lcd:
+      000044 AF F0            [24]  670 	mov	r7,b
+      000046 AE 83            [24]  671 	mov	r6,dph
+      000048 E5 82            [12]  672 	mov	a,dpl
+      00004A 90r00r01         [24]  673 	mov	dptr,#_read_lcd_data_65536_14
+      00004D F0               [24]  674 	movx	@dptr,a
+      00004E EE               [12]  675 	mov	a,r6
+      00004F A3               [24]  676 	inc	dptr
+      000050 F0               [24]  677 	movx	@dptr,a
+      000051 EF               [12]  678 	mov	a,r7
+      000052 A3               [24]  679 	inc	dptr
+      000053 F0               [24]  680 	movx	@dptr,a
+                                    681 ;	lcd.c:62: RS = 0;
+                                    682 ;	assignBit
+      000054 C2 94            [12]  683 	clr	_P1_4
+                                    684 ;	lcd.c:63: RW = 1;
+                                    685 ;	assignBit
+      000056 D2 95            [12]  686 	setb	_P1_5
+                                    687 ;	lcd.c:64: *data = *ptr;
+      000058 90r00r01         [24]  688 	mov	dptr,#_read_lcd_data_65536_14
+      00005B E0               [24]  689 	movx	a,@dptr
+      00005C FD               [12]  690 	mov	r5,a
+      00005D A3               [24]  691 	inc	dptr
+      00005E E0               [24]  692 	movx	a,@dptr
+      00005F FE               [12]  693 	mov	r6,a
+      000060 A3               [24]  694 	inc	dptr
+      000061 E0               [24]  695 	movx	a,@dptr
+      000062 FF               [12]  696 	mov	r7,a
+      000063 90r00r00         [24]  697 	mov	dptr,#_ptr
+      000066 E0               [24]  698 	movx	a,@dptr
+      000067 FB               [12]  699 	mov	r3,a
+      000068 A3               [24]  700 	inc	dptr
+      000069 E0               [24]  701 	movx	a,@dptr
+      00006A FC               [12]  702 	mov	r4,a
+      00006B 8B 82            [24]  703 	mov	dpl,r3
+      00006D 8C 83            [24]  704 	mov	dph,r4
+      00006F E0               [24]  705 	movx	a,@dptr
+      000070 FB               [12]  706 	mov	r3,a
+      000071 A3               [24]  707 	inc	dptr
+      000072 E0               [24]  708 	movx	a,@dptr
+      000073 8D 82            [24]  709 	mov	dpl,r5
+      000075 8E 83            [24]  710 	mov	dph,r6
+      000077 8F F0            [24]  711 	mov	b,r7
+      000079 EB               [12]  712 	mov	a,r3
+      00007A 12r00r00         [24]  713 	lcall	__gptrput
+                                    714 ;	lcd.c:66: lcdbusywait();
+                                    715 ;	lcd.c:67: }
+      00007D 02r01r56         [24]  716 	ljmp	_lcdbusywait
+                                    717 ;------------------------------------------------------------
+                                    718 ;Allocation info for local variables in function 'write_data_lcd'
+                                    719 ;------------------------------------------------------------
+                                    720 ;data                      Allocated with name '_write_data_lcd_data_65536_16'
+                                    721 ;------------------------------------------------------------
+                                    722 ;	lcd.c:71: static inline void write_data_lcd(unsigned char data)
+                                    723 ;	-----------------------------------------
+                                    724 ;	 function write_data_lcd
+                                    725 ;	-----------------------------------------
+      000080                        726 _write_data_lcd:
+      000080 E5 82            [12]  727 	mov	a,dpl
+      000082 90r00r04         [24]  728 	mov	dptr,#_write_data_lcd_data_65536_16
+      000085 F0               [24]  729 	movx	@dptr,a
+                                    730 ;	lcd.c:73: RS = 1;
+                                    731 ;	assignBit
+      000086 D2 94            [12]  732 	setb	_P1_4
+                                    733 ;	lcd.c:74: RW = 0;
+                                    734 ;	assignBit
+      000088 C2 95            [12]  735 	clr	_P1_5
+                                    736 ;	lcd.c:75: *ptr=data;
+      00008A 90r00r00         [24]  737 	mov	dptr,#_ptr
+      00008D E0               [24]  738 	movx	a,@dptr
+      00008E FE               [12]  739 	mov	r6,a
+      00008F A3               [24]  740 	inc	dptr
+      000090 E0               [24]  741 	movx	a,@dptr
+      000091 FF               [12]  742 	mov	r7,a
+      000092 90r00r04         [24]  743 	mov	dptr,#_write_data_lcd_data_65536_16
+      000095 E0               [24]  744 	movx	a,@dptr
+      000096 FD               [12]  745 	mov	r5,a
+      000097 7C 00            [12]  746 	mov	r4,#0x00
+      000099 8E 82            [24]  747 	mov	dpl,r6
+      00009B 8F 83            [24]  748 	mov	dph,r7
+      00009D ED               [12]  749 	mov	a,r5
+      00009E F0               [24]  750 	movx	@dptr,a
+      00009F EC               [12]  751 	mov	a,r4
+      0000A0 A3               [24]  752 	inc	dptr
+      0000A1 F0               [24]  753 	movx	@dptr,a
+                                    754 ;	lcd.c:77: lcdbusywait();
+                                    755 ;	lcd.c:78: }
+      0000A2 02r01r56         [24]  756 	ljmp	_lcdbusywait
+                                    757 ;------------------------------------------------------------
+                                    758 ;Allocation info for local variables in function 'write_cmd_lcd'
+                                    759 ;------------------------------------------------------------
+                                    760 ;data                      Allocated with name '_write_cmd_lcd_data_65536_18'
+                                    761 ;------------------------------------------------------------
+                                    762 ;	lcd.c:82: static inline void write_cmd_lcd(unsigned char data)
+                                    763 ;	-----------------------------------------
+                                    764 ;	 function write_cmd_lcd
+                                    765 ;	-----------------------------------------
+      0000A5                        766 _write_cmd_lcd:
+      0000A5 E5 82            [12]  767 	mov	a,dpl
+      0000A7 90r00r05         [24]  768 	mov	dptr,#_write_cmd_lcd_data_65536_18
+      0000AA F0               [24]  769 	movx	@dptr,a
+                                    770 ;	lcd.c:84: RS = 0;
+                                    771 ;	assignBit
+      0000AB C2 94            [12]  772 	clr	_P1_4
+                                    773 ;	lcd.c:85: RW = 0;
+                                    774 ;	assignBit
+      0000AD C2 95            [12]  775 	clr	_P1_5
+                                    776 ;	lcd.c:86: *ptr=data;
+      0000AF 90r00r00         [24]  777 	mov	dptr,#_ptr
+      0000B2 E0               [24]  778 	movx	a,@dptr
+      0000B3 FE               [12]  779 	mov	r6,a
+      0000B4 A3               [24]  780 	inc	dptr
+      0000B5 E0               [24]  781 	movx	a,@dptr
+      0000B6 FF               [12]  782 	mov	r7,a
+      0000B7 90r00r05         [24]  783 	mov	dptr,#_write_cmd_lcd_data_65536_18
+      0000BA E0               [24]  784 	movx	a,@dptr
+      0000BB FD               [12]  785 	mov	r5,a
+      0000BC 7C 00            [12]  786 	mov	r4,#0x00
+      0000BE 8E 82            [24]  787 	mov	dpl,r6
+      0000C0 8F 83            [24]  788 	mov	dph,r7
+      0000C2 ED               [12]  789 	mov	a,r5
+      0000C3 F0               [24]  790 	movx	@dptr,a
+      0000C4 EC               [12]  791 	mov	a,r4
+      0000C5 A3               [24]  792 	inc	dptr
+      0000C6 F0               [24]  793 	movx	@dptr,a
+                                    794 ;	lcd.c:88: lcdbusywait();
+                                    795 ;	lcd.c:89: }
+      0000C7 02r01r56         [24]  796 	ljmp	_lcdbusywait
+                                    797 ;------------------------------------------------------------
+                                    798 ;Allocation info for local variables in function 'lcdinit'
+                                    799 ;------------------------------------------------------------
+                                    800 ;__1310720001              Allocated with name '_lcdinit___1310720001_131072_21'
+                                    801 ;data                      Allocated with name '_lcdinit_data_196608_22'
+                                    802 ;__1310720003              Allocated with name '_lcdinit___1310720003_131072_24'
+                                    803 ;data                      Allocated with name '_lcdinit_data_196608_25'
+                                    804 ;__1310720005              Allocated with name '_lcdinit___1310720005_131072_27'
+                                    805 ;data                      Allocated with name '_lcdinit_data_196608_28'
+                                    806 ;__1310720007              Allocated with name '_lcdinit___1310720007_131072_30'
+                                    807 ;data                      Allocated with name '_lcdinit_data_196608_31'
+                                    808 ;__1310720009              Allocated with name '_lcdinit___1310720009_131072_33'
+                                    809 ;data                      Allocated with name '_lcdinit_data_196608_34'
+                                    810 ;------------------------------------------------------------
+                                    811 ;	lcd.c:95: void lcdinit()
+                                    812 ;	-----------------------------------------
+                                    813 ;	 function lcdinit
+                                    814 ;	-----------------------------------------
+      0000CA                        815 _lcdinit:
+                                    816 ;	lcd.c:84: RS = 0;
+                                    817 ;	assignBit
+      0000CA C2 94            [12]  818 	clr	_P1_4
+                                    819 ;	lcd.c:85: RW = 0;
+                                    820 ;	assignBit
+      0000CC C2 95            [12]  821 	clr	_P1_5
+                                    822 ;	lcd.c:86: *ptr=data;
+      0000CE 90r00r00         [24]  823 	mov	dptr,#_ptr
+      0000D1 E0               [24]  824 	movx	a,@dptr
+      0000D2 FE               [12]  825 	mov	r6,a
+      0000D3 A3               [24]  826 	inc	dptr
+      0000D4 E0               [24]  827 	movx	a,@dptr
+      0000D5 FF               [12]  828 	mov	r7,a
+      0000D6 7C 30            [12]  829 	mov	r4,#0x30
+      0000D8 7D 00            [12]  830 	mov	r5,#0x00
+      0000DA 8E 82            [24]  831 	mov	dpl,r6
+      0000DC 8F 83            [24]  832 	mov	dph,r7
+      0000DE EC               [12]  833 	mov	a,r4
+      0000DF F0               [24]  834 	movx	@dptr,a
+      0000E0 ED               [12]  835 	mov	a,r5
+      0000E1 A3               [24]  836 	inc	dptr
+      0000E2 F0               [24]  837 	movx	@dptr,a
+                                    838 ;	lcd.c:88: lcdbusywait();
+      0000E3 12r01r56         [24]  839 	lcall	_lcdbusywait
+                                    840 ;	lcd.c:84: RS = 0;
+                                    841 ;	assignBit
+      0000E6 C2 94            [12]  842 	clr	_P1_4
+                                    843 ;	lcd.c:85: RW = 0;
+                                    844 ;	assignBit
+      0000E8 C2 95            [12]  845 	clr	_P1_5
+                                    846 ;	lcd.c:86: *ptr=data;
+      0000EA 90r00r00         [24]  847 	mov	dptr,#_ptr
+      0000ED E0               [24]  848 	movx	a,@dptr
+      0000EE FE               [12]  849 	mov	r6,a
+      0000EF A3               [24]  850 	inc	dptr
+      0000F0 E0               [24]  851 	movx	a,@dptr
+      0000F1 FF               [12]  852 	mov	r7,a
+      0000F2 7C 38            [12]  853 	mov	r4,#0x38
+      0000F4 7D 00            [12]  854 	mov	r5,#0x00
+      0000F6 8E 82            [24]  855 	mov	dpl,r6
+      0000F8 8F 83            [24]  856 	mov	dph,r7
+      0000FA EC               [12]  857 	mov	a,r4
+      0000FB F0               [24]  858 	movx	@dptr,a
+      0000FC ED               [12]  859 	mov	a,r5
+      0000FD A3               [24]  860 	inc	dptr
+      0000FE F0               [24]  861 	movx	@dptr,a
+                                    862 ;	lcd.c:88: lcdbusywait();
+      0000FF 12r01r56         [24]  863 	lcall	_lcdbusywait
+                                    864 ;	lcd.c:84: RS = 0;
+                                    865 ;	assignBit
+      000102 C2 94            [12]  866 	clr	_P1_4
+                                    867 ;	lcd.c:85: RW = 0;
+                                    868 ;	assignBit
+      000104 C2 95            [12]  869 	clr	_P1_5
+                                    870 ;	lcd.c:86: *ptr=data;
+      000106 90r00r00         [24]  871 	mov	dptr,#_ptr
+      000109 E0               [24]  872 	movx	a,@dptr
+      00010A FE               [12]  873 	mov	r6,a
+      00010B A3               [24]  874 	inc	dptr
+      00010C E0               [24]  875 	movx	a,@dptr
+      00010D FF               [12]  876 	mov	r7,a
+      00010E 7C 0F            [12]  877 	mov	r4,#0x0f
+      000110 7D 00            [12]  878 	mov	r5,#0x00
+      000112 8E 82            [24]  879 	mov	dpl,r6
+      000114 8F 83            [24]  880 	mov	dph,r7
+      000116 EC               [12]  881 	mov	a,r4
+      000117 F0               [24]  882 	movx	@dptr,a
+      000118 ED               [12]  883 	mov	a,r5
+      000119 A3               [24]  884 	inc	dptr
+      00011A F0               [24]  885 	movx	@dptr,a
+                                    886 ;	lcd.c:88: lcdbusywait();
+      00011B 12r01r56         [24]  887 	lcall	_lcdbusywait
+                                    888 ;	lcd.c:84: RS = 0;
+                                    889 ;	assignBit
+      00011E C2 94            [12]  890 	clr	_P1_4
+                                    891 ;	lcd.c:85: RW = 0;
+                                    892 ;	assignBit
+      000120 C2 95            [12]  893 	clr	_P1_5
+                                    894 ;	lcd.c:86: *ptr=data;
+      000122 90r00r00         [24]  895 	mov	dptr,#_ptr
+      000125 E0               [24]  896 	movx	a,@dptr
+      000126 FE               [12]  897 	mov	r6,a
+      000127 A3               [24]  898 	inc	dptr
+      000128 E0               [24]  899 	movx	a,@dptr
+      000129 FF               [12]  900 	mov	r7,a
+      00012A 7C 01            [12]  901 	mov	r4,#0x01
+      00012C 7D 00            [12]  902 	mov	r5,#0x00
+      00012E 8E 82            [24]  903 	mov	dpl,r6
+      000130 8F 83            [24]  904 	mov	dph,r7
+      000132 EC               [12]  905 	mov	a,r4
+      000133 F0               [24]  906 	movx	@dptr,a
+      000134 ED               [12]  907 	mov	a,r5
+      000135 A3               [24]  908 	inc	dptr
+      000136 F0               [24]  909 	movx	@dptr,a
+                                    910 ;	lcd.c:88: lcdbusywait();
+      000137 12r01r56         [24]  911 	lcall	_lcdbusywait
+                                    912 ;	lcd.c:84: RS = 0;
+                                    913 ;	assignBit
+      00013A C2 94            [12]  914 	clr	_P1_4
+                                    915 ;	lcd.c:85: RW = 0;
+                                    916 ;	assignBit
+      00013C C2 95            [12]  917 	clr	_P1_5
+                                    918 ;	lcd.c:86: *ptr=data;
+      00013E 90r00r00         [24]  919 	mov	dptr,#_ptr
+      000141 E0               [24]  920 	movx	a,@dptr
+      000142 FE               [12]  921 	mov	r6,a
+      000143 A3               [24]  922 	inc	dptr
+      000144 E0               [24]  923 	movx	a,@dptr
+      000145 FF               [12]  924 	mov	r7,a
+      000146 7C 80            [12]  925 	mov	r4,#0x80
+      000148 7D 00            [12]  926 	mov	r5,#0x00
+      00014A 8E 82            [24]  927 	mov	dpl,r6
+      00014C 8F 83            [24]  928 	mov	dph,r7
+      00014E EC               [12]  929 	mov	a,r4
+      00014F F0               [24]  930 	movx	@dptr,a
+      000150 ED               [12]  931 	mov	a,r5
+      000151 A3               [24]  932 	inc	dptr
+      000152 F0               [24]  933 	movx	@dptr,a
+                                    934 ;	lcd.c:88: lcdbusywait();
+                                    935 ;	lcd.c:106: write_cmd_lcd(0x80);
+                                    936 ;	lcd.c:108: }
+      000153 02r01r56         [24]  937 	ljmp	_lcdbusywait
+                                    938 ;------------------------------------------------------------
+                                    939 ;Allocation info for local variables in function 'lcdbusywait'
+                                    940 ;------------------------------------------------------------
+                                    941 ;	lcd.c:122: void lcdbusywait()
+                                    942 ;	-----------------------------------------
+                                    943 ;	 function lcdbusywait
+                                    944 ;	-----------------------------------------
+      000156                        945 _lcdbusywait:
+                                    946 ;	lcd.c:124: RS = 0;
+                                    947 ;	assignBit
+      000156 C2 94            [12]  948 	clr	_P1_4
+                                    949 ;	lcd.c:125: RW = 1;
+                                    950 ;	assignBit
+      000158 D2 95            [12]  951 	setb	_P1_5
+                                    952 ;	lcd.c:126: while(*ptr & 0x80);
+      00015A                        953 00101$:
+      00015A 90r00r00         [24]  954 	mov	dptr,#_ptr
+      00015D E0               [24]  955 	movx	a,@dptr
+      00015E FE               [12]  956 	mov	r6,a
+      00015F A3               [24]  957 	inc	dptr
+      000160 E0               [24]  958 	movx	a,@dptr
+      000161 FF               [12]  959 	mov	r7,a
+      000162 8E 82            [24]  960 	mov	dpl,r6
+      000164 8F 83            [24]  961 	mov	dph,r7
+      000166 E0               [24]  962 	movx	a,@dptr
+      000167 FE               [12]  963 	mov	r6,a
+      000168 A3               [24]  964 	inc	dptr
+      000169 E0               [24]  965 	movx	a,@dptr
+      00016A EE               [12]  966 	mov	a,r6
+      00016B 20 E7 EC         [24]  967 	jb	acc.7,00101$
+                                    968 ;	lcd.c:127: }
+      00016E 22               [24]  969 	ret
+                                    970 ;------------------------------------------------------------
+                                    971 ;Allocation info for local variables in function 'lcdgotoaddr'
+                                    972 ;------------------------------------------------------------
+                                    973 ;addr                      Allocated with name '_lcdgotoaddr_addr_65536_37'
+                                    974 ;__1310720011              Allocated with name '_lcdgotoaddr___1310720011_131072_39'
+                                    975 ;data                      Allocated with name '_lcdgotoaddr_data_196608_40'
+                                    976 ;------------------------------------------------------------
+                                    977 ;	lcd.c:132: void lcdgotoaddr(unsigned char addr)
+                                    978 ;	-----------------------------------------
+                                    979 ;	 function lcdgotoaddr
+                                    980 ;	-----------------------------------------
+      00016F                        981 _lcdgotoaddr:
+      00016F E5 82            [12]  982 	mov	a,dpl
+      000171 90r00r0B         [24]  983 	mov	dptr,#_lcdgotoaddr_addr_65536_37
+      000174 F0               [24]  984 	movx	@dptr,a
+                                    985 ;	lcd.c:135: write_cmd_lcd(0x80 | addr);
+      000175 E0               [24]  986 	movx	a,@dptr
+      000176 44 80            [12]  987 	orl	a,#0x80
+      000178 FF               [12]  988 	mov	r7,a
+                                    989 ;	lcd.c:84: RS = 0;
+                                    990 ;	assignBit
+      000179 C2 94            [12]  991 	clr	_P1_4
+                                    992 ;	lcd.c:85: RW = 0;
+                                    993 ;	assignBit
+      00017B C2 95            [12]  994 	clr	_P1_5
+                                    995 ;	lcd.c:86: *ptr=data;
+      00017D 90r00r00         [24]  996 	mov	dptr,#_ptr
+      000180 E0               [24]  997 	movx	a,@dptr
+      000181 FD               [12]  998 	mov	r5,a
+      000182 A3               [24]  999 	inc	dptr
+      000183 E0               [24] 1000 	movx	a,@dptr
+      000184 FE               [12] 1001 	mov	r6,a
+      000185 7C 00            [12] 1002 	mov	r4,#0x00
+      000187 8D 82            [24] 1003 	mov	dpl,r5
+      000189 8E 83            [24] 1004 	mov	dph,r6
+      00018B EF               [12] 1005 	mov	a,r7
+      00018C F0               [24] 1006 	movx	@dptr,a
+      00018D EC               [12] 1007 	mov	a,r4
+      00018E A3               [24] 1008 	inc	dptr
+      00018F F0               [24] 1009 	movx	@dptr,a
+                                   1010 ;	lcd.c:88: lcdbusywait();
+                                   1011 ;	lcd.c:136: return;
+                                   1012 ;	lcd.c:137: }
+      000190 02r01r56         [24] 1013 	ljmp	_lcdbusywait
+                                   1014 ;------------------------------------------------------------
+                                   1015 ;Allocation info for local variables in function 'lcdgotoxy'
+                                   1016 ;------------------------------------------------------------
+                                   1017 ;column                    Allocated with name '_lcdgotoxy_PARM_2'
+                                   1018 ;row                       Allocated with name '_lcdgotoxy_row_65536_42'
+                                   1019 ;------------------------------------------------------------
+                                   1020 ;	lcd.c:144: void lcdgotoxy(unsigned char row, unsigned char column)
+                                   1021 ;	-----------------------------------------
+                                   1022 ;	 function lcdgotoxy
+                                   1023 ;	-----------------------------------------
+      000193                       1024 _lcdgotoxy:
+      000193 E5 82            [12] 1025 	mov	a,dpl
+      000195 90r00r0E         [24] 1026 	mov	dptr,#_lcdgotoxy_row_65536_42
+      000198 F0               [24] 1027 	movx	@dptr,a
+                                   1028 ;	lcd.c:146: switch(row)
+      000199 E0               [24] 1029 	movx	a,@dptr
+      00019A FF               [12] 1030 	mov  r7,a
+      00019B 24 FC            [12] 1031 	add	a,#0xff - 0x03
+      00019D 40 38            [24] 1032 	jc	00107$
+      00019F EF               [12] 1033 	mov	a,r7
+      0001A0 2F               [12] 1034 	add	a,r7
+                                   1035 ;	lcd.c:148: case 0:
+      0001A1 90r01rA5         [24] 1036 	mov	dptr,#00114$
+      0001A4 73               [24] 1037 	jmp	@a+dptr
+      0001A5                       1038 00114$:
+      0001A5 80 06            [24] 1039 	sjmp	00101$
+      0001A7 80 0D            [24] 1040 	sjmp	00102$
+      0001A9 80 16            [24] 1041 	sjmp	00103$
+      0001AB 80 1F            [24] 1042 	sjmp	00104$
+      0001AD                       1043 00101$:
+                                   1044 ;	lcd.c:150: lcdgotoaddr(column);
+      0001AD 90r00r0D         [24] 1045 	mov	dptr,#_lcdgotoxy_PARM_2
+      0001B0 E0               [24] 1046 	movx	a,@dptr
+      0001B1 F5 82            [12] 1047 	mov	dpl,a
+                                   1048 ;	lcd.c:151: break;
+                                   1049 ;	lcd.c:153: case 1:
+      0001B3 02r01r6F         [24] 1050 	ljmp	_lcdgotoaddr
+      0001B6                       1051 00102$:
+                                   1052 ;	lcd.c:155: lcdgotoaddr(0x40 + column);
+      0001B6 90r00r0D         [24] 1053 	mov	dptr,#_lcdgotoxy_PARM_2
+      0001B9 E0               [24] 1054 	movx	a,@dptr
+      0001BA 24 40            [12] 1055 	add	a,#0x40
+      0001BC F5 82            [12] 1056 	mov	dpl,a
+                                   1057 ;	lcd.c:156: break;
+                                   1058 ;	lcd.c:158: case 2:
+      0001BE 02r01r6F         [24] 1059 	ljmp	_lcdgotoaddr
+      0001C1                       1060 00103$:
+                                   1061 ;	lcd.c:160: lcdgotoaddr(0x10 + column);
+      0001C1 90r00r0D         [24] 1062 	mov	dptr,#_lcdgotoxy_PARM_2
+      0001C4 E0               [24] 1063 	movx	a,@dptr
+      0001C5 24 10            [12] 1064 	add	a,#0x10
+      0001C7 F5 82            [12] 1065 	mov	dpl,a
+                                   1066 ;	lcd.c:161: break;
+                                   1067 ;	lcd.c:163: case 3:
+      0001C9 02r01r6F         [24] 1068 	ljmp	_lcdgotoaddr
+      0001CC                       1069 00104$:
+                                   1070 ;	lcd.c:165: lcdgotoaddr(0x50 + column);
+      0001CC 90r00r0D         [24] 1071 	mov	dptr,#_lcdgotoxy_PARM_2
+      0001CF E0               [24] 1072 	movx	a,@dptr
+      0001D0 24 50            [12] 1073 	add	a,#0x50
+      0001D2 F5 82            [12] 1074 	mov	dpl,a
+                                   1075 ;	lcd.c:171: }
+                                   1076 ;	lcd.c:172: }
+      0001D4 02r01r6F         [24] 1077 	ljmp	_lcdgotoaddr
+      0001D7                       1078 00107$:
+      0001D7 22               [24] 1079 	ret
+                                   1080 ;------------------------------------------------------------
+                                   1081 ;Allocation info for local variables in function 'lcdputch'
+                                   1082 ;------------------------------------------------------------
+                                   1083 ;cc                        Allocated with name '_lcdputch_cc_65536_50'
+                                   1084 ;__1310720013              Allocated with name '_lcdputch___1310720013_131072_52'
+                                   1085 ;data                      Allocated with name '_lcdputch_data_196608_53'
+                                   1086 ;------------------------------------------------------------
+                                   1087 ;	lcd.c:177: void lcdputch(char cc)
+                                   1088 ;	-----------------------------------------
+                                   1089 ;	 function lcdputch
+                                   1090 ;	-----------------------------------------
+      0001D8                       1091 _lcdputch:
+      0001D8 E5 82            [12] 1092 	mov	a,dpl
+      0001DA 90r00r0F         [24] 1093 	mov	dptr,#_lcdputch_cc_65536_50
+      0001DD F0               [24] 1094 	movx	@dptr,a
+                                   1095 ;	lcd.c:179: write_data_lcd(cc);
+      0001DE E0               [24] 1096 	movx	a,@dptr
+      0001DF FF               [12] 1097 	mov	r7,a
+                                   1098 ;	lcd.c:73: RS = 1;
+                                   1099 ;	assignBit
+      0001E0 D2 94            [12] 1100 	setb	_P1_4
+                                   1101 ;	lcd.c:74: RW = 0;
+                                   1102 ;	assignBit
+      0001E2 C2 95            [12] 1103 	clr	_P1_5
+                                   1104 ;	lcd.c:75: *ptr=data;
+      0001E4 90r00r00         [24] 1105 	mov	dptr,#_ptr
+      0001E7 E0               [24] 1106 	movx	a,@dptr
+      0001E8 FD               [12] 1107 	mov	r5,a
+      0001E9 A3               [24] 1108 	inc	dptr
+      0001EA E0               [24] 1109 	movx	a,@dptr
+      0001EB FE               [12] 1110 	mov	r6,a
+      0001EC 7C 00            [12] 1111 	mov	r4,#0x00
+      0001EE 8D 82            [24] 1112 	mov	dpl,r5
+      0001F0 8E 83            [24] 1113 	mov	dph,r6
+      0001F2 EF               [12] 1114 	mov	a,r7
+      0001F3 F0               [24] 1115 	movx	@dptr,a
+      0001F4 EC               [12] 1116 	mov	a,r4
+      0001F5 A3               [24] 1117 	inc	dptr
+      0001F6 F0               [24] 1118 	movx	@dptr,a
+                                   1119 ;	lcd.c:77: lcdbusywait();
+                                   1120 ;	lcd.c:179: write_data_lcd(cc);
+                                   1121 ;	lcd.c:180: }
+      0001F7 02r01r56         [24] 1122 	ljmp	_lcdbusywait
+                                   1123 ;------------------------------------------------------------
+                                   1124 ;Allocation info for local variables in function 'lcdputstr'
+                                   1125 ;------------------------------------------------------------
+                                   1126 ;ss                        Allocated with name '_lcdputstr_ss_65536_55'
+                                   1127 ;cursor_pos                Allocated with name '_lcdputstr_cursor_pos_131072_57'
+                                   1128 ;------------------------------------------------------------
+                                   1129 ;	lcd.c:187: void lcdputstr(char *ss)
+                                   1130 ;	-----------------------------------------
+                                   1131 ;	 function lcdputstr
+                                   1132 ;	-----------------------------------------
+      0001FA                       1133 _lcdputstr:
+      0001FA AF F0            [24] 1134 	mov	r7,b
+      0001FC AE 83            [24] 1135 	mov	r6,dph
+      0001FE E5 82            [12] 1136 	mov	a,dpl
+      000200 90r00r11         [24] 1137 	mov	dptr,#_lcdputstr_ss_65536_55
+      000203 F0               [24] 1138 	movx	@dptr,a
+      000204 EE               [12] 1139 	mov	a,r6
+      000205 A3               [24] 1140 	inc	dptr
+      000206 F0               [24] 1141 	movx	@dptr,a
+      000207 EF               [12] 1142 	mov	a,r7
+      000208 A3               [24] 1143 	inc	dptr
+      000209 F0               [24] 1144 	movx	@dptr,a
+                                   1145 ;	lcd.c:189: while(*ss){
+      00020A 90r00r11         [24] 1146 	mov	dptr,#_lcdputstr_ss_65536_55
+      00020D E0               [24] 1147 	movx	a,@dptr
+      00020E FD               [12] 1148 	mov	r5,a
+      00020F A3               [24] 1149 	inc	dptr
+      000210 E0               [24] 1150 	movx	a,@dptr
+      000211 FE               [12] 1151 	mov	r6,a
+      000212 A3               [24] 1152 	inc	dptr
+      000213 E0               [24] 1153 	movx	a,@dptr
+      000214 FF               [12] 1154 	mov	r7,a
+      000215                       1155 00107$:
+      000215 8D 82            [24] 1156 	mov	dpl,r5
+      000217 8E 83            [24] 1157 	mov	dph,r6
+      000219 8F F0            [24] 1158 	mov	b,r7
+      00021B 12r00r00         [24] 1159 	lcall	__gptrget
+      00021E 70 03            [24] 1160 	jnz	00137$
+      000220 02r03r01         [24] 1161 	ljmp	00118$
+      000223                       1162 00137$:
+                                   1163 ;	lcd.c:192: cursor_pos = get_cursor_pos();
+      000223 C0 07            [24] 1164 	push	ar7
+      000225 C0 06            [24] 1165 	push	ar6
+      000227 C0 05            [24] 1166 	push	ar5
+      000229 12r03r0D         [24] 1167 	lcall	_get_cursor_pos
+      00022C AC 82            [24] 1168 	mov	r4,dpl
+      00022E D0 05            [24] 1169 	pop	ar5
+      000230 D0 06            [24] 1170 	pop	ar6
+      000232 D0 07            [24] 1171 	pop	ar7
+                                   1172 ;	lcd.c:193: switch(cursor_pos){
+      000234 BC 0F 02         [24] 1173 	cjne	r4,#0x0f,00138$
+      000237 80 12            [24] 1174 	sjmp	00101$
+      000239                       1175 00138$:
+      000239 BC 1F 02         [24] 1176 	cjne	r4,#0x1f,00139$
+      00023C 80 52            [24] 1177 	sjmp	00103$
+      00023E                       1178 00139$:
+      00023E BC 4F 02         [24] 1179 	cjne	r4,#0x4f,00140$
+      000241 80 2B            [24] 1180 	sjmp	00102$
+      000243                       1181 00140$:
+      000243 BC 5F 02         [24] 1182 	cjne	r4,#0x5f,00141$
+      000246 80 6A            [24] 1183 	sjmp	00104$
+      000248                       1184 00141$:
+      000248 02r02rD4         [24] 1185 	ljmp	00105$
+                                   1186 ;	lcd.c:194: case 0xF:{
+      00024B                       1187 00101$:
+                                   1188 ;	lcd.c:195: lcdputch(*ss);
+      00024B 8D 82            [24] 1189 	mov	dpl,r5
+      00024D 8E 83            [24] 1190 	mov	dph,r6
+      00024F 8F F0            [24] 1191 	mov	b,r7
+      000251 12r00r00         [24] 1192 	lcall	__gptrget
+      000254 F5 82            [12] 1193 	mov	dpl,a
+      000256 C0 07            [24] 1194 	push	ar7
+      000258 C0 06            [24] 1195 	push	ar6
+      00025A C0 05            [24] 1196 	push	ar5
+      00025C 12r01rD8         [24] 1197 	lcall	_lcdputch
+                                   1198 ;	lcd.c:196: lcdgotoaddr(0x40);
+      00025F 75 82 40         [24] 1199 	mov	dpl,#0x40
+      000262 12r01r6F         [24] 1200 	lcall	_lcdgotoaddr
+      000265 D0 05            [24] 1201 	pop	ar5
+      000267 D0 06            [24] 1202 	pop	ar6
+      000269 D0 07            [24] 1203 	pop	ar7
+                                   1204 ;	lcd.c:197: break;
+      00026B 02r02rEE         [24] 1205 	ljmp	00106$
+                                   1206 ;	lcd.c:199: case 0x4F:{
+      00026E                       1207 00102$:
+                                   1208 ;	lcd.c:200: lcdputch(*ss);
+      00026E 8D 82            [24] 1209 	mov	dpl,r5
+      000270 8E 83            [24] 1210 	mov	dph,r6
+      000272 8F F0            [24] 1211 	mov	b,r7
+      000274 12r00r00         [24] 1212 	lcall	__gptrget
+      000277 F5 82            [12] 1213 	mov	dpl,a
+      000279 C0 07            [24] 1214 	push	ar7
+      00027B C0 06            [24] 1215 	push	ar6
+      00027D C0 05            [24] 1216 	push	ar5
+      00027F 12r01rD8         [24] 1217 	lcall	_lcdputch
+                                   1218 ;	lcd.c:201: lcdgotoaddr(0x10);
+      000282 75 82 10         [24] 1219 	mov	dpl,#0x10
+      000285 12r01r6F         [24] 1220 	lcall	_lcdgotoaddr
+      000288 D0 05            [24] 1221 	pop	ar5
+      00028A D0 06            [24] 1222 	pop	ar6
+      00028C D0 07            [24] 1223 	pop	ar7
+                                   1224 ;	lcd.c:202: break;
+                                   1225 ;	lcd.c:204: case 0x1F:{
+      00028E 80 5E            [24] 1226 	sjmp	00106$
+      000290                       1227 00103$:
+                                   1228 ;	lcd.c:205: lcdputch(*ss);
+      000290 8D 82            [24] 1229 	mov	dpl,r5
+      000292 8E 83            [24] 1230 	mov	dph,r6
+      000294 8F F0            [24] 1231 	mov	b,r7
+      000296 12r00r00         [24] 1232 	lcall	__gptrget
+      000299 F5 82            [12] 1233 	mov	dpl,a
+      00029B C0 07            [24] 1234 	push	ar7
+      00029D C0 06            [24] 1235 	push	ar6
+      00029F C0 05            [24] 1236 	push	ar5
+      0002A1 12r01rD8         [24] 1237 	lcall	_lcdputch
+                                   1238 ;	lcd.c:206: lcdgotoaddr(0x1F);
+      0002A4 75 82 1F         [24] 1239 	mov	dpl,#0x1f
+      0002A7 12r01r6F         [24] 1240 	lcall	_lcdgotoaddr
+      0002AA D0 05            [24] 1241 	pop	ar5
+      0002AC D0 06            [24] 1242 	pop	ar6
+      0002AE D0 07            [24] 1243 	pop	ar7
+                                   1244 ;	lcd.c:207: break;
+                                   1245 ;	lcd.c:209: case 0x5F:{
+      0002B0 80 3C            [24] 1246 	sjmp	00106$
+      0002B2                       1247 00104$:
+                                   1248 ;	lcd.c:210: lcdputch(*ss);
+      0002B2 8D 82            [24] 1249 	mov	dpl,r5
+      0002B4 8E 83            [24] 1250 	mov	dph,r6
+      0002B6 8F F0            [24] 1251 	mov	b,r7
+      0002B8 12r00r00         [24] 1252 	lcall	__gptrget
+      0002BB F5 82            [12] 1253 	mov	dpl,a
+      0002BD C0 07            [24] 1254 	push	ar7
+      0002BF C0 06            [24] 1255 	push	ar6
+      0002C1 C0 05            [24] 1256 	push	ar5
+      0002C3 12r01rD8         [24] 1257 	lcall	_lcdputch
+                                   1258 ;	lcd.c:211: lcdgotoaddr(0x00);
+      0002C6 75 82 00         [24] 1259 	mov	dpl,#0x00
+      0002C9 12r01r6F         [24] 1260 	lcall	_lcdgotoaddr
+      0002CC D0 05            [24] 1261 	pop	ar5
+      0002CE D0 06            [24] 1262 	pop	ar6
+      0002D0 D0 07            [24] 1263 	pop	ar7
+                                   1264 ;	lcd.c:212: break;
+                                   1265 ;	lcd.c:214: default:{
+      0002D2 80 1A            [24] 1266 	sjmp	00106$
+      0002D4                       1267 00105$:
+                                   1268 ;	lcd.c:215: lcdputch(*ss);
+      0002D4 8D 82            [24] 1269 	mov	dpl,r5
+      0002D6 8E 83            [24] 1270 	mov	dph,r6
+      0002D8 8F F0            [24] 1271 	mov	b,r7
+      0002DA 12r00r00         [24] 1272 	lcall	__gptrget
+      0002DD F5 82            [12] 1273 	mov	dpl,a
+      0002DF C0 07            [24] 1274 	push	ar7
+      0002E1 C0 06            [24] 1275 	push	ar6
+      0002E3 C0 05            [24] 1276 	push	ar5
+      0002E5 12r01rD8         [24] 1277 	lcall	_lcdputch
+      0002E8 D0 05            [24] 1278 	pop	ar5
+      0002EA D0 06            [24] 1279 	pop	ar6
+      0002EC D0 07            [24] 1280 	pop	ar7
+                                   1281 ;	lcd.c:218: }
+      0002EE                       1282 00106$:
+                                   1283 ;	lcd.c:219: ss++;
+      0002EE 0D               [12] 1284 	inc	r5
+      0002EF BD 00 01         [24] 1285 	cjne	r5,#0x00,00142$
+      0002F2 0E               [12] 1286 	inc	r6
+      0002F3                       1287 00142$:
+      0002F3 90r00r11         [24] 1288 	mov	dptr,#_lcdputstr_ss_65536_55
+      0002F6 ED               [12] 1289 	mov	a,r5
+      0002F7 F0               [24] 1290 	movx	@dptr,a
+      0002F8 EE               [12] 1291 	mov	a,r6
+      0002F9 A3               [24] 1292 	inc	dptr
+      0002FA F0               [24] 1293 	movx	@dptr,a
+      0002FB EF               [12] 1294 	mov	a,r7
+      0002FC A3               [24] 1295 	inc	dptr
+      0002FD F0               [24] 1296 	movx	@dptr,a
+      0002FE 02r02r15         [24] 1297 	ljmp	00107$
+      000301                       1298 00118$:
+      000301 90r00r11         [24] 1299 	mov	dptr,#_lcdputstr_ss_65536_55
+      000304 ED               [12] 1300 	mov	a,r5
+      000305 F0               [24] 1301 	movx	@dptr,a
+      000306 EE               [12] 1302 	mov	a,r6
+      000307 A3               [24] 1303 	inc	dptr
+      000308 F0               [24] 1304 	movx	@dptr,a
+      000309 EF               [12] 1305 	mov	a,r7
+      00030A A3               [24] 1306 	inc	dptr
+      00030B F0               [24] 1307 	movx	@dptr,a
+                                   1308 ;	lcd.c:221: }
+      00030C 22               [24] 1309 	ret
+                                   1310 ;------------------------------------------------------------
+                                   1311 ;Allocation info for local variables in function 'get_cursor_pos'
+                                   1312 ;------------------------------------------------------------
+                                   1313 ;cursor_pos                Allocated with name '_get_cursor_pos_cursor_pos_65536_65'
+                                   1314 ;__1310720015              Allocated with name '_get_cursor_pos___1310720015_131072_66'
+                                   1315 ;data                      Allocated with name '_get_cursor_pos_data_196608_67'
+                                   1316 ;------------------------------------------------------------
+                                   1317 ;	lcd.c:225: unsigned char get_cursor_pos(void)
+                                   1318 ;	-----------------------------------------
+                                   1319 ;	 function get_cursor_pos
+                                   1320 ;	-----------------------------------------
+      00030D                       1321 _get_cursor_pos:
+                                   1322 ;	lcd.c:228: read_lcd(&cursor_pos);
+                                   1323 ;	lcd.c:62: RS = 0;
+                                   1324 ;	assignBit
+      00030D C2 94            [12] 1325 	clr	_P1_4
+                                   1326 ;	lcd.c:63: RW = 1;
+                                   1327 ;	assignBit
+      00030F D2 95            [12] 1328 	setb	_P1_5
+                                   1329 ;	lcd.c:64: *data = *ptr;
+      000311 90r00r00         [24] 1330 	mov	dptr,#_ptr
+      000314 E0               [24] 1331 	movx	a,@dptr
+      000315 FE               [12] 1332 	mov	r6,a
+      000316 A3               [24] 1333 	inc	dptr
+      000317 E0               [24] 1334 	movx	a,@dptr
+      000318 FF               [12] 1335 	mov	r7,a
+      000319 8E 82            [24] 1336 	mov	dpl,r6
+      00031B 8F 83            [24] 1337 	mov	dph,r7
+      00031D E0               [24] 1338 	movx	a,@dptr
+      00031E FE               [12] 1339 	mov	r6,a
+      00031F A3               [24] 1340 	inc	dptr
+      000320 E0               [24] 1341 	movx	a,@dptr
+      000321 90r00r14         [24] 1342 	mov	dptr,#_get_cursor_pos_cursor_pos_65536_65
+      000324 EE               [12] 1343 	mov	a,r6
+      000325 F0               [24] 1344 	movx	@dptr,a
+                                   1345 ;	lcd.c:66: lcdbusywait();
+      000326 12r01r56         [24] 1346 	lcall	_lcdbusywait
+                                   1347 ;	lcd.c:229: return cursor_pos;
+      000329 90r00r14         [24] 1348 	mov	dptr,#_get_cursor_pos_cursor_pos_65536_65
+      00032C E0               [24] 1349 	movx	a,@dptr
+                                   1350 ;	lcd.c:230: }
+      00032D F5 82            [12] 1351 	mov	dpl,a
+      00032F 22               [24] 1352 	ret
+                                   1353 ;------------------------------------------------------------
+                                   1354 ;Allocation info for local variables in function 'lcdclear'
+                                   1355 ;------------------------------------------------------------
+                                   1356 ;__1310720017              Allocated with name '_lcdclear___1310720017_131072_70'
+                                   1357 ;data                      Allocated with name '_lcdclear_data_196608_71'
+                                   1358 ;------------------------------------------------------------
+                                   1359 ;	lcd.c:236: void lcdclear()
+                                   1360 ;	-----------------------------------------
+                                   1361 ;	 function lcdclear
+                                   1362 ;	-----------------------------------------
+      000330                       1363 _lcdclear:
+                                   1364 ;	lcd.c:84: RS = 0;
+                                   1365 ;	assignBit
+      000330 C2 94            [12] 1366 	clr	_P1_4
+                                   1367 ;	lcd.c:85: RW = 0;
+                                   1368 ;	assignBit
+      000332 C2 95            [12] 1369 	clr	_P1_5
+                                   1370 ;	lcd.c:86: *ptr=data;
+      000334 90r00r00         [24] 1371 	mov	dptr,#_ptr
+      000337 E0               [24] 1372 	movx	a,@dptr
+      000338 FE               [12] 1373 	mov	r6,a
+      000339 A3               [24] 1374 	inc	dptr
+      00033A E0               [24] 1375 	movx	a,@dptr
+      00033B FF               [12] 1376 	mov	r7,a
+      00033C 7C 01            [12] 1377 	mov	r4,#0x01
+      00033E 7D 00            [12] 1378 	mov	r5,#0x00
+      000340 8E 82            [24] 1379 	mov	dpl,r6
+      000342 8F 83            [24] 1380 	mov	dph,r7
+      000344 EC               [12] 1381 	mov	a,r4
+      000345 F0               [24] 1382 	movx	@dptr,a
+      000346 ED               [12] 1383 	mov	a,r5
+      000347 A3               [24] 1384 	inc	dptr
+      000348 F0               [24] 1385 	movx	@dptr,a
+                                   1386 ;	lcd.c:88: lcdbusywait();
+                                   1387 ;	lcd.c:238: write_cmd_lcd(0x01);
+                                   1388 ;	lcd.c:239: }
+      000349 02r01r56         [24] 1389 	ljmp	_lcdbusywait
+                                   1390 ;------------------------------------------------------------
+                                   1391 ;Allocation info for local variables in function 'lcdcreatechar'
+                                   1392 ;------------------------------------------------------------
+                                   1393 ;row_vals                  Allocated with name '_lcdcreatechar_PARM_2'
+                                   1394 ;ccode                     Allocated with name '_lcdcreatechar_ccode_65536_87'
+                                   1395 ;addr                      Allocated with name '_lcdcreatechar_addr_65536_88'
+                                   1396 ;data                      Allocated with name '_lcdcreatechar_data_65536_88'
+                                   1397 ;i                         Allocated with name '_lcdcreatechar_i_65536_88'
+                                   1398 ;__2621440019              Allocated with name '_lcdcreatechar___2621440019_262144_91'
+                                   1399 ;data                      Allocated with name '_lcdcreatechar_data_327680_92'
+                                   1400 ;------------------------------------------------------------
+                                   1401 ;	lcd.c:247: void lcdcreatechar(unsigned char ccode, unsigned char row_vals[])
+                                   1402 ;	-----------------------------------------
+                                   1403 ;	 function lcdcreatechar
+                                   1404 ;	-----------------------------------------
+      00034C                       1405 _lcdcreatechar:
+      00034C E5 82            [12] 1406 	mov	a,dpl
+      00034E 90r00r1C         [24] 1407 	mov	dptr,#_lcdcreatechar_ccode_65536_87
+      000351 F0               [24] 1408 	movx	@dptr,a
+                                   1409 ;	lcd.c:253: for(i=0;i<8;i++){
+      000352 E0               [24] 1410 	movx	a,@dptr
+      000353 FF               [12] 1411 	mov	r7,a
+      000354 90r00r19         [24] 1412 	mov	dptr,#_lcdcreatechar_PARM_2
+      000357 E0               [24] 1413 	movx	a,@dptr
+      000358 FC               [12] 1414 	mov	r4,a
+      000359 A3               [24] 1415 	inc	dptr
+      00035A E0               [24] 1416 	movx	a,@dptr
+      00035B FD               [12] 1417 	mov	r5,a
+      00035C A3               [24] 1418 	inc	dptr
+      00035D E0               [24] 1419 	movx	a,@dptr
+      00035E FE               [12] 1420 	mov	r6,a
+      00035F 7B 00            [12] 1421 	mov	r3,#0x00
+      000361                       1422 00103$:
+                                   1423 ;	lcd.c:255: addr = 0x40 | ((ccode & 0x07) << 3) | (i & 0x07);
+      000361 8F 02            [24] 1424 	mov	ar2,r7
+      000363 53 02 07         [24] 1425 	anl	ar2,#0x07
+      000366 EA               [12] 1426 	mov	a,r2
+      000367 C4               [12] 1427 	swap	a
+      000368 03               [12] 1428 	rr	a
+      000369 54 F8            [12] 1429 	anl	a,#0xf8
+      00036B FA               [12] 1430 	mov	r2,a
+      00036C 43 02 40         [24] 1431 	orl	ar2,#0x40
+      00036F 74 07            [12] 1432 	mov	a,#0x07
+      000371 5B               [12] 1433 	anl	a,r3
+      000372 F9               [12] 1434 	mov	r1,a
+      000373 EA               [12] 1435 	mov	a,r2
+      000374 42 01            [12] 1436 	orl	ar1,a
+                                   1437 ;	lcd.c:258: lcd_set_ram_addr(addr);
+      000376 89 82            [24] 1438 	mov	dpl,r1
+      000378 C0 07            [24] 1439 	push	ar7
+      00037A C0 06            [24] 1440 	push	ar6
+      00037C C0 05            [24] 1441 	push	ar5
+      00037E C0 04            [24] 1442 	push	ar4
+      000380 C0 03            [24] 1443 	push	ar3
+      000382 12r00r00         [24] 1444 	lcall	_lcd_set_ram_addr
+      000385 D0 03            [24] 1445 	pop	ar3
+      000387 D0 04            [24] 1446 	pop	ar4
+      000389 D0 05            [24] 1447 	pop	ar5
+      00038B D0 06            [24] 1448 	pop	ar6
+                                   1449 ;	lcd.c:260: data = row_vals[i] & 0x1F;
+      00038D EB               [12] 1450 	mov	a,r3
+      00038E 2C               [12] 1451 	add	a,r4
+      00038F F8               [12] 1452 	mov	r0,a
+      000390 E4               [12] 1453 	clr	a
+      000391 3D               [12] 1454 	addc	a,r5
+      000392 F9               [12] 1455 	mov	r1,a
+      000393 8E 02            [24] 1456 	mov	ar2,r6
+      000395 88 82            [24] 1457 	mov	dpl,r0
+      000397 89 83            [24] 1458 	mov	dph,r1
+      000399 8A F0            [24] 1459 	mov	b,r2
+      00039B 12r00r00         [24] 1460 	lcall	__gptrget
+      00039E F8               [12] 1461 	mov	r0,a
+      00039F 53 00 1F         [24] 1462 	anl	ar0,#0x1f
+                                   1463 ;	lcd.c:73: RS = 1;
+                                   1464 ;	assignBit
+      0003A2 D2 94            [12] 1465 	setb	_P1_4
+                                   1466 ;	lcd.c:74: RW = 0;
+                                   1467 ;	assignBit
+      0003A4 C2 95            [12] 1468 	clr	_P1_5
+                                   1469 ;	lcd.c:75: *ptr=data;
+      0003A6 90r00r00         [24] 1470 	mov	dptr,#_ptr
+      0003A9 E0               [24] 1471 	movx	a,@dptr
+      0003AA F9               [12] 1472 	mov	r1,a
+      0003AB A3               [24] 1473 	inc	dptr
+      0003AC E0               [24] 1474 	movx	a,@dptr
+      0003AD FA               [12] 1475 	mov	r2,a
+      0003AE 7F 00            [12] 1476 	mov	r7,#0x00
+      0003B0 89 82            [24] 1477 	mov	dpl,r1
+      0003B2 8A 83            [24] 1478 	mov	dph,r2
+      0003B4 E8               [12] 1479 	mov	a,r0
+      0003B5 F0               [24] 1480 	movx	@dptr,a
+      0003B6 EF               [12] 1481 	mov	a,r7
+      0003B7 A3               [24] 1482 	inc	dptr
+      0003B8 F0               [24] 1483 	movx	@dptr,a
+                                   1484 ;	lcd.c:77: lcdbusywait();
+      0003B9 C0 07            [24] 1485 	push	ar7
+      0003BB C0 06            [24] 1486 	push	ar6
+      0003BD C0 05            [24] 1487 	push	ar5
+      0003BF C0 04            [24] 1488 	push	ar4
+      0003C1 C0 03            [24] 1489 	push	ar3
+      0003C3 12r01r56         [24] 1490 	lcall	_lcdbusywait
+      0003C6 D0 03            [24] 1491 	pop	ar3
+      0003C8 D0 04            [24] 1492 	pop	ar4
+      0003CA D0 05            [24] 1493 	pop	ar5
+      0003CC D0 06            [24] 1494 	pop	ar6
+      0003CE D0 07            [24] 1495 	pop	ar7
+                                   1496 ;	lcd.c:253: for(i=0;i<8;i++){
+      0003D0 0B               [12] 1497 	inc	r3
+      0003D1 BB 08 00         [24] 1498 	cjne	r3,#0x08,00112$
+      0003D4                       1499 00112$:
+      0003D4 D0 07            [24] 1500 	pop	ar7
+      0003D6 40 89            [24] 1501 	jc	00103$
+                                   1502 ;	lcd.c:263: }
+      0003D8 22               [24] 1503 	ret
+                                   1504 ;------------------------------------------------------------
+                                   1505 ;Allocation info for local variables in function 'display_lcd_char'
+                                   1506 ;------------------------------------------------------------
+                                   1507 ;addr                      Allocated with name '_display_lcd_char_PARM_2'
+                                   1508 ;ccode                     Allocated with name '_display_lcd_char_ccode_65536_94'
+                                   1509 ;__1310720021              Allocated with name '_display_lcd_char___1310720021_131072_96'
+                                   1510 ;data                      Allocated with name '_display_lcd_char_data_196608_97'
+                                   1511 ;------------------------------------------------------------
+                                   1512 ;	lcd.c:270: void display_lcd_char(unsigned char ccode, unsigned char addr)
+                                   1513 ;	-----------------------------------------
+                                   1514 ;	 function display_lcd_char
+                                   1515 ;	-----------------------------------------
+      0003D9                       1516 _display_lcd_char:
+      0003D9 E5 82            [12] 1517 	mov	a,dpl
+      0003DB 90r00r1F         [24] 1518 	mov	dptr,#_display_lcd_char_ccode_65536_94
+      0003DE F0               [24] 1519 	movx	@dptr,a
+                                   1520 ;	lcd.c:273: lcd_set_ram_addr((1 << 7) | (addr & 0x7F));
+      0003DF 90r00r1E         [24] 1521 	mov	dptr,#_display_lcd_char_PARM_2
+      0003E2 E0               [24] 1522 	movx	a,@dptr
+      0003E3 54 7F            [12] 1523 	anl	a,#0x7f
+      0003E5 44 80            [12] 1524 	orl	a,#0x80
+      0003E7 F5 82            [12] 1525 	mov	dpl,a
+      0003E9 12r00r00         [24] 1526 	lcall	_lcd_set_ram_addr
+                                   1527 ;	lcd.c:275: write_data_lcd(ccode);
+      0003EC 90r00r1F         [24] 1528 	mov	dptr,#_display_lcd_char_ccode_65536_94
+      0003EF E0               [24] 1529 	movx	a,@dptr
+      0003F0 FF               [12] 1530 	mov	r7,a
+                                   1531 ;	lcd.c:73: RS = 1;
+                                   1532 ;	assignBit
+      0003F1 D2 94            [12] 1533 	setb	_P1_4
+                                   1534 ;	lcd.c:74: RW = 0;
+                                   1535 ;	assignBit
+      0003F3 C2 95            [12] 1536 	clr	_P1_5
+                                   1537 ;	lcd.c:75: *ptr=data;
+      0003F5 90r00r00         [24] 1538 	mov	dptr,#_ptr
+      0003F8 E0               [24] 1539 	movx	a,@dptr
+      0003F9 FD               [12] 1540 	mov	r5,a
+      0003FA A3               [24] 1541 	inc	dptr
+      0003FB E0               [24] 1542 	movx	a,@dptr
+      0003FC FE               [12] 1543 	mov	r6,a
+      0003FD 7C 00            [12] 1544 	mov	r4,#0x00
+      0003FF 8D 82            [24] 1545 	mov	dpl,r5
+      000401 8E 83            [24] 1546 	mov	dph,r6
+      000403 EF               [12] 1547 	mov	a,r7
+      000404 F0               [24] 1548 	movx	@dptr,a
+      000405 EC               [12] 1549 	mov	a,r4
+      000406 A3               [24] 1550 	inc	dptr
+      000407 F0               [24] 1551 	movx	@dptr,a
+                                   1552 ;	lcd.c:77: lcdbusywait();
+                                   1553 ;	lcd.c:275: write_data_lcd(ccode);
+                                   1554 ;	lcd.c:276: }
+      000408 02r01r56         [24] 1555 	ljmp	_lcdbusywait
+                                   1556 	.area CSEG    (CODE)
+                                   1557 	.area CONST   (CODE)
+                                   1558 	.area XINIT   (CODE)
+      000000                       1559 __xinit__ptr:
+      000000 00 F0                 1560 	.byte #0x00,#0xf0
+                                   1561 	.area CABS    (ABS,CODE)

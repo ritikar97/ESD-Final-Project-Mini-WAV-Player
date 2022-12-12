@@ -1,0 +1,897 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module diskio
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _spi_enable_cs
+                                     12 	.globl _spi_disable_cs
+                                     13 	.globl _spi_byte
+                                     14 	.globl _sd_wait_for_ready
+                                     15 	.globl _sd_write_sector
+                                     16 	.globl _sd_read_sector
+                                     17 	.globl _sd_init
+                                     18 	.globl _TF1
+                                     19 	.globl _TR1
+                                     20 	.globl _TF0
+                                     21 	.globl _TR0
+                                     22 	.globl _IE1
+                                     23 	.globl _IT1
+                                     24 	.globl _IE0
+                                     25 	.globl _IT0
+                                     26 	.globl _SM0
+                                     27 	.globl _SM1
+                                     28 	.globl _SM2
+                                     29 	.globl _REN
+                                     30 	.globl _TB8
+                                     31 	.globl _RB8
+                                     32 	.globl _TI
+                                     33 	.globl _RI
+                                     34 	.globl _CY
+                                     35 	.globl _AC
+                                     36 	.globl _F0
+                                     37 	.globl _RS1
+                                     38 	.globl _RS0
+                                     39 	.globl _OV
+                                     40 	.globl _F1
+                                     41 	.globl _P
+                                     42 	.globl _RD
+                                     43 	.globl _WR
+                                     44 	.globl _T1
+                                     45 	.globl _T0
+                                     46 	.globl _INT1
+                                     47 	.globl _INT0
+                                     48 	.globl _TXD0
+                                     49 	.globl _TXD
+                                     50 	.globl _RXD0
+                                     51 	.globl _RXD
+                                     52 	.globl _P3_7
+                                     53 	.globl _P3_6
+                                     54 	.globl _P3_5
+                                     55 	.globl _P3_4
+                                     56 	.globl _P3_3
+                                     57 	.globl _P3_2
+                                     58 	.globl _P3_1
+                                     59 	.globl _P3_0
+                                     60 	.globl _P2_7
+                                     61 	.globl _P2_6
+                                     62 	.globl _P2_5
+                                     63 	.globl _P2_4
+                                     64 	.globl _P2_3
+                                     65 	.globl _P2_2
+                                     66 	.globl _P2_1
+                                     67 	.globl _P2_0
+                                     68 	.globl _P1_7
+                                     69 	.globl _P1_6
+                                     70 	.globl _P1_5
+                                     71 	.globl _P1_4
+                                     72 	.globl _P1_3
+                                     73 	.globl _P1_2
+                                     74 	.globl _P1_1
+                                     75 	.globl _P1_0
+                                     76 	.globl _P0_7
+                                     77 	.globl _P0_6
+                                     78 	.globl _P0_5
+                                     79 	.globl _P0_4
+                                     80 	.globl _P0_3
+                                     81 	.globl _P0_2
+                                     82 	.globl _P0_1
+                                     83 	.globl _P0_0
+                                     84 	.globl _PS
+                                     85 	.globl _PT1
+                                     86 	.globl _PX1
+                                     87 	.globl _PT0
+                                     88 	.globl _PX0
+                                     89 	.globl _EA
+                                     90 	.globl _ES
+                                     91 	.globl _ET1
+                                     92 	.globl _EX1
+                                     93 	.globl _ET0
+                                     94 	.globl _EX0
+                                     95 	.globl _BREG_F7
+                                     96 	.globl _BREG_F6
+                                     97 	.globl _BREG_F5
+                                     98 	.globl _BREG_F4
+                                     99 	.globl _BREG_F3
+                                    100 	.globl _BREG_F2
+                                    101 	.globl _BREG_F1
+                                    102 	.globl _BREG_F0
+                                    103 	.globl _P5_7
+                                    104 	.globl _P5_6
+                                    105 	.globl _P5_5
+                                    106 	.globl _P5_4
+                                    107 	.globl _P5_3
+                                    108 	.globl _P5_2
+                                    109 	.globl _P5_1
+                                    110 	.globl _P5_0
+                                    111 	.globl _P4_7
+                                    112 	.globl _P4_6
+                                    113 	.globl _P4_5
+                                    114 	.globl _P4_4
+                                    115 	.globl _P4_3
+                                    116 	.globl _P4_2
+                                    117 	.globl _P4_1
+                                    118 	.globl _P4_0
+                                    119 	.globl _PX0L
+                                    120 	.globl _PT0L
+                                    121 	.globl _PX1L
+                                    122 	.globl _PT1L
+                                    123 	.globl _PSL
+                                    124 	.globl _PT2L
+                                    125 	.globl _PPCL
+                                    126 	.globl _EC
+                                    127 	.globl _CCF0
+                                    128 	.globl _CCF1
+                                    129 	.globl _CCF2
+                                    130 	.globl _CCF3
+                                    131 	.globl _CCF4
+                                    132 	.globl _CR
+                                    133 	.globl _CF
+                                    134 	.globl _TF2
+                                    135 	.globl _EXF2
+                                    136 	.globl _RCLK
+                                    137 	.globl _TCLK
+                                    138 	.globl _EXEN2
+                                    139 	.globl _TR2
+                                    140 	.globl _C_T2
+                                    141 	.globl _CP_RL2
+                                    142 	.globl _T2CON_7
+                                    143 	.globl _T2CON_6
+                                    144 	.globl _T2CON_5
+                                    145 	.globl _T2CON_4
+                                    146 	.globl _T2CON_3
+                                    147 	.globl _T2CON_2
+                                    148 	.globl _T2CON_1
+                                    149 	.globl _T2CON_0
+                                    150 	.globl _PT2
+                                    151 	.globl _ET2
+                                    152 	.globl _TMOD
+                                    153 	.globl _TL1
+                                    154 	.globl _TL0
+                                    155 	.globl _TH1
+                                    156 	.globl _TH0
+                                    157 	.globl _TCON
+                                    158 	.globl _SP
+                                    159 	.globl _SCON
+                                    160 	.globl _SBUF0
+                                    161 	.globl _SBUF
+                                    162 	.globl _PSW
+                                    163 	.globl _PCON
+                                    164 	.globl _P3
+                                    165 	.globl _P2
+                                    166 	.globl _P1
+                                    167 	.globl _P0
+                                    168 	.globl _IP
+                                    169 	.globl _IE
+                                    170 	.globl _DP0L
+                                    171 	.globl _DPL
+                                    172 	.globl _DP0H
+                                    173 	.globl _DPH
+                                    174 	.globl _B
+                                    175 	.globl _ACC
+                                    176 	.globl _EECON
+                                    177 	.globl _KBF
+                                    178 	.globl _KBE
+                                    179 	.globl _KBLS
+                                    180 	.globl _BRL
+                                    181 	.globl _BDRCON
+                                    182 	.globl _T2MOD
+                                    183 	.globl _SPDAT
+                                    184 	.globl _SPSTA
+                                    185 	.globl _SPCON
+                                    186 	.globl _SADEN
+                                    187 	.globl _SADDR
+                                    188 	.globl _WDTPRG
+                                    189 	.globl _WDTRST
+                                    190 	.globl _P5
+                                    191 	.globl _P4
+                                    192 	.globl _IPH1
+                                    193 	.globl _IPL1
+                                    194 	.globl _IPH0
+                                    195 	.globl _IPL0
+                                    196 	.globl _IEN1
+                                    197 	.globl _IEN0
+                                    198 	.globl _CMOD
+                                    199 	.globl _CL
+                                    200 	.globl _CH
+                                    201 	.globl _CCON
+                                    202 	.globl _CCAPM4
+                                    203 	.globl _CCAPM3
+                                    204 	.globl _CCAPM2
+                                    205 	.globl _CCAPM1
+                                    206 	.globl _CCAPM0
+                                    207 	.globl _CCAP4L
+                                    208 	.globl _CCAP3L
+                                    209 	.globl _CCAP2L
+                                    210 	.globl _CCAP1L
+                                    211 	.globl _CCAP0L
+                                    212 	.globl _CCAP4H
+                                    213 	.globl _CCAP3H
+                                    214 	.globl _CCAP2H
+                                    215 	.globl _CCAP1H
+                                    216 	.globl _CCAP0H
+                                    217 	.globl _CKCON1
+                                    218 	.globl _CKCON0
+                                    219 	.globl _CKRL
+                                    220 	.globl _AUXR1
+                                    221 	.globl _AUXR
+                                    222 	.globl _TH2
+                                    223 	.globl _TL2
+                                    224 	.globl _RCAP2H
+                                    225 	.globl _RCAP2L
+                                    226 	.globl _T2CON
+                                    227 	.globl _disk_ioctl_PARM_3
+                                    228 	.globl _disk_ioctl_PARM_2
+                                    229 	.globl _disk_write_PARM_4
+                                    230 	.globl _disk_write_PARM_3
+                                    231 	.globl _disk_write_PARM_2
+                                    232 	.globl _disk_read_PARM_4
+                                    233 	.globl _disk_read_PARM_3
+                                    234 	.globl _disk_read_PARM_2
+                                    235 	.globl _disk_status
+                                    236 	.globl _disk_initialize
+                                    237 	.globl _disk_read
+                                    238 	.globl _disk_write
+                                    239 	.globl _disk_ioctl
+                                    240 ;--------------------------------------------------------
+                                    241 ; special function registers
+                                    242 ;--------------------------------------------------------
+                                    243 	.area RSEG    (ABS,DATA)
+      000000                        244 	.org 0x0000
+                           0000C8   245 _T2CON	=	0x00c8
+                           0000CA   246 _RCAP2L	=	0x00ca
+                           0000CB   247 _RCAP2H	=	0x00cb
+                           0000CC   248 _TL2	=	0x00cc
+                           0000CD   249 _TH2	=	0x00cd
+                           00008E   250 _AUXR	=	0x008e
+                           0000A2   251 _AUXR1	=	0x00a2
+                           000097   252 _CKRL	=	0x0097
+                           00008F   253 _CKCON0	=	0x008f
+                           0000AF   254 _CKCON1	=	0x00af
+                           0000FA   255 _CCAP0H	=	0x00fa
+                           0000FB   256 _CCAP1H	=	0x00fb
+                           0000FC   257 _CCAP2H	=	0x00fc
+                           0000FD   258 _CCAP3H	=	0x00fd
+                           0000FE   259 _CCAP4H	=	0x00fe
+                           0000EA   260 _CCAP0L	=	0x00ea
+                           0000EB   261 _CCAP1L	=	0x00eb
+                           0000EC   262 _CCAP2L	=	0x00ec
+                           0000ED   263 _CCAP3L	=	0x00ed
+                           0000EE   264 _CCAP4L	=	0x00ee
+                           0000DA   265 _CCAPM0	=	0x00da
+                           0000DB   266 _CCAPM1	=	0x00db
+                           0000DC   267 _CCAPM2	=	0x00dc
+                           0000DD   268 _CCAPM3	=	0x00dd
+                           0000DE   269 _CCAPM4	=	0x00de
+                           0000D8   270 _CCON	=	0x00d8
+                           0000F9   271 _CH	=	0x00f9
+                           0000E9   272 _CL	=	0x00e9
+                           0000D9   273 _CMOD	=	0x00d9
+                           0000A8   274 _IEN0	=	0x00a8
+                           0000B1   275 _IEN1	=	0x00b1
+                           0000B8   276 _IPL0	=	0x00b8
+                           0000B7   277 _IPH0	=	0x00b7
+                           0000B2   278 _IPL1	=	0x00b2
+                           0000B3   279 _IPH1	=	0x00b3
+                           0000C0   280 _P4	=	0x00c0
+                           0000E8   281 _P5	=	0x00e8
+                           0000A6   282 _WDTRST	=	0x00a6
+                           0000A7   283 _WDTPRG	=	0x00a7
+                           0000A9   284 _SADDR	=	0x00a9
+                           0000B9   285 _SADEN	=	0x00b9
+                           0000C3   286 _SPCON	=	0x00c3
+                           0000C4   287 _SPSTA	=	0x00c4
+                           0000C5   288 _SPDAT	=	0x00c5
+                           0000C9   289 _T2MOD	=	0x00c9
+                           00009B   290 _BDRCON	=	0x009b
+                           00009A   291 _BRL	=	0x009a
+                           00009C   292 _KBLS	=	0x009c
+                           00009D   293 _KBE	=	0x009d
+                           00009E   294 _KBF	=	0x009e
+                           0000D2   295 _EECON	=	0x00d2
+                           0000E0   296 _ACC	=	0x00e0
+                           0000F0   297 _B	=	0x00f0
+                           000083   298 _DPH	=	0x0083
+                           000083   299 _DP0H	=	0x0083
+                           000082   300 _DPL	=	0x0082
+                           000082   301 _DP0L	=	0x0082
+                           0000A8   302 _IE	=	0x00a8
+                           0000B8   303 _IP	=	0x00b8
+                           000080   304 _P0	=	0x0080
+                           000090   305 _P1	=	0x0090
+                           0000A0   306 _P2	=	0x00a0
+                           0000B0   307 _P3	=	0x00b0
+                           000087   308 _PCON	=	0x0087
+                           0000D0   309 _PSW	=	0x00d0
+                           000099   310 _SBUF	=	0x0099
+                           000099   311 _SBUF0	=	0x0099
+                           000098   312 _SCON	=	0x0098
+                           000081   313 _SP	=	0x0081
+                           000088   314 _TCON	=	0x0088
+                           00008C   315 _TH0	=	0x008c
+                           00008D   316 _TH1	=	0x008d
+                           00008A   317 _TL0	=	0x008a
+                           00008B   318 _TL1	=	0x008b
+                           000089   319 _TMOD	=	0x0089
+                                    320 ;--------------------------------------------------------
+                                    321 ; special function bits
+                                    322 ;--------------------------------------------------------
+                                    323 	.area RSEG    (ABS,DATA)
+      000000                        324 	.org 0x0000
+                           0000AD   325 _ET2	=	0x00ad
+                           0000BD   326 _PT2	=	0x00bd
+                           0000C8   327 _T2CON_0	=	0x00c8
+                           0000C9   328 _T2CON_1	=	0x00c9
+                           0000CA   329 _T2CON_2	=	0x00ca
+                           0000CB   330 _T2CON_3	=	0x00cb
+                           0000CC   331 _T2CON_4	=	0x00cc
+                           0000CD   332 _T2CON_5	=	0x00cd
+                           0000CE   333 _T2CON_6	=	0x00ce
+                           0000CF   334 _T2CON_7	=	0x00cf
+                           0000C8   335 _CP_RL2	=	0x00c8
+                           0000C9   336 _C_T2	=	0x00c9
+                           0000CA   337 _TR2	=	0x00ca
+                           0000CB   338 _EXEN2	=	0x00cb
+                           0000CC   339 _TCLK	=	0x00cc
+                           0000CD   340 _RCLK	=	0x00cd
+                           0000CE   341 _EXF2	=	0x00ce
+                           0000CF   342 _TF2	=	0x00cf
+                           0000DF   343 _CF	=	0x00df
+                           0000DE   344 _CR	=	0x00de
+                           0000DC   345 _CCF4	=	0x00dc
+                           0000DB   346 _CCF3	=	0x00db
+                           0000DA   347 _CCF2	=	0x00da
+                           0000D9   348 _CCF1	=	0x00d9
+                           0000D8   349 _CCF0	=	0x00d8
+                           0000AE   350 _EC	=	0x00ae
+                           0000BE   351 _PPCL	=	0x00be
+                           0000BD   352 _PT2L	=	0x00bd
+                           0000BC   353 _PSL	=	0x00bc
+                           0000BB   354 _PT1L	=	0x00bb
+                           0000BA   355 _PX1L	=	0x00ba
+                           0000B9   356 _PT0L	=	0x00b9
+                           0000B8   357 _PX0L	=	0x00b8
+                           0000C0   358 _P4_0	=	0x00c0
+                           0000C1   359 _P4_1	=	0x00c1
+                           0000C2   360 _P4_2	=	0x00c2
+                           0000C3   361 _P4_3	=	0x00c3
+                           0000C4   362 _P4_4	=	0x00c4
+                           0000C5   363 _P4_5	=	0x00c5
+                           0000C6   364 _P4_6	=	0x00c6
+                           0000C7   365 _P4_7	=	0x00c7
+                           0000E8   366 _P5_0	=	0x00e8
+                           0000E9   367 _P5_1	=	0x00e9
+                           0000EA   368 _P5_2	=	0x00ea
+                           0000EB   369 _P5_3	=	0x00eb
+                           0000EC   370 _P5_4	=	0x00ec
+                           0000ED   371 _P5_5	=	0x00ed
+                           0000EE   372 _P5_6	=	0x00ee
+                           0000EF   373 _P5_7	=	0x00ef
+                           0000F0   374 _BREG_F0	=	0x00f0
+                           0000F1   375 _BREG_F1	=	0x00f1
+                           0000F2   376 _BREG_F2	=	0x00f2
+                           0000F3   377 _BREG_F3	=	0x00f3
+                           0000F4   378 _BREG_F4	=	0x00f4
+                           0000F5   379 _BREG_F5	=	0x00f5
+                           0000F6   380 _BREG_F6	=	0x00f6
+                           0000F7   381 _BREG_F7	=	0x00f7
+                           0000A8   382 _EX0	=	0x00a8
+                           0000A9   383 _ET0	=	0x00a9
+                           0000AA   384 _EX1	=	0x00aa
+                           0000AB   385 _ET1	=	0x00ab
+                           0000AC   386 _ES	=	0x00ac
+                           0000AF   387 _EA	=	0x00af
+                           0000B8   388 _PX0	=	0x00b8
+                           0000B9   389 _PT0	=	0x00b9
+                           0000BA   390 _PX1	=	0x00ba
+                           0000BB   391 _PT1	=	0x00bb
+                           0000BC   392 _PS	=	0x00bc
+                           000080   393 _P0_0	=	0x0080
+                           000081   394 _P0_1	=	0x0081
+                           000082   395 _P0_2	=	0x0082
+                           000083   396 _P0_3	=	0x0083
+                           000084   397 _P0_4	=	0x0084
+                           000085   398 _P0_5	=	0x0085
+                           000086   399 _P0_6	=	0x0086
+                           000087   400 _P0_7	=	0x0087
+                           000090   401 _P1_0	=	0x0090
+                           000091   402 _P1_1	=	0x0091
+                           000092   403 _P1_2	=	0x0092
+                           000093   404 _P1_3	=	0x0093
+                           000094   405 _P1_4	=	0x0094
+                           000095   406 _P1_5	=	0x0095
+                           000096   407 _P1_6	=	0x0096
+                           000097   408 _P1_7	=	0x0097
+                           0000A0   409 _P2_0	=	0x00a0
+                           0000A1   410 _P2_1	=	0x00a1
+                           0000A2   411 _P2_2	=	0x00a2
+                           0000A3   412 _P2_3	=	0x00a3
+                           0000A4   413 _P2_4	=	0x00a4
+                           0000A5   414 _P2_5	=	0x00a5
+                           0000A6   415 _P2_6	=	0x00a6
+                           0000A7   416 _P2_7	=	0x00a7
+                           0000B0   417 _P3_0	=	0x00b0
+                           0000B1   418 _P3_1	=	0x00b1
+                           0000B2   419 _P3_2	=	0x00b2
+                           0000B3   420 _P3_3	=	0x00b3
+                           0000B4   421 _P3_4	=	0x00b4
+                           0000B5   422 _P3_5	=	0x00b5
+                           0000B6   423 _P3_6	=	0x00b6
+                           0000B7   424 _P3_7	=	0x00b7
+                           0000B0   425 _RXD	=	0x00b0
+                           0000B0   426 _RXD0	=	0x00b0
+                           0000B1   427 _TXD	=	0x00b1
+                           0000B1   428 _TXD0	=	0x00b1
+                           0000B2   429 _INT0	=	0x00b2
+                           0000B3   430 _INT1	=	0x00b3
+                           0000B4   431 _T0	=	0x00b4
+                           0000B5   432 _T1	=	0x00b5
+                           0000B6   433 _WR	=	0x00b6
+                           0000B7   434 _RD	=	0x00b7
+                           0000D0   435 _P	=	0x00d0
+                           0000D1   436 _F1	=	0x00d1
+                           0000D2   437 _OV	=	0x00d2
+                           0000D3   438 _RS0	=	0x00d3
+                           0000D4   439 _RS1	=	0x00d4
+                           0000D5   440 _F0	=	0x00d5
+                           0000D6   441 _AC	=	0x00d6
+                           0000D7   442 _CY	=	0x00d7
+                           000098   443 _RI	=	0x0098
+                           000099   444 _TI	=	0x0099
+                           00009A   445 _RB8	=	0x009a
+                           00009B   446 _TB8	=	0x009b
+                           00009C   447 _REN	=	0x009c
+                           00009D   448 _SM2	=	0x009d
+                           00009E   449 _SM1	=	0x009e
+                           00009F   450 _SM0	=	0x009f
+                           000088   451 _IT0	=	0x0088
+                           000089   452 _IE0	=	0x0089
+                           00008A   453 _IT1	=	0x008a
+                           00008B   454 _IE1	=	0x008b
+                           00008C   455 _TR0	=	0x008c
+                           00008D   456 _TF0	=	0x008d
+                           00008E   457 _TR1	=	0x008e
+                           00008F   458 _TF1	=	0x008f
+                                    459 ;--------------------------------------------------------
+                                    460 ; overlayable register banks
+                                    461 ;--------------------------------------------------------
+                                    462 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        463 	.ds 8
+                                    464 ;--------------------------------------------------------
+                                    465 ; internal ram data
+                                    466 ;--------------------------------------------------------
+                                    467 	.area DSEG    (DATA)
+                                    468 ;--------------------------------------------------------
+                                    469 ; overlayable items in internal ram
+                                    470 ;--------------------------------------------------------
+                                    471 ;--------------------------------------------------------
+                                    472 ; indirectly addressable internal ram data
+                                    473 ;--------------------------------------------------------
+                                    474 	.area ISEG    (DATA)
+                                    475 ;--------------------------------------------------------
+                                    476 ; absolute internal ram data
+                                    477 ;--------------------------------------------------------
+                                    478 	.area IABS    (ABS,DATA)
+                                    479 	.area IABS    (ABS,DATA)
+                                    480 ;--------------------------------------------------------
+                                    481 ; bit data
+                                    482 ;--------------------------------------------------------
+                                    483 	.area BSEG    (BIT)
+                                    484 ;--------------------------------------------------------
+                                    485 ; paged external ram data
+                                    486 ;--------------------------------------------------------
+                                    487 	.area PSEG    (PAG,XDATA)
+                                    488 ;--------------------------------------------------------
+                                    489 ; external ram data
+                                    490 ;--------------------------------------------------------
+                                    491 	.area XSEG    (XDATA)
+      000000                        492 _disk_status_drv_65536_77:
+      000000                        493 	.ds 1
+      000001                        494 _disk_initialize_drv_65536_80:
+      000001                        495 	.ds 1
+      000002                        496 _disk_read_PARM_2:
+      000002                        497 	.ds 3
+      000005                        498 _disk_read_PARM_3:
+      000005                        499 	.ds 4
+      000009                        500 _disk_read_PARM_4:
+      000009                        501 	.ds 2
+      00000B                        502 _disk_read_drv_65536_84:
+      00000B                        503 	.ds 1
+      00000C                        504 _disk_write_PARM_2:
+      00000C                        505 	.ds 3
+      00000F                        506 _disk_write_PARM_3:
+      00000F                        507 	.ds 4
+      000013                        508 _disk_write_PARM_4:
+      000013                        509 	.ds 2
+      000015                        510 _disk_write_drv_65536_89:
+      000015                        511 	.ds 1
+      000016                        512 _disk_ioctl_PARM_2:
+      000016                        513 	.ds 1
+      000017                        514 _disk_ioctl_PARM_3:
+      000017                        515 	.ds 3
+      00001A                        516 _disk_ioctl_drv_65536_94:
+      00001A                        517 	.ds 1
+      00001B                        518 _disk_ioctl_res_65536_95:
+      00001B                        519 	.ds 1
+                                    520 ;--------------------------------------------------------
+                                    521 ; absolute external ram data
+                                    522 ;--------------------------------------------------------
+                                    523 	.area XABS    (ABS,XDATA)
+                                    524 ;--------------------------------------------------------
+                                    525 ; external initialized ram data
+                                    526 ;--------------------------------------------------------
+                                    527 	.area XISEG   (XDATA)
+      000000                        528 _Stat:
+      000000                        529 	.ds 1
+                                    530 	.area HOME    (CODE)
+                                    531 	.area GSINIT0 (CODE)
+                                    532 	.area GSINIT1 (CODE)
+                                    533 	.area GSINIT2 (CODE)
+                                    534 	.area GSINIT3 (CODE)
+                                    535 	.area GSINIT4 (CODE)
+                                    536 	.area GSINIT5 (CODE)
+                                    537 	.area GSINIT  (CODE)
+                                    538 	.area GSFINAL (CODE)
+                                    539 	.area CSEG    (CODE)
+                                    540 ;--------------------------------------------------------
+                                    541 ; global & static initialisations
+                                    542 ;--------------------------------------------------------
+                                    543 	.area HOME    (CODE)
+                                    544 	.area GSINIT  (CODE)
+                                    545 	.area GSFINAL (CODE)
+                                    546 	.area GSINIT  (CODE)
+                                    547 ;--------------------------------------------------------
+                                    548 ; Home
+                                    549 ;--------------------------------------------------------
+                                    550 	.area HOME    (CODE)
+                                    551 	.area HOME    (CODE)
+                                    552 ;--------------------------------------------------------
+                                    553 ; code
+                                    554 ;--------------------------------------------------------
+                                    555 	.area CSEG    (CODE)
+                                    556 ;------------------------------------------------------------
+                                    557 ;Allocation info for local variables in function 'disk_status'
+                                    558 ;------------------------------------------------------------
+                                    559 ;drv                       Allocated with name '_disk_status_drv_65536_77'
+                                    560 ;------------------------------------------------------------
+                                    561 ;	ff15\source\diskio.c:21: DSTATUS disk_status( BYTE drv )
+                                    562 ;	-----------------------------------------
+                                    563 ;	 function disk_status
+                                    564 ;	-----------------------------------------
+      000000                        565 _disk_status:
+                           000007   566 	ar7 = 0x07
+                           000006   567 	ar6 = 0x06
+                           000005   568 	ar5 = 0x05
+                           000004   569 	ar4 = 0x04
+                           000003   570 	ar3 = 0x03
+                           000002   571 	ar2 = 0x02
+                           000001   572 	ar1 = 0x01
+                           000000   573 	ar0 = 0x00
+      000000 E5 82            [12]  574 	mov	a,dpl
+      000002 90r00r00         [24]  575 	mov	dptr,#_disk_status_drv_65536_77
+      000005 F0               [24]  576 	movx	@dptr,a
+                                    577 ;	ff15\source\diskio.c:24: if( drv != 0){
+      000006 E0               [24]  578 	movx	a,@dptr
+      000007 60 04            [24]  579 	jz	00102$
+                                    580 ;	ff15\source\diskio.c:25: return STA_NOINIT;
+      000009 75 82 01         [24]  581 	mov	dpl,#0x01
+      00000C 22               [24]  582 	ret
+      00000D                        583 00102$:
+                                    584 ;	ff15\source\diskio.c:29: return( Stat );
+      00000D 90r00r00         [24]  585 	mov	dptr,#_Stat
+      000010 E0               [24]  586 	movx	a,@dptr
+                                    587 ;	ff15\source\diskio.c:30: }
+      000011 F5 82            [12]  588 	mov	dpl,a
+      000013 22               [24]  589 	ret
+                                    590 ;------------------------------------------------------------
+                                    591 ;Allocation info for local variables in function 'disk_initialize'
+                                    592 ;------------------------------------------------------------
+                                    593 ;drv                       Allocated with name '_disk_initialize_drv_65536_80'
+                                    594 ;------------------------------------------------------------
+                                    595 ;	ff15\source\diskio.c:36: DSTATUS disk_initialize( BYTE drv )
+                                    596 ;	-----------------------------------------
+                                    597 ;	 function disk_initialize
+                                    598 ;	-----------------------------------------
+      000014                        599 _disk_initialize:
+      000014 E5 82            [12]  600 	mov	a,dpl
+      000016 90r00r01         [24]  601 	mov	dptr,#_disk_initialize_drv_65536_80
+      000019 F0               [24]  602 	movx	@dptr,a
+                                    603 ;	ff15\source\diskio.c:39: if( drv != 0){
+      00001A E0               [24]  604 	movx	a,@dptr
+      00001B 60 04            [24]  605 	jz	00102$
+                                    606 ;	ff15\source\diskio.c:40: return STA_NOINIT;
+      00001D 75 82 01         [24]  607 	mov	dpl,#0x01
+      000020 22               [24]  608 	ret
+      000021                        609 00102$:
+                                    610 ;	ff15\source\diskio.c:44: if( !sd_init() )
+      000021 12r00r00         [24]  611 	lcall	_sd_init
+      000024 E5 82            [12]  612 	mov	a,dpl
+      000026 85 83 F0         [24]  613 	mov	b,dph
+      000029 45 F0            [12]  614 	orl	a,b
+      00002B 70 08            [24]  615 	jnz	00104$
+                                    616 ;	ff15\source\diskio.c:47: Stat &= ~STA_NOINIT;
+      00002D 90r00r00         [24]  617 	mov	dptr,#_Stat
+      000030 E0               [24]  618 	movx	a,@dptr
+      000031 53 E0 FE         [24]  619 	anl	acc,#0xfe
+      000034 F0               [24]  620 	movx	@dptr,a
+      000035                        621 00104$:
+                                    622 ;	ff15\source\diskio.c:51: return( Stat );
+      000035 90r00r00         [24]  623 	mov	dptr,#_Stat
+      000038 E0               [24]  624 	movx	a,@dptr
+                                    625 ;	ff15\source\diskio.c:52: }
+      000039 F5 82            [12]  626 	mov	dpl,a
+      00003B 22               [24]  627 	ret
+                                    628 ;------------------------------------------------------------
+                                    629 ;Allocation info for local variables in function 'disk_read'
+                                    630 ;------------------------------------------------------------
+                                    631 ;buff                      Allocated with name '_disk_read_PARM_2'
+                                    632 ;sector                    Allocated with name '_disk_read_PARM_3'
+                                    633 ;count                     Allocated with name '_disk_read_PARM_4'
+                                    634 ;drv                       Allocated with name '_disk_read_drv_65536_84'
+                                    635 ;------------------------------------------------------------
+                                    636 ;	ff15\source\diskio.c:58: DRESULT disk_read (
+                                    637 ;	-----------------------------------------
+                                    638 ;	 function disk_read
+                                    639 ;	-----------------------------------------
+      00003C                        640 _disk_read:
+      00003C E5 82            [12]  641 	mov	a,dpl
+      00003E 90r00r0B         [24]  642 	mov	dptr,#_disk_read_drv_65536_84
+      000041 F0               [24]  643 	movx	@dptr,a
+                                    644 ;	ff15\source\diskio.c:66: if( drv || !count || (count>1) ){
+      000042 E0               [24]  645 	movx	a,@dptr
+      000043 70 1C            [24]  646 	jnz	00101$
+      000045 90r00r09         [24]  647 	mov	dptr,#_disk_read_PARM_4
+      000048 E0               [24]  648 	movx	a,@dptr
+      000049 FE               [12]  649 	mov	r6,a
+      00004A A3               [24]  650 	inc	dptr
+      00004B E0               [24]  651 	movx	a,@dptr
+      00004C FF               [12]  652 	mov	r7,a
+      00004D 90r00r09         [24]  653 	mov	dptr,#_disk_read_PARM_4
+      000050 E0               [24]  654 	movx	a,@dptr
+      000051 F5 F0            [12]  655 	mov	b,a
+      000053 A3               [24]  656 	inc	dptr
+      000054 E0               [24]  657 	movx	a,@dptr
+      000055 45 F0            [12]  658 	orl	a,b
+      000057 60 08            [24]  659 	jz	00101$
+      000059 C3               [12]  660 	clr	c
+      00005A 74 01            [12]  661 	mov	a,#0x01
+      00005C 9E               [12]  662 	subb	a,r6
+      00005D E4               [12]  663 	clr	a
+      00005E 9F               [12]  664 	subb	a,r7
+      00005F 50 04            [24]  665 	jnc	00102$
+      000061                        666 00101$:
+                                    667 ;	ff15\source\diskio.c:67: return( RES_PARERR );
+      000061 75 82 04         [24]  668 	mov	dpl,#0x04
+      000064 22               [24]  669 	ret
+      000065                        670 00102$:
+                                    671 ;	ff15\source\diskio.c:71: if( Stat & STA_NOINIT ){
+      000065 90r00r00         [24]  672 	mov	dptr,#_Stat
+      000068 E0               [24]  673 	movx	a,@dptr
+      000069 30 E0 04         [24]  674 	jnb	acc.0,00106$
+                                    675 ;	ff15\source\diskio.c:72: return( RES_NOTRDY );
+      00006C 75 82 03         [24]  676 	mov	dpl,#0x03
+      00006F 22               [24]  677 	ret
+      000070                        678 00106$:
+                                    679 ;	ff15\source\diskio.c:76: if( sd_read_sector( sector, buff ) ){
+      000070 90r00r05         [24]  680 	mov	dptr,#_disk_read_PARM_3
+      000073 E0               [24]  681 	movx	a,@dptr
+      000074 FC               [12]  682 	mov	r4,a
+      000075 A3               [24]  683 	inc	dptr
+      000076 E0               [24]  684 	movx	a,@dptr
+      000077 FD               [12]  685 	mov	r5,a
+      000078 A3               [24]  686 	inc	dptr
+      000079 E0               [24]  687 	movx	a,@dptr
+      00007A A3               [24]  688 	inc	dptr
+      00007B E0               [24]  689 	movx	a,@dptr
+      00007C 90r00r02         [24]  690 	mov	dptr,#_disk_read_PARM_2
+      00007F E0               [24]  691 	movx	a,@dptr
+      000080 FB               [12]  692 	mov	r3,a
+      000081 A3               [24]  693 	inc	dptr
+      000082 E0               [24]  694 	movx	a,@dptr
+      000083 FE               [12]  695 	mov	r6,a
+      000084 A3               [24]  696 	inc	dptr
+      000085 E0               [24]  697 	movx	a,@dptr
+      000086 FF               [12]  698 	mov	r7,a
+      000087 90r00r00         [24]  699 	mov	dptr,#_sd_read_sector_PARM_2
+      00008A EB               [12]  700 	mov	a,r3
+      00008B F0               [24]  701 	movx	@dptr,a
+      00008C EE               [12]  702 	mov	a,r6
+      00008D A3               [24]  703 	inc	dptr
+      00008E F0               [24]  704 	movx	@dptr,a
+      00008F EF               [12]  705 	mov	a,r7
+      000090 A3               [24]  706 	inc	dptr
+      000091 F0               [24]  707 	movx	@dptr,a
+      000092 8C 82            [24]  708 	mov	dpl,r4
+      000094 8D 83            [24]  709 	mov	dph,r5
+      000096 12r00r00         [24]  710 	lcall	_sd_read_sector
+      000099 E5 82            [12]  711 	mov	a,dpl
+      00009B 85 83 F0         [24]  712 	mov	b,dph
+      00009E 45 F0            [12]  713 	orl	a,b
+      0000A0 60 04            [24]  714 	jz	00108$
+                                    715 ;	ff15\source\diskio.c:77: return( RES_ERROR );
+      0000A2 75 82 01         [24]  716 	mov	dpl,#0x01
+      0000A5 22               [24]  717 	ret
+      0000A6                        718 00108$:
+                                    719 ;	ff15\source\diskio.c:81: return( RES_OK );
+      0000A6 75 82 00         [24]  720 	mov	dpl,#0x00
+                                    721 ;	ff15\source\diskio.c:82: }
+      0000A9 22               [24]  722 	ret
+                                    723 ;------------------------------------------------------------
+                                    724 ;Allocation info for local variables in function 'disk_write'
+                                    725 ;------------------------------------------------------------
+                                    726 ;buff                      Allocated with name '_disk_write_PARM_2'
+                                    727 ;sector                    Allocated with name '_disk_write_PARM_3'
+                                    728 ;count                     Allocated with name '_disk_write_PARM_4'
+                                    729 ;drv                       Allocated with name '_disk_write_drv_65536_89'
+                                    730 ;------------------------------------------------------------
+                                    731 ;	ff15\source\diskio.c:89: DRESULT disk_write(
+                                    732 ;	-----------------------------------------
+                                    733 ;	 function disk_write
+                                    734 ;	-----------------------------------------
+      0000AA                        735 _disk_write:
+      0000AA E5 82            [12]  736 	mov	a,dpl
+      0000AC 90r00r15         [24]  737 	mov	dptr,#_disk_write_drv_65536_89
+      0000AF F0               [24]  738 	movx	@dptr,a
+                                    739 ;	ff15\source\diskio.c:97: if( drv || !count || (count>1) ){
+      0000B0 E0               [24]  740 	movx	a,@dptr
+      0000B1 70 1C            [24]  741 	jnz	00101$
+      0000B3 90r00r13         [24]  742 	mov	dptr,#_disk_write_PARM_4
+      0000B6 E0               [24]  743 	movx	a,@dptr
+      0000B7 FE               [12]  744 	mov	r6,a
+      0000B8 A3               [24]  745 	inc	dptr
+      0000B9 E0               [24]  746 	movx	a,@dptr
+      0000BA FF               [12]  747 	mov	r7,a
+      0000BB 90r00r13         [24]  748 	mov	dptr,#_disk_write_PARM_4
+      0000BE E0               [24]  749 	movx	a,@dptr
+      0000BF F5 F0            [12]  750 	mov	b,a
+      0000C1 A3               [24]  751 	inc	dptr
+      0000C2 E0               [24]  752 	movx	a,@dptr
+      0000C3 45 F0            [12]  753 	orl	a,b
+      0000C5 60 08            [24]  754 	jz	00101$
+      0000C7 C3               [12]  755 	clr	c
+      0000C8 74 01            [12]  756 	mov	a,#0x01
+      0000CA 9E               [12]  757 	subb	a,r6
+      0000CB E4               [12]  758 	clr	a
+      0000CC 9F               [12]  759 	subb	a,r7
+      0000CD 50 04            [24]  760 	jnc	00102$
+      0000CF                        761 00101$:
+                                    762 ;	ff15\source\diskio.c:98: return( RES_PARERR );
+      0000CF 75 82 04         [24]  763 	mov	dpl,#0x04
+      0000D2 22               [24]  764 	ret
+      0000D3                        765 00102$:
+                                    766 ;	ff15\source\diskio.c:102: if( Stat & STA_NOINIT ){
+      0000D3 90r00r00         [24]  767 	mov	dptr,#_Stat
+      0000D6 E0               [24]  768 	movx	a,@dptr
+      0000D7 30 E0 04         [24]  769 	jnb	acc.0,00106$
+                                    770 ;	ff15\source\diskio.c:103: return( RES_NOTRDY );
+      0000DA 75 82 03         [24]  771 	mov	dpl,#0x03
+      0000DD 22               [24]  772 	ret
+      0000DE                        773 00106$:
+                                    774 ;	ff15\source\diskio.c:107: if( sd_write_sector( sector, buff ) ){
+      0000DE 90r00r0F         [24]  775 	mov	dptr,#_disk_write_PARM_3
+      0000E1 E0               [24]  776 	movx	a,@dptr
+      0000E2 FC               [12]  777 	mov	r4,a
+      0000E3 A3               [24]  778 	inc	dptr
+      0000E4 E0               [24]  779 	movx	a,@dptr
+      0000E5 FD               [12]  780 	mov	r5,a
+      0000E6 A3               [24]  781 	inc	dptr
+      0000E7 E0               [24]  782 	movx	a,@dptr
+      0000E8 A3               [24]  783 	inc	dptr
+      0000E9 E0               [24]  784 	movx	a,@dptr
+      0000EA 90r00r0C         [24]  785 	mov	dptr,#_disk_write_PARM_2
+      0000ED E0               [24]  786 	movx	a,@dptr
+      0000EE FB               [12]  787 	mov	r3,a
+      0000EF A3               [24]  788 	inc	dptr
+      0000F0 E0               [24]  789 	movx	a,@dptr
+      0000F1 FE               [12]  790 	mov	r6,a
+      0000F2 A3               [24]  791 	inc	dptr
+      0000F3 E0               [24]  792 	movx	a,@dptr
+      0000F4 FF               [12]  793 	mov	r7,a
+      0000F5 90r00r00         [24]  794 	mov	dptr,#_sd_write_sector_PARM_2
+      0000F8 EB               [12]  795 	mov	a,r3
+      0000F9 F0               [24]  796 	movx	@dptr,a
+      0000FA EE               [12]  797 	mov	a,r6
+      0000FB A3               [24]  798 	inc	dptr
+      0000FC F0               [24]  799 	movx	@dptr,a
+      0000FD EF               [12]  800 	mov	a,r7
+      0000FE A3               [24]  801 	inc	dptr
+      0000FF F0               [24]  802 	movx	@dptr,a
+      000100 8C 82            [24]  803 	mov	dpl,r4
+      000102 8D 83            [24]  804 	mov	dph,r5
+      000104 12r00r00         [24]  805 	lcall	_sd_write_sector
+      000107 E5 82            [12]  806 	mov	a,dpl
+      000109 85 83 F0         [24]  807 	mov	b,dph
+      00010C 45 F0            [12]  808 	orl	a,b
+      00010E 60 04            [24]  809 	jz	00108$
+                                    810 ;	ff15\source\diskio.c:108: return( RES_ERROR );
+      000110 75 82 01         [24]  811 	mov	dpl,#0x01
+      000113 22               [24]  812 	ret
+      000114                        813 00108$:
+                                    814 ;	ff15\source\diskio.c:112: return( RES_OK );
+      000114 75 82 00         [24]  815 	mov	dpl,#0x00
+                                    816 ;	ff15\source\diskio.c:113: }
+      000117 22               [24]  817 	ret
+                                    818 ;------------------------------------------------------------
+                                    819 ;Allocation info for local variables in function 'disk_ioctl'
+                                    820 ;------------------------------------------------------------
+                                    821 ;ctrl                      Allocated with name '_disk_ioctl_PARM_2'
+                                    822 ;buff                      Allocated with name '_disk_ioctl_PARM_3'
+                                    823 ;drv                       Allocated with name '_disk_ioctl_drv_65536_94'
+                                    824 ;res                       Allocated with name '_disk_ioctl_res_65536_95'
+                                    825 ;ptr                       Allocated with name '_disk_ioctl_ptr_65536_95'
+                                    826 ;------------------------------------------------------------
+                                    827 ;	ff15\source\diskio.c:120: DRESULT disk_ioctl (
+                                    828 ;	-----------------------------------------
+                                    829 ;	 function disk_ioctl
+                                    830 ;	-----------------------------------------
+      000118                        831 _disk_ioctl:
+      000118 E5 82            [12]  832 	mov	a,dpl
+      00011A 90r00r1A         [24]  833 	mov	dptr,#_disk_ioctl_drv_65536_94
+      00011D F0               [24]  834 	movx	@dptr,a
+                                    835 ;	ff15\source\diskio.c:129: if( drv != 0){
+      00011E E0               [24]  836 	movx	a,@dptr
+      00011F 60 04            [24]  837 	jz	00102$
+                                    838 ;	ff15\source\diskio.c:130: return RES_PARERR;
+      000121 75 82 04         [24]  839 	mov	dpl,#0x04
+      000124 22               [24]  840 	ret
+      000125                        841 00102$:
+                                    842 ;	ff15\source\diskio.c:134: if( Stat & STA_NOINIT ){
+      000125 90r00r00         [24]  843 	mov	dptr,#_Stat
+      000128 E0               [24]  844 	movx	a,@dptr
+      000129 30 E0 04         [24]  845 	jnb	acc.0,00104$
+                                    846 ;	ff15\source\diskio.c:135: return RES_NOTRDY;
+      00012C 75 82 03         [24]  847 	mov	dpl,#0x03
+      00012F 22               [24]  848 	ret
+      000130                        849 00104$:
+                                    850 ;	ff15\source\diskio.c:138: res = RES_ERROR;
+      000130 90r00r1B         [24]  851 	mov	dptr,#_disk_ioctl_res_65536_95
+      000133 74 01            [12]  852 	mov	a,#0x01
+      000135 F0               [24]  853 	movx	@dptr,a
+                                    854 ;	ff15\source\diskio.c:140: switch( ctrl )
+      000136 90r00r16         [24]  855 	mov	dptr,#_disk_ioctl_PARM_2
+      000139 E0               [24]  856 	movx	a,@dptr
+      00013A FF               [12]  857 	mov	r7,a
+      00013B 60 02            [24]  858 	jz	00131$
+      00013D 80 12            [24]  859 	sjmp	00108$
+      00013F                        860 00131$:
+                                    861 ;	ff15\source\diskio.c:144: spi_enable_cs();
+      00013F 12r00r00         [24]  862 	lcall	_spi_enable_cs
+                                    863 ;	ff15\source\diskio.c:145: if( sd_wait_for_ready() == 0xFF ){
+      000142 12r00r00         [24]  864 	lcall	_sd_wait_for_ready
+      000145 AF 82            [24]  865 	mov	r7,dpl
+      000147 BF FF 0D         [24]  866 	cjne	r7,#0xff,00109$
+                                    867 ;	ff15\source\diskio.c:146: res = RES_OK;
+      00014A 90r00r1B         [24]  868 	mov	dptr,#_disk_ioctl_res_65536_95
+      00014D E4               [12]  869 	clr	a
+      00014E F0               [24]  870 	movx	@dptr,a
+                                    871 ;	ff15\source\diskio.c:148: break;
+                                    872 ;	ff15\source\diskio.c:150: default:
+      00014F 80 06            [24]  873 	sjmp	00109$
+      000151                        874 00108$:
+                                    875 ;	ff15\source\diskio.c:151: res = RES_PARERR;
+      000151 90r00r1B         [24]  876 	mov	dptr,#_disk_ioctl_res_65536_95
+      000154 74 04            [12]  877 	mov	a,#0x04
+      000156 F0               [24]  878 	movx	@dptr,a
+                                    879 ;	ff15\source\diskio.c:153: }
+      000157                        880 00109$:
+                                    881 ;	ff15\source\diskio.c:155: spi_disable_cs();
+      000157 12r00r00         [24]  882 	lcall	_spi_disable_cs
+                                    883 ;	ff15\source\diskio.c:156: spi_byte( 0xFF );
+      00015A 75 82 FF         [24]  884 	mov	dpl,#0xff
+      00015D 12r00r00         [24]  885 	lcall	_spi_byte
+                                    886 ;	ff15\source\diskio.c:158: return res;
+      000160 90r00r1B         [24]  887 	mov	dptr,#_disk_ioctl_res_65536_95
+      000163 E0               [24]  888 	movx	a,@dptr
+                                    889 ;	ff15\source\diskio.c:159: }
+      000164 F5 82            [12]  890 	mov	dpl,a
+      000166 22               [24]  891 	ret
+                                    892 	.area CSEG    (CODE)
+                                    893 	.area CONST   (CODE)
+                                    894 	.area XINIT   (CODE)
+      000000                        895 __xinit__Stat:
+      000000 01                     896 	.db #0x01	; 1
+                                    897 	.area CABS    (ABS,CODE)

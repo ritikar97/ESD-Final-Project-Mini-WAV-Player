@@ -1,0 +1,414 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module cb
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _is_tx_queue_empty
+                                     12 	.globl _is_tx_queue_full
+                                     13 	.globl _write_tx_queue
+                                     14 	.globl _read_tx_queue
+                                     15 	.globl _clear_tx_queue
+                                     16 ;--------------------------------------------------------
+                                     17 ; special function registers
+                                     18 ;--------------------------------------------------------
+                                     19 	.area RSEG    (ABS,DATA)
+      000000                         20 	.org 0x0000
+                                     21 ;--------------------------------------------------------
+                                     22 ; special function bits
+                                     23 ;--------------------------------------------------------
+                                     24 	.area RSEG    (ABS,DATA)
+      000000                         25 	.org 0x0000
+                                     26 ;--------------------------------------------------------
+                                     27 ; overlayable register banks
+                                     28 ;--------------------------------------------------------
+                                     29 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                         30 	.ds 8
+                                     31 ;--------------------------------------------------------
+                                     32 ; internal ram data
+                                     33 ;--------------------------------------------------------
+                                     34 	.area DSEG    (DATA)
+                                     35 ;--------------------------------------------------------
+                                     36 ; overlayable items in internal ram
+                                     37 ;--------------------------------------------------------
+                                     38 	.area	OSEG    (OVR,DATA)
+                                     39 ;--------------------------------------------------------
+                                     40 ; indirectly addressable internal ram data
+                                     41 ;--------------------------------------------------------
+                                     42 	.area ISEG    (DATA)
+                                     43 ;--------------------------------------------------------
+                                     44 ; absolute internal ram data
+                                     45 ;--------------------------------------------------------
+                                     46 	.area IABS    (ABS,DATA)
+                                     47 	.area IABS    (ABS,DATA)
+                                     48 ;--------------------------------------------------------
+                                     49 ; bit data
+                                     50 ;--------------------------------------------------------
+                                     51 	.area BSEG    (BIT)
+                                     52 ;--------------------------------------------------------
+                                     53 ; paged external ram data
+                                     54 ;--------------------------------------------------------
+                                     55 	.area PSEG    (PAG,XDATA)
+                                     56 ;--------------------------------------------------------
+                                     57 ; external ram data
+                                     58 ;--------------------------------------------------------
+                                     59 	.area XSEG    (XDATA)
+      000000                         60 _tx_queue:
+      000000                         61 	.ds 32
+      000020                         62 _nextPtr_ptr_65536_3:
+      000020                         63 	.ds 1
+      000021                         64 _write_tx_queue_data_65536_9:
+      000021                         65 	.ds 1
+      000022                         66 _read_tx_queue_data_65536_11:
+      000022                         67 	.ds 3
+                                     68 ;--------------------------------------------------------
+                                     69 ; absolute external ram data
+                                     70 ;--------------------------------------------------------
+                                     71 	.area XABS    (ABS,XDATA)
+                                     72 ;--------------------------------------------------------
+                                     73 ; external initialized ram data
+                                     74 ;--------------------------------------------------------
+                                     75 	.area XISEG   (XDATA)
+      000000                         76 _tx_wptr:
+      000000                         77 	.ds 1
+      000001                         78 _tx_rptr:
+      000001                         79 	.ds 1
+                                     80 	.area HOME    (CODE)
+                                     81 	.area GSINIT0 (CODE)
+                                     82 	.area GSINIT1 (CODE)
+                                     83 	.area GSINIT2 (CODE)
+                                     84 	.area GSINIT3 (CODE)
+                                     85 	.area GSINIT4 (CODE)
+                                     86 	.area GSINIT5 (CODE)
+                                     87 	.area GSINIT  (CODE)
+                                     88 	.area GSFINAL (CODE)
+                                     89 	.area CSEG    (CODE)
+                                     90 ;--------------------------------------------------------
+                                     91 ; global & static initialisations
+                                     92 ;--------------------------------------------------------
+                                     93 	.area HOME    (CODE)
+                                     94 	.area GSINIT  (CODE)
+                                     95 	.area GSFINAL (CODE)
+                                     96 	.area GSINIT  (CODE)
+                                     97 ;--------------------------------------------------------
+                                     98 ; Home
+                                     99 ;--------------------------------------------------------
+                                    100 	.area HOME    (CODE)
+                                    101 	.area HOME    (CODE)
+                                    102 ;--------------------------------------------------------
+                                    103 ; code
+                                    104 ;--------------------------------------------------------
+                                    105 	.area CSEG    (CODE)
+                                    106 ;------------------------------------------------------------
+                                    107 ;Allocation info for local variables in function 'nextPtr'
+                                    108 ;------------------------------------------------------------
+                                    109 ;ptr                       Allocated with name '_nextPtr_ptr_65536_3'
+                                    110 ;------------------------------------------------------------
+                                    111 ;	cb.c:16: static uint8_t nextPtr(uint8_t ptr) {
+                                    112 ;	-----------------------------------------
+                                    113 ;	 function nextPtr
+                                    114 ;	-----------------------------------------
+      000000                        115 _nextPtr:
+                           000007   116 	ar7 = 0x07
+                           000006   117 	ar6 = 0x06
+                           000005   118 	ar5 = 0x05
+                           000004   119 	ar4 = 0x04
+                           000003   120 	ar3 = 0x03
+                           000002   121 	ar2 = 0x02
+                           000001   122 	ar1 = 0x01
+                           000000   123 	ar0 = 0x00
+      000000 E5 82            [12]  124 	mov	a,dpl
+      000002 90r00r20         [24]  125 	mov	dptr,#_nextPtr_ptr_65536_3
+      000005 F0               [24]  126 	movx	@dptr,a
+                                    127 ;	cb.c:18: if(ptr == (QUEUE_DEPTH - 1))
+      000006 E0               [24]  128 	movx	a,@dptr
+      000007 FF               [12]  129 	mov	r7,a
+      000008 BF 1F 04         [24]  130 	cjne	r7,#0x1f,00102$
+                                    131 ;	cb.c:19: return 0;
+      00000B 75 82 00         [24]  132 	mov	dpl,#0x00
+      00000E 22               [24]  133 	ret
+      00000F                        134 00102$:
+                                    135 ;	cb.c:21: return ptr + 1;
+      00000F 0F               [12]  136 	inc	r7
+      000010 8F 82            [24]  137 	mov	dpl,r7
+                                    138 ;	cb.c:23: } // nextPtr()
+      000012 22               [24]  139 	ret
+                                    140 ;------------------------------------------------------------
+                                    141 ;Allocation info for local variables in function 'is_tx_queue_empty'
+                                    142 ;------------------------------------------------------------
+                                    143 ;	cb.c:31: uint8_t is_tx_queue_empty() {
+                                    144 ;	-----------------------------------------
+                                    145 ;	 function is_tx_queue_empty
+                                    146 ;	-----------------------------------------
+      000013                        147 _is_tx_queue_empty:
+                                    148 ;	cb.c:32: return (tx_wptr == tx_rptr) ? 1 : 0;
+      000013 90r00r00         [24]  149 	mov	dptr,#_tx_wptr
+      000016 E0               [24]  150 	movx	a,@dptr
+      000017 FF               [12]  151 	mov	r7,a
+      000018 90r00r01         [24]  152 	mov	dptr,#_tx_rptr
+      00001B E0               [24]  153 	movx	a,@dptr
+      00001C FE               [12]  154 	mov	r6,a
+      00001D EF               [12]  155 	mov	a,r7
+      00001E B5 06 06         [24]  156 	cjne	a,ar6,00103$
+      000021 7E 01            [12]  157 	mov	r6,#0x01
+      000023 7F 00            [12]  158 	mov	r7,#0x00
+      000025 80 04            [24]  159 	sjmp	00104$
+      000027                        160 00103$:
+      000027 7E 00            [12]  161 	mov	r6,#0x00
+      000029 7F 00            [12]  162 	mov	r7,#0x00
+      00002B                        163 00104$:
+      00002B 8E 82            [24]  164 	mov	dpl,r6
+                                    165 ;	cb.c:33: }
+      00002D 22               [24]  166 	ret
+                                    167 ;------------------------------------------------------------
+                                    168 ;Allocation info for local variables in function 'is_tx_queue_full'
+                                    169 ;------------------------------------------------------------
+                                    170 ;res                       Allocated to registers r6 
+                                    171 ;------------------------------------------------------------
+                                    172 ;	cb.c:40: uint8_t is_tx_queue_full() {
+                                    173 ;	-----------------------------------------
+                                    174 ;	 function is_tx_queue_full
+                                    175 ;	-----------------------------------------
+      00002E                        176 _is_tx_queue_full:
+                                    177 ;	cb.c:44: if(tx_wptr > tx_rptr) {
+      00002E 90r00r00         [24]  178 	mov	dptr,#_tx_wptr
+      000031 E0               [24]  179 	movx	a,@dptr
+      000032 FF               [12]  180 	mov	r7,a
+      000033 90r00r01         [24]  181 	mov	dptr,#_tx_rptr
+      000036 E0               [24]  182 	movx	a,@dptr
+      000037 C3               [12]  183 	clr	c
+      000038 9F               [12]  184 	subb	a,r7
+      000039 50 27            [24]  185 	jnc	00102$
+                                    186 ;	cb.c:45: res = (tx_wptr - tx_rptr) == (QUEUE_DEPTH -1) ? 1 : 0;
+      00003B 90r00r00         [24]  187 	mov	dptr,#_tx_wptr
+      00003E E0               [24]  188 	movx	a,@dptr
+      00003F FF               [12]  189 	mov	r7,a
+      000040 7E 00            [12]  190 	mov	r6,#0x00
+      000042 90r00r01         [24]  191 	mov	dptr,#_tx_rptr
+      000045 E0               [24]  192 	movx	a,@dptr
+      000046 FD               [12]  193 	mov	r5,a
+      000047 7C 00            [12]  194 	mov	r4,#0x00
+      000049 EF               [12]  195 	mov	a,r7
+      00004A C3               [12]  196 	clr	c
+      00004B 9D               [12]  197 	subb	a,r5
+      00004C FF               [12]  198 	mov	r7,a
+      00004D EE               [12]  199 	mov	a,r6
+      00004E 9C               [12]  200 	subb	a,r4
+      00004F FE               [12]  201 	mov	r6,a
+      000050 BF 1F 09         [24]  202 	cjne	r7,#0x1f,00106$
+      000053 BE 00 06         [24]  203 	cjne	r6,#0x00,00106$
+      000056 7E 01            [12]  204 	mov	r6,#0x01
+      000058 7F 00            [12]  205 	mov	r7,#0x00
+      00005A 80 2C            [24]  206 	sjmp	00103$
+      00005C                        207 00106$:
+      00005C 7E 00            [12]  208 	mov	r6,#0x00
+      00005E 7F 00            [12]  209 	mov	r7,#0x00
+      000060 80 26            [24]  210 	sjmp	00103$
+      000062                        211 00102$:
+                                    212 ;	cb.c:48: res = (tx_rptr == (tx_wptr + 1)) ? 1 : 0;
+      000062 90r00r00         [24]  213 	mov	dptr,#_tx_wptr
+      000065 E0               [24]  214 	movx	a,@dptr
+      000066 FF               [12]  215 	mov	r7,a
+      000067 7D 00            [12]  216 	mov	r5,#0x00
+      000069 0F               [12]  217 	inc	r7
+      00006A BF 00 01         [24]  218 	cjne	r7,#0x00,00125$
+      00006D 0D               [12]  219 	inc	r5
+      00006E                        220 00125$:
+      00006E 90r00r01         [24]  221 	mov	dptr,#_tx_rptr
+      000071 E0               [24]  222 	movx	a,@dptr
+      000072 FC               [12]  223 	mov	r4,a
+      000073 7B 00            [12]  224 	mov	r3,#0x00
+      000075 B5 07 0A         [24]  225 	cjne	a,ar7,00108$
+      000078 EB               [12]  226 	mov	a,r3
+      000079 B5 05 06         [24]  227 	cjne	a,ar5,00108$
+      00007C 7D 01            [12]  228 	mov	r5,#0x01
+      00007E 7F 00            [12]  229 	mov	r7,#0x00
+      000080 80 04            [24]  230 	sjmp	00109$
+      000082                        231 00108$:
+      000082 7D 00            [12]  232 	mov	r5,#0x00
+      000084 7F 00            [12]  233 	mov	r7,#0x00
+      000086                        234 00109$:
+      000086 8D 06            [24]  235 	mov	ar6,r5
+      000088                        236 00103$:
+                                    237 ;	cb.c:51: return res;
+      000088 8E 82            [24]  238 	mov	dpl,r6
+                                    239 ;	cb.c:52: }
+      00008A 22               [24]  240 	ret
+                                    241 ;------------------------------------------------------------
+                                    242 ;Allocation info for local variables in function 'write_tx_queue'
+                                    243 ;------------------------------------------------------------
+                                    244 ;data                      Allocated with name '_write_tx_queue_data_65536_9'
+                                    245 ;------------------------------------------------------------
+                                    246 ;	cb.c:59: int write_tx_queue (uint8_t data) {
+                                    247 ;	-----------------------------------------
+                                    248 ;	 function write_tx_queue
+                                    249 ;	-----------------------------------------
+      00008B                        250 _write_tx_queue:
+      00008B E5 82            [12]  251 	mov	a,dpl
+      00008D 90r00r21         [24]  252 	mov	dptr,#_write_tx_queue_data_65536_9
+      000090 F0               [24]  253 	movx	@dptr,a
+                                    254 ;	cb.c:62: if(is_tx_queue_full())
+      000091 12r00r2E         [24]  255 	lcall	_is_tx_queue_full
+      000094 E5 82            [12]  256 	mov	a,dpl
+      000096 60 04            [24]  257 	jz	00102$
+                                    258 ;	cb.c:63: return 1;
+      000098 90 00 01         [24]  259 	mov	dptr,#0x0001
+      00009B 22               [24]  260 	ret
+      00009C                        261 00102$:
+                                    262 ;	cb.c:66: tx_queue[tx_wptr] = data;
+      00009C 90r00r00         [24]  263 	mov	dptr,#_tx_wptr
+      00009F E0               [24]  264 	movx	a,@dptr
+      0000A0 24r00            [12]  265 	add	a,#_tx_queue
+      0000A2 FF               [12]  266 	mov	r7,a
+      0000A3 E4               [12]  267 	clr	a
+      0000A4 34s00            [12]  268 	addc	a,#(_tx_queue >> 8)
+      0000A6 FE               [12]  269 	mov	r6,a
+      0000A7 90r00r21         [24]  270 	mov	dptr,#_write_tx_queue_data_65536_9
+      0000AA E0               [24]  271 	movx	a,@dptr
+      0000AB 8F 82            [24]  272 	mov	dpl,r7
+      0000AD 8E 83            [24]  273 	mov	dph,r6
+      0000AF F0               [24]  274 	movx	@dptr,a
+                                    275 ;	cb.c:68: tx_wptr = nextPtr(tx_wptr);
+      0000B0 90r00r00         [24]  276 	mov	dptr,#_tx_wptr
+      0000B3 E0               [24]  277 	movx	a,@dptr
+      0000B4 F5 82            [12]  278 	mov	dpl,a
+      0000B6 12r00r00         [24]  279 	lcall	_nextPtr
+      0000B9 E5 82            [12]  280 	mov	a,dpl
+      0000BB 90r00r00         [24]  281 	mov	dptr,#_tx_wptr
+      0000BE F0               [24]  282 	movx	@dptr,a
+                                    283 ;	cb.c:70: return 0;
+      0000BF 90 00 00         [24]  284 	mov	dptr,#0x0000
+                                    285 ;	cb.c:72: } // write_tx_queue()
+      0000C2 22               [24]  286 	ret
+                                    287 ;------------------------------------------------------------
+                                    288 ;Allocation info for local variables in function 'read_tx_queue'
+                                    289 ;------------------------------------------------------------
+                                    290 ;data                      Allocated with name '_read_tx_queue_data_65536_11'
+                                    291 ;------------------------------------------------------------
+                                    292 ;	cb.c:79: int read_tx_queue(uint8_t *data) {
+                                    293 ;	-----------------------------------------
+                                    294 ;	 function read_tx_queue
+                                    295 ;	-----------------------------------------
+      0000C3                        296 _read_tx_queue:
+      0000C3 AF F0            [24]  297 	mov	r7,b
+      0000C5 AE 83            [24]  298 	mov	r6,dph
+      0000C7 E5 82            [12]  299 	mov	a,dpl
+      0000C9 90r00r22         [24]  300 	mov	dptr,#_read_tx_queue_data_65536_11
+      0000CC F0               [24]  301 	movx	@dptr,a
+      0000CD EE               [12]  302 	mov	a,r6
+      0000CE A3               [24]  303 	inc	dptr
+      0000CF F0               [24]  304 	movx	@dptr,a
+      0000D0 EF               [12]  305 	mov	a,r7
+      0000D1 A3               [24]  306 	inc	dptr
+      0000D2 F0               [24]  307 	movx	@dptr,a
+                                    308 ;	cb.c:82: if(is_tx_queue_empty())
+      0000D3 12r00r13         [24]  309 	lcall	_is_tx_queue_empty
+      0000D6 E5 82            [12]  310 	mov	a,dpl
+      0000D8 60 04            [24]  311 	jz	00102$
+                                    312 ;	cb.c:83: return 1;
+      0000DA 90 00 01         [24]  313 	mov	dptr,#0x0001
+      0000DD 22               [24]  314 	ret
+      0000DE                        315 00102$:
+                                    316 ;	cb.c:86: if(!data)
+      0000DE 90r00r22         [24]  317 	mov	dptr,#_read_tx_queue_data_65536_11
+      0000E1 E0               [24]  318 	movx	a,@dptr
+      0000E2 FD               [12]  319 	mov	r5,a
+      0000E3 A3               [24]  320 	inc	dptr
+      0000E4 E0               [24]  321 	movx	a,@dptr
+      0000E5 FE               [12]  322 	mov	r6,a
+      0000E6 A3               [24]  323 	inc	dptr
+      0000E7 E0               [24]  324 	movx	a,@dptr
+      0000E8 FF               [12]  325 	mov	r7,a
+      0000E9 90r00r22         [24]  326 	mov	dptr,#_read_tx_queue_data_65536_11
+      0000EC E0               [24]  327 	movx	a,@dptr
+      0000ED F5 F0            [12]  328 	mov	b,a
+      0000EF A3               [24]  329 	inc	dptr
+      0000F0 E0               [24]  330 	movx	a,@dptr
+      0000F1 45 F0            [12]  331 	orl	a,b
+      0000F3 70 04            [24]  332 	jnz	00104$
+                                    333 ;	cb.c:87: return 1;
+      0000F5 90 00 01         [24]  334 	mov	dptr,#0x0001
+      0000F8 22               [24]  335 	ret
+      0000F9                        336 00104$:
+                                    337 ;	cb.c:90: *data = tx_queue[tx_rptr];
+      0000F9 90r00r01         [24]  338 	mov	dptr,#_tx_rptr
+      0000FC E0               [24]  339 	movx	a,@dptr
+      0000FD 24r00            [12]  340 	add	a,#_tx_queue
+      0000FF F5 82            [12]  341 	mov	dpl,a
+      000101 E4               [12]  342 	clr	a
+      000102 34s00            [12]  343 	addc	a,#(_tx_queue >> 8)
+      000104 F5 83            [12]  344 	mov	dph,a
+      000106 E0               [24]  345 	movx	a,@dptr
+      000107 8D 82            [24]  346 	mov	dpl,r5
+      000109 8E 83            [24]  347 	mov	dph,r6
+      00010B 8F F0            [24]  348 	mov	b,r7
+      00010D 12r00r00         [24]  349 	lcall	__gptrput
+                                    350 ;	cb.c:93: tx_rptr = nextPtr(tx_rptr);
+      000110 90r00r01         [24]  351 	mov	dptr,#_tx_rptr
+      000113 E0               [24]  352 	movx	a,@dptr
+      000114 F5 82            [12]  353 	mov	dpl,a
+      000116 12r00r00         [24]  354 	lcall	_nextPtr
+      000119 E5 82            [12]  355 	mov	a,dpl
+      00011B 90r00r01         [24]  356 	mov	dptr,#_tx_rptr
+      00011E F0               [24]  357 	movx	@dptr,a
+                                    358 ;	cb.c:95: return 0;
+      00011F 90 00 00         [24]  359 	mov	dptr,#0x0000
+                                    360 ;	cb.c:97: } // read_tx_queue()
+      000122 22               [24]  361 	ret
+                                    362 ;------------------------------------------------------------
+                                    363 ;Allocation info for local variables in function 'clear_tx_queue'
+                                    364 ;------------------------------------------------------------
+                                    365 ;i                         Allocated with name '_clear_tx_queue_i_131072_14'
+                                    366 ;------------------------------------------------------------
+                                    367 ;	cb.c:104: void clear_tx_queue(){
+                                    368 ;	-----------------------------------------
+                                    369 ;	 function clear_tx_queue
+                                    370 ;	-----------------------------------------
+      000123                        371 _clear_tx_queue:
+                                    372 ;	cb.c:106: tx_wptr = 0;
+      000123 90r00r00         [24]  373 	mov	dptr,#_tx_wptr
+      000126 E4               [12]  374 	clr	a
+      000127 F0               [24]  375 	movx	@dptr,a
+                                    376 ;	cb.c:107: tx_rptr = 0;
+      000128 90r00r01         [24]  377 	mov	dptr,#_tx_rptr
+      00012B F0               [24]  378 	movx	@dptr,a
+                                    379 ;	cb.c:108: for(int i=0;i<QUEUE_DEPTH;i++){
+      00012C 7E 00            [12]  380 	mov	r6,#0x00
+      00012E 7F 00            [12]  381 	mov	r7,#0x00
+      000130                        382 00103$:
+      000130 C3               [12]  383 	clr	c
+      000131 EE               [12]  384 	mov	a,r6
+      000132 94 20            [12]  385 	subb	a,#0x20
+      000134 EF               [12]  386 	mov	a,r7
+      000135 64 80            [12]  387 	xrl	a,#0x80
+      000137 94 80            [12]  388 	subb	a,#0x80
+      000139 50 13            [24]  389 	jnc	00105$
+                                    390 ;	cb.c:109: tx_queue[i] = 0;
+      00013B EE               [12]  391 	mov	a,r6
+      00013C 24r00            [12]  392 	add	a,#_tx_queue
+      00013E F5 82            [12]  393 	mov	dpl,a
+      000140 EF               [12]  394 	mov	a,r7
+      000141 34s00            [12]  395 	addc	a,#(_tx_queue >> 8)
+      000143 F5 83            [12]  396 	mov	dph,a
+      000145 E4               [12]  397 	clr	a
+      000146 F0               [24]  398 	movx	@dptr,a
+                                    399 ;	cb.c:108: for(int i=0;i<QUEUE_DEPTH;i++){
+      000147 0E               [12]  400 	inc	r6
+      000148 BE 00 E5         [24]  401 	cjne	r6,#0x00,00103$
+      00014B 0F               [12]  402 	inc	r7
+      00014C 80 E2            [24]  403 	sjmp	00103$
+      00014E                        404 00105$:
+                                    405 ;	cb.c:111: } // clear_tx_queue
+      00014E 22               [24]  406 	ret
+                                    407 	.area CSEG    (CODE)
+                                    408 	.area CONST   (CODE)
+                                    409 	.area XINIT   (CODE)
+      000000                        410 __xinit__tx_wptr:
+      000000 00                     411 	.db #0x00	; 0
+      000001                        412 __xinit__tx_rptr:
+      000001 00                     413 	.db #0x00	; 0
+                                    414 	.area CABS    (ABS,CODE)

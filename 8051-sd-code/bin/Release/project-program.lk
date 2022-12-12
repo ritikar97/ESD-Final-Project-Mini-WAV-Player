@@ -1,0 +1,30 @@
+-muwx
+-i bin\Release\project-program.ihx
+-M
+-I 0x0100
+-X 0x1000
+-C 0x10000
+-b HOME = 0x0000
+-b XSEG = 0x0001
+-b PSEG = 0x0001
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k C:\Program Files\SDCC\lib
+-k C:\Program Files\SDCC\bin\..\lib\large-stack-auto
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+obj\Release\i2c.rel
+obj\Release\lcd.rel
+obj\Release\main.rel
+obj\Release\mcp4725.rel
+obj\Release\pff\source\diskio.rel
+obj\Release\pff\source\pff.rel
+obj\Release\sdc.rel
+obj\Release\serial.rel
+obj\Release\spi.rel
+obj\Release\timer.rel
+
+-e

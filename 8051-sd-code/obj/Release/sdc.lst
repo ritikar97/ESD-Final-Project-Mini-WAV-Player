@@ -1,0 +1,1417 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module sdc
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _spi_enable_cs
+                                     12 	.globl _spi_disable_cs
+                                     13 	.globl _spi_byte
+                                     14 	.globl _max_spi_clock_freq
+                                     15 	.globl _TF1
+                                     16 	.globl _TR1
+                                     17 	.globl _TF0
+                                     18 	.globl _TR0
+                                     19 	.globl _IE1
+                                     20 	.globl _IT1
+                                     21 	.globl _IE0
+                                     22 	.globl _IT0
+                                     23 	.globl _SM0
+                                     24 	.globl _SM1
+                                     25 	.globl _SM2
+                                     26 	.globl _REN
+                                     27 	.globl _TB8
+                                     28 	.globl _RB8
+                                     29 	.globl _TI
+                                     30 	.globl _RI
+                                     31 	.globl _CY
+                                     32 	.globl _AC
+                                     33 	.globl _F0
+                                     34 	.globl _RS1
+                                     35 	.globl _RS0
+                                     36 	.globl _OV
+                                     37 	.globl _F1
+                                     38 	.globl _P
+                                     39 	.globl _RD
+                                     40 	.globl _WR
+                                     41 	.globl _T1
+                                     42 	.globl _T0
+                                     43 	.globl _INT1
+                                     44 	.globl _INT0
+                                     45 	.globl _TXD0
+                                     46 	.globl _TXD
+                                     47 	.globl _RXD0
+                                     48 	.globl _RXD
+                                     49 	.globl _P3_7
+                                     50 	.globl _P3_6
+                                     51 	.globl _P3_5
+                                     52 	.globl _P3_4
+                                     53 	.globl _P3_3
+                                     54 	.globl _P3_2
+                                     55 	.globl _P3_1
+                                     56 	.globl _P3_0
+                                     57 	.globl _P2_7
+                                     58 	.globl _P2_6
+                                     59 	.globl _P2_5
+                                     60 	.globl _P2_4
+                                     61 	.globl _P2_3
+                                     62 	.globl _P2_2
+                                     63 	.globl _P2_1
+                                     64 	.globl _P2_0
+                                     65 	.globl _P1_7
+                                     66 	.globl _P1_6
+                                     67 	.globl _P1_5
+                                     68 	.globl _P1_4
+                                     69 	.globl _P1_3
+                                     70 	.globl _P1_2
+                                     71 	.globl _P1_1
+                                     72 	.globl _P1_0
+                                     73 	.globl _P0_7
+                                     74 	.globl _P0_6
+                                     75 	.globl _P0_5
+                                     76 	.globl _P0_4
+                                     77 	.globl _P0_3
+                                     78 	.globl _P0_2
+                                     79 	.globl _P0_1
+                                     80 	.globl _P0_0
+                                     81 	.globl _PS
+                                     82 	.globl _PT1
+                                     83 	.globl _PX1
+                                     84 	.globl _PT0
+                                     85 	.globl _PX0
+                                     86 	.globl _EA
+                                     87 	.globl _ES
+                                     88 	.globl _ET1
+                                     89 	.globl _EX1
+                                     90 	.globl _ET0
+                                     91 	.globl _EX0
+                                     92 	.globl _BREG_F7
+                                     93 	.globl _BREG_F6
+                                     94 	.globl _BREG_F5
+                                     95 	.globl _BREG_F4
+                                     96 	.globl _BREG_F3
+                                     97 	.globl _BREG_F2
+                                     98 	.globl _BREG_F1
+                                     99 	.globl _BREG_F0
+                                    100 	.globl _P5_7
+                                    101 	.globl _P5_6
+                                    102 	.globl _P5_5
+                                    103 	.globl _P5_4
+                                    104 	.globl _P5_3
+                                    105 	.globl _P5_2
+                                    106 	.globl _P5_1
+                                    107 	.globl _P5_0
+                                    108 	.globl _P4_7
+                                    109 	.globl _P4_6
+                                    110 	.globl _P4_5
+                                    111 	.globl _P4_4
+                                    112 	.globl _P4_3
+                                    113 	.globl _P4_2
+                                    114 	.globl _P4_1
+                                    115 	.globl _P4_0
+                                    116 	.globl _PX0L
+                                    117 	.globl _PT0L
+                                    118 	.globl _PX1L
+                                    119 	.globl _PT1L
+                                    120 	.globl _PSL
+                                    121 	.globl _PT2L
+                                    122 	.globl _PPCL
+                                    123 	.globl _EC
+                                    124 	.globl _CCF0
+                                    125 	.globl _CCF1
+                                    126 	.globl _CCF2
+                                    127 	.globl _CCF3
+                                    128 	.globl _CCF4
+                                    129 	.globl _CR
+                                    130 	.globl _CF
+                                    131 	.globl _TF2
+                                    132 	.globl _EXF2
+                                    133 	.globl _RCLK
+                                    134 	.globl _TCLK
+                                    135 	.globl _EXEN2
+                                    136 	.globl _TR2
+                                    137 	.globl _C_T2
+                                    138 	.globl _CP_RL2
+                                    139 	.globl _T2CON_7
+                                    140 	.globl _T2CON_6
+                                    141 	.globl _T2CON_5
+                                    142 	.globl _T2CON_4
+                                    143 	.globl _T2CON_3
+                                    144 	.globl _T2CON_2
+                                    145 	.globl _T2CON_1
+                                    146 	.globl _T2CON_0
+                                    147 	.globl _PT2
+                                    148 	.globl _ET2
+                                    149 	.globl _TMOD
+                                    150 	.globl _TL1
+                                    151 	.globl _TL0
+                                    152 	.globl _TH1
+                                    153 	.globl _TH0
+                                    154 	.globl _TCON
+                                    155 	.globl _SP
+                                    156 	.globl _SCON
+                                    157 	.globl _SBUF0
+                                    158 	.globl _SBUF
+                                    159 	.globl _PSW
+                                    160 	.globl _PCON
+                                    161 	.globl _P3
+                                    162 	.globl _P2
+                                    163 	.globl _P1
+                                    164 	.globl _P0
+                                    165 	.globl _IP
+                                    166 	.globl _IE
+                                    167 	.globl _DP0L
+                                    168 	.globl _DPL
+                                    169 	.globl _DP0H
+                                    170 	.globl _DPH
+                                    171 	.globl _B
+                                    172 	.globl _ACC
+                                    173 	.globl _EECON
+                                    174 	.globl _KBF
+                                    175 	.globl _KBE
+                                    176 	.globl _KBLS
+                                    177 	.globl _BRL
+                                    178 	.globl _BDRCON
+                                    179 	.globl _T2MOD
+                                    180 	.globl _SPDAT
+                                    181 	.globl _SPSTA
+                                    182 	.globl _SPCON
+                                    183 	.globl _SADEN
+                                    184 	.globl _SADDR
+                                    185 	.globl _WDTPRG
+                                    186 	.globl _WDTRST
+                                    187 	.globl _P5
+                                    188 	.globl _P4
+                                    189 	.globl _IPH1
+                                    190 	.globl _IPL1
+                                    191 	.globl _IPH0
+                                    192 	.globl _IPL0
+                                    193 	.globl _IEN1
+                                    194 	.globl _IEN0
+                                    195 	.globl _CMOD
+                                    196 	.globl _CL
+                                    197 	.globl _CH
+                                    198 	.globl _CCON
+                                    199 	.globl _CCAPM4
+                                    200 	.globl _CCAPM3
+                                    201 	.globl _CCAPM2
+                                    202 	.globl _CCAPM1
+                                    203 	.globl _CCAPM0
+                                    204 	.globl _CCAP4L
+                                    205 	.globl _CCAP3L
+                                    206 	.globl _CCAP2L
+                                    207 	.globl _CCAP1L
+                                    208 	.globl _CCAP0L
+                                    209 	.globl _CCAP4H
+                                    210 	.globl _CCAP3H
+                                    211 	.globl _CCAP2H
+                                    212 	.globl _CCAP1H
+                                    213 	.globl _CCAP0H
+                                    214 	.globl _CKCON1
+                                    215 	.globl _CKCON0
+                                    216 	.globl _CKRL
+                                    217 	.globl _AUXR1
+                                    218 	.globl _AUXR
+                                    219 	.globl _TH2
+                                    220 	.globl _TL2
+                                    221 	.globl _RCAP2H
+                                    222 	.globl _RCAP2L
+                                    223 	.globl _T2CON
+                                    224 	.globl _sd_write_sector_PARM_2
+                                    225 	.globl _sd_read_sector_PARM_2
+                                    226 	.globl _card_type
+                                    227 	.globl _get_card_type
+                                    228 	.globl _sd_init
+                                    229 	.globl _sd_read_sector
+                                    230 	.globl _sd_write_sector
+                                    231 	.globl _sd_wait_for_ready
+                                    232 ;--------------------------------------------------------
+                                    233 ; special function registers
+                                    234 ;--------------------------------------------------------
+                                    235 	.area RSEG    (ABS,DATA)
+      000000                        236 	.org 0x0000
+                           0000C8   237 _T2CON	=	0x00c8
+                           0000CA   238 _RCAP2L	=	0x00ca
+                           0000CB   239 _RCAP2H	=	0x00cb
+                           0000CC   240 _TL2	=	0x00cc
+                           0000CD   241 _TH2	=	0x00cd
+                           00008E   242 _AUXR	=	0x008e
+                           0000A2   243 _AUXR1	=	0x00a2
+                           000097   244 _CKRL	=	0x0097
+                           00008F   245 _CKCON0	=	0x008f
+                           0000AF   246 _CKCON1	=	0x00af
+                           0000FA   247 _CCAP0H	=	0x00fa
+                           0000FB   248 _CCAP1H	=	0x00fb
+                           0000FC   249 _CCAP2H	=	0x00fc
+                           0000FD   250 _CCAP3H	=	0x00fd
+                           0000FE   251 _CCAP4H	=	0x00fe
+                           0000EA   252 _CCAP0L	=	0x00ea
+                           0000EB   253 _CCAP1L	=	0x00eb
+                           0000EC   254 _CCAP2L	=	0x00ec
+                           0000ED   255 _CCAP3L	=	0x00ed
+                           0000EE   256 _CCAP4L	=	0x00ee
+                           0000DA   257 _CCAPM0	=	0x00da
+                           0000DB   258 _CCAPM1	=	0x00db
+                           0000DC   259 _CCAPM2	=	0x00dc
+                           0000DD   260 _CCAPM3	=	0x00dd
+                           0000DE   261 _CCAPM4	=	0x00de
+                           0000D8   262 _CCON	=	0x00d8
+                           0000F9   263 _CH	=	0x00f9
+                           0000E9   264 _CL	=	0x00e9
+                           0000D9   265 _CMOD	=	0x00d9
+                           0000A8   266 _IEN0	=	0x00a8
+                           0000B1   267 _IEN1	=	0x00b1
+                           0000B8   268 _IPL0	=	0x00b8
+                           0000B7   269 _IPH0	=	0x00b7
+                           0000B2   270 _IPL1	=	0x00b2
+                           0000B3   271 _IPH1	=	0x00b3
+                           0000C0   272 _P4	=	0x00c0
+                           0000E8   273 _P5	=	0x00e8
+                           0000A6   274 _WDTRST	=	0x00a6
+                           0000A7   275 _WDTPRG	=	0x00a7
+                           0000A9   276 _SADDR	=	0x00a9
+                           0000B9   277 _SADEN	=	0x00b9
+                           0000C3   278 _SPCON	=	0x00c3
+                           0000C4   279 _SPSTA	=	0x00c4
+                           0000C5   280 _SPDAT	=	0x00c5
+                           0000C9   281 _T2MOD	=	0x00c9
+                           00009B   282 _BDRCON	=	0x009b
+                           00009A   283 _BRL	=	0x009a
+                           00009C   284 _KBLS	=	0x009c
+                           00009D   285 _KBE	=	0x009d
+                           00009E   286 _KBF	=	0x009e
+                           0000D2   287 _EECON	=	0x00d2
+                           0000E0   288 _ACC	=	0x00e0
+                           0000F0   289 _B	=	0x00f0
+                           000083   290 _DPH	=	0x0083
+                           000083   291 _DP0H	=	0x0083
+                           000082   292 _DPL	=	0x0082
+                           000082   293 _DP0L	=	0x0082
+                           0000A8   294 _IE	=	0x00a8
+                           0000B8   295 _IP	=	0x00b8
+                           000080   296 _P0	=	0x0080
+                           000090   297 _P1	=	0x0090
+                           0000A0   298 _P2	=	0x00a0
+                           0000B0   299 _P3	=	0x00b0
+                           000087   300 _PCON	=	0x0087
+                           0000D0   301 _PSW	=	0x00d0
+                           000099   302 _SBUF	=	0x0099
+                           000099   303 _SBUF0	=	0x0099
+                           000098   304 _SCON	=	0x0098
+                           000081   305 _SP	=	0x0081
+                           000088   306 _TCON	=	0x0088
+                           00008C   307 _TH0	=	0x008c
+                           00008D   308 _TH1	=	0x008d
+                           00008A   309 _TL0	=	0x008a
+                           00008B   310 _TL1	=	0x008b
+                           000089   311 _TMOD	=	0x0089
+                                    312 ;--------------------------------------------------------
+                                    313 ; special function bits
+                                    314 ;--------------------------------------------------------
+                                    315 	.area RSEG    (ABS,DATA)
+      000000                        316 	.org 0x0000
+                           0000AD   317 _ET2	=	0x00ad
+                           0000BD   318 _PT2	=	0x00bd
+                           0000C8   319 _T2CON_0	=	0x00c8
+                           0000C9   320 _T2CON_1	=	0x00c9
+                           0000CA   321 _T2CON_2	=	0x00ca
+                           0000CB   322 _T2CON_3	=	0x00cb
+                           0000CC   323 _T2CON_4	=	0x00cc
+                           0000CD   324 _T2CON_5	=	0x00cd
+                           0000CE   325 _T2CON_6	=	0x00ce
+                           0000CF   326 _T2CON_7	=	0x00cf
+                           0000C8   327 _CP_RL2	=	0x00c8
+                           0000C9   328 _C_T2	=	0x00c9
+                           0000CA   329 _TR2	=	0x00ca
+                           0000CB   330 _EXEN2	=	0x00cb
+                           0000CC   331 _TCLK	=	0x00cc
+                           0000CD   332 _RCLK	=	0x00cd
+                           0000CE   333 _EXF2	=	0x00ce
+                           0000CF   334 _TF2	=	0x00cf
+                           0000DF   335 _CF	=	0x00df
+                           0000DE   336 _CR	=	0x00de
+                           0000DC   337 _CCF4	=	0x00dc
+                           0000DB   338 _CCF3	=	0x00db
+                           0000DA   339 _CCF2	=	0x00da
+                           0000D9   340 _CCF1	=	0x00d9
+                           0000D8   341 _CCF0	=	0x00d8
+                           0000AE   342 _EC	=	0x00ae
+                           0000BE   343 _PPCL	=	0x00be
+                           0000BD   344 _PT2L	=	0x00bd
+                           0000BC   345 _PSL	=	0x00bc
+                           0000BB   346 _PT1L	=	0x00bb
+                           0000BA   347 _PX1L	=	0x00ba
+                           0000B9   348 _PT0L	=	0x00b9
+                           0000B8   349 _PX0L	=	0x00b8
+                           0000C0   350 _P4_0	=	0x00c0
+                           0000C1   351 _P4_1	=	0x00c1
+                           0000C2   352 _P4_2	=	0x00c2
+                           0000C3   353 _P4_3	=	0x00c3
+                           0000C4   354 _P4_4	=	0x00c4
+                           0000C5   355 _P4_5	=	0x00c5
+                           0000C6   356 _P4_6	=	0x00c6
+                           0000C7   357 _P4_7	=	0x00c7
+                           0000E8   358 _P5_0	=	0x00e8
+                           0000E9   359 _P5_1	=	0x00e9
+                           0000EA   360 _P5_2	=	0x00ea
+                           0000EB   361 _P5_3	=	0x00eb
+                           0000EC   362 _P5_4	=	0x00ec
+                           0000ED   363 _P5_5	=	0x00ed
+                           0000EE   364 _P5_6	=	0x00ee
+                           0000EF   365 _P5_7	=	0x00ef
+                           0000F0   366 _BREG_F0	=	0x00f0
+                           0000F1   367 _BREG_F1	=	0x00f1
+                           0000F2   368 _BREG_F2	=	0x00f2
+                           0000F3   369 _BREG_F3	=	0x00f3
+                           0000F4   370 _BREG_F4	=	0x00f4
+                           0000F5   371 _BREG_F5	=	0x00f5
+                           0000F6   372 _BREG_F6	=	0x00f6
+                           0000F7   373 _BREG_F7	=	0x00f7
+                           0000A8   374 _EX0	=	0x00a8
+                           0000A9   375 _ET0	=	0x00a9
+                           0000AA   376 _EX1	=	0x00aa
+                           0000AB   377 _ET1	=	0x00ab
+                           0000AC   378 _ES	=	0x00ac
+                           0000AF   379 _EA	=	0x00af
+                           0000B8   380 _PX0	=	0x00b8
+                           0000B9   381 _PT0	=	0x00b9
+                           0000BA   382 _PX1	=	0x00ba
+                           0000BB   383 _PT1	=	0x00bb
+                           0000BC   384 _PS	=	0x00bc
+                           000080   385 _P0_0	=	0x0080
+                           000081   386 _P0_1	=	0x0081
+                           000082   387 _P0_2	=	0x0082
+                           000083   388 _P0_3	=	0x0083
+                           000084   389 _P0_4	=	0x0084
+                           000085   390 _P0_5	=	0x0085
+                           000086   391 _P0_6	=	0x0086
+                           000087   392 _P0_7	=	0x0087
+                           000090   393 _P1_0	=	0x0090
+                           000091   394 _P1_1	=	0x0091
+                           000092   395 _P1_2	=	0x0092
+                           000093   396 _P1_3	=	0x0093
+                           000094   397 _P1_4	=	0x0094
+                           000095   398 _P1_5	=	0x0095
+                           000096   399 _P1_6	=	0x0096
+                           000097   400 _P1_7	=	0x0097
+                           0000A0   401 _P2_0	=	0x00a0
+                           0000A1   402 _P2_1	=	0x00a1
+                           0000A2   403 _P2_2	=	0x00a2
+                           0000A3   404 _P2_3	=	0x00a3
+                           0000A4   405 _P2_4	=	0x00a4
+                           0000A5   406 _P2_5	=	0x00a5
+                           0000A6   407 _P2_6	=	0x00a6
+                           0000A7   408 _P2_7	=	0x00a7
+                           0000B0   409 _P3_0	=	0x00b0
+                           0000B1   410 _P3_1	=	0x00b1
+                           0000B2   411 _P3_2	=	0x00b2
+                           0000B3   412 _P3_3	=	0x00b3
+                           0000B4   413 _P3_4	=	0x00b4
+                           0000B5   414 _P3_5	=	0x00b5
+                           0000B6   415 _P3_6	=	0x00b6
+                           0000B7   416 _P3_7	=	0x00b7
+                           0000B0   417 _RXD	=	0x00b0
+                           0000B0   418 _RXD0	=	0x00b0
+                           0000B1   419 _TXD	=	0x00b1
+                           0000B1   420 _TXD0	=	0x00b1
+                           0000B2   421 _INT0	=	0x00b2
+                           0000B3   422 _INT1	=	0x00b3
+                           0000B4   423 _T0	=	0x00b4
+                           0000B5   424 _T1	=	0x00b5
+                           0000B6   425 _WR	=	0x00b6
+                           0000B7   426 _RD	=	0x00b7
+                           0000D0   427 _P	=	0x00d0
+                           0000D1   428 _F1	=	0x00d1
+                           0000D2   429 _OV	=	0x00d2
+                           0000D3   430 _RS0	=	0x00d3
+                           0000D4   431 _RS1	=	0x00d4
+                           0000D5   432 _F0	=	0x00d5
+                           0000D6   433 _AC	=	0x00d6
+                           0000D7   434 _CY	=	0x00d7
+                           000098   435 _RI	=	0x0098
+                           000099   436 _TI	=	0x0099
+                           00009A   437 _RB8	=	0x009a
+                           00009B   438 _TB8	=	0x009b
+                           00009C   439 _REN	=	0x009c
+                           00009D   440 _SM2	=	0x009d
+                           00009E   441 _SM1	=	0x009e
+                           00009F   442 _SM0	=	0x009f
+                           000088   443 _IT0	=	0x0088
+                           000089   444 _IE0	=	0x0089
+                           00008A   445 _IT1	=	0x008a
+                           00008B   446 _IE1	=	0x008b
+                           00008C   447 _TR0	=	0x008c
+                           00008D   448 _TF0	=	0x008d
+                           00008E   449 _TR1	=	0x008e
+                           00008F   450 _TF1	=	0x008f
+                                    451 ;--------------------------------------------------------
+                                    452 ; overlayable register banks
+                                    453 ;--------------------------------------------------------
+                                    454 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        455 	.ds 8
+                                    456 ;--------------------------------------------------------
+                                    457 ; internal ram data
+                                    458 ;--------------------------------------------------------
+                                    459 	.area DSEG    (DATA)
+      000000                        460 _sd_command_sloc0_1_0:
+      000000                        461 	.ds 4
+                                    462 ;--------------------------------------------------------
+                                    463 ; overlayable items in internal ram
+                                    464 ;--------------------------------------------------------
+                                    465 ;--------------------------------------------------------
+                                    466 ; indirectly addressable internal ram data
+                                    467 ;--------------------------------------------------------
+                                    468 	.area ISEG    (DATA)
+                                    469 ;--------------------------------------------------------
+                                    470 ; absolute internal ram data
+                                    471 ;--------------------------------------------------------
+                                    472 	.area IABS    (ABS,DATA)
+                                    473 	.area IABS    (ABS,DATA)
+                                    474 ;--------------------------------------------------------
+                                    475 ; bit data
+                                    476 ;--------------------------------------------------------
+                                    477 	.area BSEG    (BIT)
+                                    478 ;--------------------------------------------------------
+                                    479 ; paged external ram data
+                                    480 ;--------------------------------------------------------
+                                    481 	.area PSEG    (PAG,XDATA)
+                                    482 ;--------------------------------------------------------
+                                    483 ; external ram data
+                                    484 ;--------------------------------------------------------
+                                    485 	.area XSEG    (XDATA)
+      000000                        486 _card_type::
+      000000                        487 	.ds 2
+      000002                        488 _sd_read_sector_PARM_2:
+      000002                        489 	.ds 3
+      000005                        490 _sd_read_sector_sector_number_65536_59:
+      000005                        491 	.ds 2
+      000007                        492 _sd_write_sector_PARM_2:
+      000007                        493 	.ds 3
+      00000A                        494 _sd_write_sector_sector_number_65536_65:
+      00000A                        495 	.ds 2
+      00000C                        496 _sd_get_R1_ret_65536_73:
+      00000C                        497 	.ds 1
+      00000D                        498 _sd_command_PARM_2:
+      00000D                        499 	.ds 4
+      000011                        500 _sd_command_cmd_65536_79:
+      000011                        501 	.ds 1
+      000012                        502 _delay_count_65536_83:
+      000012                        503 	.ds 1
+                                    504 ;--------------------------------------------------------
+                                    505 ; absolute external ram data
+                                    506 ;--------------------------------------------------------
+                                    507 	.area XABS    (ABS,XDATA)
+                                    508 ;--------------------------------------------------------
+                                    509 ; external initialized ram data
+                                    510 ;--------------------------------------------------------
+                                    511 	.area XISEG   (XDATA)
+                                    512 	.area HOME    (CODE)
+                                    513 	.area GSINIT0 (CODE)
+                                    514 	.area GSINIT1 (CODE)
+                                    515 	.area GSINIT2 (CODE)
+                                    516 	.area GSINIT3 (CODE)
+                                    517 	.area GSINIT4 (CODE)
+                                    518 	.area GSINIT5 (CODE)
+                                    519 	.area GSINIT  (CODE)
+                                    520 	.area GSFINAL (CODE)
+                                    521 	.area CSEG    (CODE)
+                                    522 ;--------------------------------------------------------
+                                    523 ; global & static initialisations
+                                    524 ;--------------------------------------------------------
+                                    525 	.area HOME    (CODE)
+                                    526 	.area GSINIT  (CODE)
+                                    527 	.area GSFINAL (CODE)
+                                    528 	.area GSINIT  (CODE)
+                                    529 ;--------------------------------------------------------
+                                    530 ; Home
+                                    531 ;--------------------------------------------------------
+                                    532 	.area HOME    (CODE)
+                                    533 	.area HOME    (CODE)
+                                    534 ;--------------------------------------------------------
+                                    535 ; code
+                                    536 ;--------------------------------------------------------
+                                    537 	.area CSEG    (CODE)
+                                    538 ;------------------------------------------------------------
+                                    539 ;Allocation info for local variables in function 'get_card_type'
+                                    540 ;------------------------------------------------------------
+                                    541 ;	sdc.c:100: int get_card_type(void)
+                                    542 ;	-----------------------------------------
+                                    543 ;	 function get_card_type
+                                    544 ;	-----------------------------------------
+      000000                        545 _get_card_type:
+                           000007   546 	ar7 = 0x07
+                           000006   547 	ar6 = 0x06
+                           000005   548 	ar5 = 0x05
+                           000004   549 	ar4 = 0x04
+                           000003   550 	ar3 = 0x03
+                           000002   551 	ar2 = 0x02
+                           000001   552 	ar1 = 0x01
+                           000000   553 	ar0 = 0x00
+                                    554 ;	sdc.c:102: return card_type;
+      000000 90r00r00         [24]  555 	mov	dptr,#_card_type
+      000003 E0               [24]  556 	movx	a,@dptr
+      000004 FE               [12]  557 	mov	r6,a
+      000005 A3               [24]  558 	inc	dptr
+      000006 E0               [24]  559 	movx	a,@dptr
+                                    560 ;	sdc.c:103: }
+      000007 8E 82            [24]  561 	mov	dpl,r6
+      000009 F5 83            [12]  562 	mov	dph,a
+      00000B 22               [24]  563 	ret
+                                    564 ;------------------------------------------------------------
+                                    565 ;Allocation info for local variables in function 'sd_init'
+                                    566 ;------------------------------------------------------------
+                                    567 ;card_status               Allocated with name '_sd_init_card_status_65536_50'
+                                    568 ;i                         Allocated with name '_sd_init_i_65536_50'
+                                    569 ;------------------------------------------------------------
+                                    570 ;	sdc.c:116: int sd_init(void)
+                                    571 ;	-----------------------------------------
+                                    572 ;	 function sd_init
+                                    573 ;	-----------------------------------------
+      00000C                        574 _sd_init:
+                                    575 ;	sdc.c:123: spi_disable_cs();
+      00000C 12r00r00         [24]  576 	lcall	_spi_disable_cs
+                                    577 ;	sdc.c:126: for(i=0;i<10;i++)
+      00000F 7E 00            [12]  578 	mov	r6,#0x00
+      000011 7F 00            [12]  579 	mov	r7,#0x00
+      000013                        580 00124$:
+                                    581 ;	sdc.c:127: spi_byte( 0xFF );
+      000013 75 82 FF         [24]  582 	mov	dpl,#0xff
+      000016 C0 07            [24]  583 	push	ar7
+      000018 C0 06            [24]  584 	push	ar6
+      00001A 12r00r00         [24]  585 	lcall	_spi_byte
+      00001D D0 06            [24]  586 	pop	ar6
+      00001F D0 07            [24]  587 	pop	ar7
+                                    588 ;	sdc.c:126: for(i=0;i<10;i++)
+      000021 0E               [12]  589 	inc	r6
+      000022 BE 00 01         [24]  590 	cjne	r6,#0x00,00179$
+      000025 0F               [12]  591 	inc	r7
+      000026                        592 00179$:
+      000026 C3               [12]  593 	clr	c
+      000027 EE               [12]  594 	mov	a,r6
+      000028 94 0A            [12]  595 	subb	a,#0x0a
+      00002A EF               [12]  596 	mov	a,r7
+      00002B 64 80            [12]  597 	xrl	a,#0x80
+      00002D 94 80            [12]  598 	subb	a,#0x80
+      00002F 40 E2            [24]  599 	jc	00124$
+                                    600 ;	sdc.c:129: spi_enable_cs();
+      000031 12r00r00         [24]  601 	lcall	_spi_enable_cs
+                                    602 ;	sdc.c:135: card_type = 0;
+      000034 90r00r00         [24]  603 	mov	dptr,#_card_type
+      000037 E4               [12]  604 	clr	a
+      000038 F0               [24]  605 	movx	@dptr,a
+      000039 A3               [24]  606 	inc	dptr
+      00003A F0               [24]  607 	movx	@dptr,a
+                                    608 ;	sdc.c:138: do
+      00003B 7E E8            [12]  609 	mov	r6,#0xe8
+      00003D 7F 03            [12]  610 	mov	r7,#0x03
+      00003F                        611 00103$:
+                                    612 ;	sdc.c:140: delay(1);
+      00003F 75 82 01         [24]  613 	mov	dpl,#0x01
+      000042 C0 07            [24]  614 	push	ar7
+      000044 C0 06            [24]  615 	push	ar6
+      000046 12r04r23         [24]  616 	lcall	_delay
+                                    617 ;	sdc.c:141: sd_command(CMD_GO_IDLE_STATE, 0);
+      000049 90r00r0D         [24]  618 	mov	dptr,#_sd_command_PARM_2
+      00004C E4               [12]  619 	clr	a
+      00004D F0               [24]  620 	movx	@dptr,a
+      00004E A3               [24]  621 	inc	dptr
+      00004F F0               [24]  622 	movx	@dptr,a
+      000050 A3               [24]  623 	inc	dptr
+      000051 F0               [24]  624 	movx	@dptr,a
+      000052 A3               [24]  625 	inc	dptr
+      000053 F0               [24]  626 	movx	@dptr,a
+      000054 75 82 00         [24]  627 	mov	dpl,#0x00
+      000057 12r03r8C         [24]  628 	lcall	_sd_command
+                                    629 ;	sdc.c:142: } while((sd_get_R1() != IDLE_STATE) && (--i));
+      00005A 12r03r29         [24]  630 	lcall	_sd_get_R1
+      00005D AD 82            [24]  631 	mov	r5,dpl
+      00005F D0 06            [24]  632 	pop	ar6
+      000061 D0 07            [24]  633 	pop	ar7
+      000063 BD 01 02         [24]  634 	cjne	r5,#0x01,00181$
+      000066 80 09            [24]  635 	sjmp	00105$
+      000068                        636 00181$:
+      000068 1E               [12]  637 	dec	r6
+      000069 BE FF 01         [24]  638 	cjne	r6,#0xff,00182$
+      00006C 1F               [12]  639 	dec	r7
+      00006D                        640 00182$:
+      00006D EE               [12]  641 	mov	a,r6
+      00006E 4F               [12]  642 	orl	a,r7
+      00006F 70 CE            [24]  643 	jnz	00103$
+      000071                        644 00105$:
+                                    645 ;	sdc.c:145: if( !i )
+      000071 EE               [12]  646 	mov	a,r6
+      000072 4F               [12]  647 	orl	a,r7
+      000073 70 04            [24]  648 	jnz	00107$
+                                    649 ;	sdc.c:146: return( SD_TIME_OUT );
+      000075 90 00 02         [24]  650 	mov	dptr,#0x0002
+      000078 22               [24]  651 	ret
+      000079                        652 00107$:
+                                    653 ;	sdc.c:155: sd_command(CMD_APP_CMD, 0);
+      000079 90r00r0D         [24]  654 	mov	dptr,#_sd_command_PARM_2
+      00007C E4               [12]  655 	clr	a
+      00007D F0               [24]  656 	movx	@dptr,a
+      00007E A3               [24]  657 	inc	dptr
+      00007F F0               [24]  658 	movx	@dptr,a
+      000080 A3               [24]  659 	inc	dptr
+      000081 F0               [24]  660 	movx	@dptr,a
+      000082 A3               [24]  661 	inc	dptr
+      000083 F0               [24]  662 	movx	@dptr,a
+      000084 75 82 37         [24]  663 	mov	dpl,#0x37
+      000087 12r03r8C         [24]  664 	lcall	_sd_command
+                                    665 ;	sdc.c:157: sd_command( ACMD_SEND_OP_COND, 0 );
+      00008A 90r00r0D         [24]  666 	mov	dptr,#_sd_command_PARM_2
+      00008D E4               [12]  667 	clr	a
+      00008E F0               [24]  668 	movx	@dptr,a
+      00008F A3               [24]  669 	inc	dptr
+      000090 F0               [24]  670 	movx	@dptr,a
+      000091 A3               [24]  671 	inc	dptr
+      000092 F0               [24]  672 	movx	@dptr,a
+      000093 A3               [24]  673 	inc	dptr
+      000094 F0               [24]  674 	movx	@dptr,a
+      000095 75 82 29         [24]  675 	mov	dpl,#0x29
+      000098 12r03r8C         [24]  676 	lcall	_sd_command
+                                    677 ;	sdc.c:159: if( sd_get_R1() <= 1 )
+      00009B 12r03r29         [24]  678 	lcall	_sd_get_R1
+      00009E E5 82            [12]  679 	mov	a,dpl
+      0000A0 24 FE            [12]  680 	add	a,#0xff - 0x01
+      0000A2 40 0B            [24]  681 	jc	00109$
+                                    682 ;	sdc.c:161: card_type = 2;
+      0000A4 90r00r00         [24]  683 	mov	dptr,#_card_type
+      0000A7 74 02            [12]  684 	mov	a,#0x02
+      0000A9 F0               [24]  685 	movx	@dptr,a
+      0000AA E4               [12]  686 	clr	a
+      0000AB A3               [24]  687 	inc	dptr
+      0000AC F0               [24]  688 	movx	@dptr,a
+      0000AD 80 09            [24]  689 	sjmp	00136$
+      0000AF                        690 00109$:
+                                    691 ;	sdc.c:165: card_type = 1;
+      0000AF 90r00r00         [24]  692 	mov	dptr,#_card_type
+      0000B2 74 01            [12]  693 	mov	a,#0x01
+      0000B4 F0               [24]  694 	movx	@dptr,a
+      0000B5 E4               [12]  695 	clr	a
+      0000B6 A3               [24]  696 	inc	dptr
+      0000B7 F0               [24]  697 	movx	@dptr,a
+                                    698 ;	sdc.c:169: do
+      0000B8                        699 00136$:
+      0000B8 7E D0            [12]  700 	mov	r6,#0xd0
+      0000BA 7F 07            [12]  701 	mov	r7,#0x07
+      0000BC                        702 00115$:
+                                    703 ;	sdc.c:171: delay(1);
+      0000BC 75 82 01         [24]  704 	mov	dpl,#0x01
+      0000BF C0 07            [24]  705 	push	ar7
+      0000C1 C0 06            [24]  706 	push	ar6
+      0000C3 12r04r23         [24]  707 	lcall	_delay
+      0000C6 D0 06            [24]  708 	pop	ar6
+      0000C8 D0 07            [24]  709 	pop	ar7
+                                    710 ;	sdc.c:174: if( card_type == 2 )
+      0000CA 90r00r00         [24]  711 	mov	dptr,#_card_type
+      0000CD E0               [24]  712 	movx	a,@dptr
+      0000CE FC               [12]  713 	mov	r4,a
+      0000CF A3               [24]  714 	inc	dptr
+      0000D0 E0               [24]  715 	movx	a,@dptr
+      0000D1 FD               [12]  716 	mov	r5,a
+      0000D2 BC 02 2F         [24]  717 	cjne	r4,#0x02,00112$
+      0000D5 BD 00 2C         [24]  718 	cjne	r5,#0x00,00112$
+                                    719 ;	sdc.c:176: sd_command( CMD_APP_CMD, 0 );
+      0000D8 90r00r0D         [24]  720 	mov	dptr,#_sd_command_PARM_2
+      0000DB E4               [12]  721 	clr	a
+      0000DC F0               [24]  722 	movx	@dptr,a
+      0000DD A3               [24]  723 	inc	dptr
+      0000DE F0               [24]  724 	movx	@dptr,a
+      0000DF A3               [24]  725 	inc	dptr
+      0000E0 F0               [24]  726 	movx	@dptr,a
+      0000E1 A3               [24]  727 	inc	dptr
+      0000E2 F0               [24]  728 	movx	@dptr,a
+      0000E3 75 82 37         [24]  729 	mov	dpl,#0x37
+      0000E6 C0 07            [24]  730 	push	ar7
+      0000E8 C0 06            [24]  731 	push	ar6
+      0000EA 12r03r8C         [24]  732 	lcall	_sd_command
+                                    733 ;	sdc.c:177: sd_command( ACMD_SEND_OP_COND, 0 );
+      0000ED 90r00r0D         [24]  734 	mov	dptr,#_sd_command_PARM_2
+      0000F0 E4               [12]  735 	clr	a
+      0000F1 F0               [24]  736 	movx	@dptr,a
+      0000F2 A3               [24]  737 	inc	dptr
+      0000F3 F0               [24]  738 	movx	@dptr,a
+      0000F4 A3               [24]  739 	inc	dptr
+      0000F5 F0               [24]  740 	movx	@dptr,a
+      0000F6 A3               [24]  741 	inc	dptr
+      0000F7 F0               [24]  742 	movx	@dptr,a
+      0000F8 75 82 29         [24]  743 	mov	dpl,#0x29
+      0000FB 12r03r8C         [24]  744 	lcall	_sd_command
+      0000FE D0 06            [24]  745 	pop	ar6
+      000100 D0 07            [24]  746 	pop	ar7
+      000102 80 19            [24]  747 	sjmp	00116$
+      000104                        748 00112$:
+                                    749 ;	sdc.c:182: sd_command( CMD_SEND_OP_COND, 0 );
+      000104 90r00r0D         [24]  750 	mov	dptr,#_sd_command_PARM_2
+      000107 E4               [12]  751 	clr	a
+      000108 F0               [24]  752 	movx	@dptr,a
+      000109 A3               [24]  753 	inc	dptr
+      00010A F0               [24]  754 	movx	@dptr,a
+      00010B A3               [24]  755 	inc	dptr
+      00010C F0               [24]  756 	movx	@dptr,a
+      00010D A3               [24]  757 	inc	dptr
+      00010E F0               [24]  758 	movx	@dptr,a
+      00010F 75 82 01         [24]  759 	mov	dpl,#0x01
+      000112 C0 07            [24]  760 	push	ar7
+      000114 C0 06            [24]  761 	push	ar6
+      000116 12r03r8C         [24]  762 	lcall	_sd_command
+      000119 D0 06            [24]  763 	pop	ar6
+      00011B D0 07            [24]  764 	pop	ar7
+      00011D                        765 00116$:
+                                    766 ;	sdc.c:184: } while(sd_get_R1() && --i); //only when the response is 0x00 means the initialization succeed
+      00011D C0 07            [24]  767 	push	ar7
+      00011F C0 06            [24]  768 	push	ar6
+      000121 12r03r29         [24]  769 	lcall	_sd_get_R1
+      000124 E5 82            [12]  770 	mov	a,dpl
+      000126 D0 06            [24]  771 	pop	ar6
+      000128 D0 07            [24]  772 	pop	ar7
+      00012A 60 09            [24]  773 	jz	00117$
+      00012C 1E               [12]  774 	dec	r6
+      00012D BE FF 01         [24]  775 	cjne	r6,#0xff,00189$
+      000130 1F               [12]  776 	dec	r7
+      000131                        777 00189$:
+      000131 EE               [12]  778 	mov	a,r6
+      000132 4F               [12]  779 	orl	a,r7
+      000133 70 87            [24]  780 	jnz	00115$
+      000135                        781 00117$:
+                                    782 ;	sdc.c:186: if( !i )
+      000135 EE               [12]  783 	mov	a,r6
+      000136 4F               [12]  784 	orl	a,r7
+      000137 70 04            [24]  785 	jnz	00119$
+                                    786 ;	sdc.c:187: return( SD_TIME_OUT );
+      000139 90 00 02         [24]  787 	mov	dptr,#0x0002
+      00013C 22               [24]  788 	ret
+      00013D                        789 00119$:
+                                    790 ;	sdc.c:192: sd_command( CMD_SEND_STATUS, 0 );
+      00013D 90r00r0D         [24]  791 	mov	dptr,#_sd_command_PARM_2
+      000140 E4               [12]  792 	clr	a
+      000141 F0               [24]  793 	movx	@dptr,a
+      000142 A3               [24]  794 	inc	dptr
+      000143 F0               [24]  795 	movx	@dptr,a
+      000144 A3               [24]  796 	inc	dptr
+      000145 F0               [24]  797 	movx	@dptr,a
+      000146 A3               [24]  798 	inc	dptr
+      000147 F0               [24]  799 	movx	@dptr,a
+      000148 75 82 0D         [24]  800 	mov	dpl,#0x0d
+      00014B 12r03r8C         [24]  801 	lcall	_sd_command
+                                    802 ;	sdc.c:193: card_status = sd_get_R2();
+      00014E 12r03r68         [24]  803 	lcall	_sd_get_R2
+      000151 E5 82            [12]  804 	mov	a,dpl
+      000153 85 83 F0         [24]  805 	mov	b,dph
+                                    806 ;	sdc.c:194: if( card_status )
+      000156 45 F0            [12]  807 	orl	a,b
+      000158 60 04            [24]  808 	jz	00121$
+                                    809 ;	sdc.c:195: return( SD_ERROR );
+      00015A 90 00 01         [24]  810 	mov	dptr,#0x0001
+      00015D 22               [24]  811 	ret
+      00015E                        812 00121$:
+                                    813 ;	sdc.c:200: sd_command( CMD_SET_BLOCKLEN, 512 );
+      00015E 90r00r0D         [24]  814 	mov	dptr,#_sd_command_PARM_2
+      000161 E4               [12]  815 	clr	a
+      000162 F0               [24]  816 	movx	@dptr,a
+      000163 74 02            [12]  817 	mov	a,#0x02
+      000165 A3               [24]  818 	inc	dptr
+      000166 F0               [24]  819 	movx	@dptr,a
+      000167 E4               [12]  820 	clr	a
+      000168 A3               [24]  821 	inc	dptr
+      000169 F0               [24]  822 	movx	@dptr,a
+      00016A A3               [24]  823 	inc	dptr
+      00016B F0               [24]  824 	movx	@dptr,a
+      00016C 75 82 10         [24]  825 	mov	dpl,#0x10
+      00016F 12r03r8C         [24]  826 	lcall	_sd_command
+                                    827 ;	sdc.c:201: if( sd_get_R1() )
+      000172 12r03r29         [24]  828 	lcall	_sd_get_R1
+      000175 E5 82            [12]  829 	mov	a,dpl
+      000177 60 0B            [24]  830 	jz	00123$
+                                    831 ;	sdc.c:203: card_type = 0;
+      000179 90r00r00         [24]  832 	mov	dptr,#_card_type
+      00017C E4               [12]  833 	clr	a
+      00017D F0               [24]  834 	movx	@dptr,a
+      00017E A3               [24]  835 	inc	dptr
+      00017F F0               [24]  836 	movx	@dptr,a
+                                    837 ;	sdc.c:204: return( SD_ERROR );
+      000180 90 00 01         [24]  838 	mov	dptr,#0x0001
+      000183 22               [24]  839 	ret
+      000184                        840 00123$:
+                                    841 ;	sdc.c:209: max_spi_clock_freq();
+      000184 12r00r00         [24]  842 	lcall	_max_spi_clock_freq
+                                    843 ;	sdc.c:211: spi_disable_cs();
+      000187 12r00r00         [24]  844 	lcall	_spi_disable_cs
+                                    845 ;	sdc.c:213: return SD_SUCCESS;
+      00018A 90 00 00         [24]  846 	mov	dptr,#0x0000
+                                    847 ;	sdc.c:214: }
+      00018D 22               [24]  848 	ret
+                                    849 ;------------------------------------------------------------
+                                    850 ;Allocation info for local variables in function 'sd_read_sector'
+                                    851 ;------------------------------------------------------------
+                                    852 ;buffer                    Allocated with name '_sd_read_sector_PARM_2'
+                                    853 ;sector_number             Allocated with name '_sd_read_sector_sector_number_65536_59'
+                                    854 ;count                     Allocated with name '_sd_read_sector_count_65536_60'
+                                    855 ;------------------------------------------------------------
+                                    856 ;	sdc.c:222: int sd_read_sector( uint16_t sector_number, uint8_t *buffer )
+                                    857 ;	-----------------------------------------
+                                    858 ;	 function sd_read_sector
+                                    859 ;	-----------------------------------------
+      00018E                        860 _sd_read_sector:
+      00018E AF 83            [24]  861 	mov	r7,dph
+      000190 E5 82            [12]  862 	mov	a,dpl
+      000192 90r00r05         [24]  863 	mov	dptr,#_sd_read_sector_sector_number_65536_59
+      000195 F0               [24]  864 	movx	@dptr,a
+      000196 EF               [12]  865 	mov	a,r7
+      000197 A3               [24]  866 	inc	dptr
+      000198 F0               [24]  867 	movx	@dptr,a
+                                    868 ;	sdc.c:227: sd_command( CMD_READ_SINGLE_BLOCK, sector_number << 9 );
+      000199 90r00r05         [24]  869 	mov	dptr,#_sd_read_sector_sector_number_65536_59
+      00019C E0               [24]  870 	movx	a,@dptr
+      00019D FE               [12]  871 	mov	r6,a
+      00019E A3               [24]  872 	inc	dptr
+      00019F E0               [24]  873 	movx	a,@dptr
+      0001A0 FF               [12]  874 	mov	r7,a
+      0001A1 EE               [12]  875 	mov	a,r6
+      0001A2 2E               [12]  876 	add	a,r6
+      0001A3 CF               [12]  877 	xch	a,r7
+      0001A4 7E 00            [12]  878 	mov	r6,#0x00
+      0001A6 90r00r0D         [24]  879 	mov	dptr,#_sd_command_PARM_2
+      0001A9 EE               [12]  880 	mov	a,r6
+      0001AA F0               [24]  881 	movx	@dptr,a
+      0001AB EF               [12]  882 	mov	a,r7
+      0001AC A3               [24]  883 	inc	dptr
+      0001AD F0               [24]  884 	movx	@dptr,a
+      0001AE E4               [12]  885 	clr	a
+      0001AF A3               [24]  886 	inc	dptr
+      0001B0 F0               [24]  887 	movx	@dptr,a
+      0001B1 A3               [24]  888 	inc	dptr
+      0001B2 F0               [24]  889 	movx	@dptr,a
+      0001B3 75 82 11         [24]  890 	mov	dpl,#0x11
+      0001B6 12r03r8C         [24]  891 	lcall	_sd_command
+                                    892 ;	sdc.c:229: if(sd_get_R1() != 0){
+      0001B9 12r03r29         [24]  893 	lcall	_sd_get_R1
+      0001BC E5 82            [12]  894 	mov	a,dpl
+      0001BE 60 04            [24]  895 	jz	00116$
+                                    896 ;	sdc.c:230: return SD_ERROR;
+      0001C0 90 00 01         [24]  897 	mov	dptr,#0x0001
+      0001C3 22               [24]  898 	ret
+                                    899 ;	sdc.c:235: while( (sd_get_R1() == 0xff) && --count);
+      0001C4                        900 00116$:
+      0001C4 7E FF            [12]  901 	mov	r6,#0xff
+      0001C6 7F FF            [12]  902 	mov	r7,#0xff
+      0001C8                        903 00104$:
+      0001C8 C0 07            [24]  904 	push	ar7
+      0001CA C0 06            [24]  905 	push	ar6
+      0001CC 12r03r29         [24]  906 	lcall	_sd_get_R1
+      0001CF AD 82            [24]  907 	mov	r5,dpl
+      0001D1 D0 06            [24]  908 	pop	ar6
+      0001D3 D0 07            [24]  909 	pop	ar7
+      0001D5 BD FF 09         [24]  910 	cjne	r5,#0xff,00106$
+      0001D8 1E               [12]  911 	dec	r6
+      0001D9 BE FF 01         [24]  912 	cjne	r6,#0xff,00143$
+      0001DC 1F               [12]  913 	dec	r7
+      0001DD                        914 00143$:
+      0001DD EE               [12]  915 	mov	a,r6
+      0001DE 4F               [12]  916 	orl	a,r7
+      0001DF 70 E7            [24]  917 	jnz	00104$
+      0001E1                        918 00106$:
+                                    919 ;	sdc.c:238: if(count == 0){
+      0001E1 EE               [12]  920 	mov	a,r6
+      0001E2 4F               [12]  921 	orl	a,r7
+      0001E3 70 04            [24]  922 	jnz	00118$
+                                    923 ;	sdc.c:239: return SD_ERROR;
+      0001E5 90 00 01         [24]  924 	mov	dptr,#0x0001
+                                    925 ;	sdc.c:243: for( count=0; count<SD_DATA_SIZE; count++){
+      0001E8 22               [24]  926 	ret
+      0001E9                        927 00118$:
+      0001E9 90r00r02         [24]  928 	mov	dptr,#_sd_read_sector_PARM_2
+      0001EC E0               [24]  929 	movx	a,@dptr
+      0001ED FD               [12]  930 	mov	r5,a
+      0001EE A3               [24]  931 	inc	dptr
+      0001EF E0               [24]  932 	movx	a,@dptr
+      0001F0 FE               [12]  933 	mov	r6,a
+      0001F1 A3               [24]  934 	inc	dptr
+      0001F2 E0               [24]  935 	movx	a,@dptr
+      0001F3 FF               [12]  936 	mov	r7,a
+      0001F4 7B 00            [12]  937 	mov	r3,#0x00
+      0001F6 7C 00            [12]  938 	mov	r4,#0x00
+      0001F8                        939 00110$:
+                                    940 ;	sdc.c:244: *buffer++ = spi_byte(0xFF);
+      0001F8 75 82 FF         [24]  941 	mov	dpl,#0xff
+      0001FB C0 07            [24]  942 	push	ar7
+      0001FD C0 06            [24]  943 	push	ar6
+      0001FF C0 05            [24]  944 	push	ar5
+      000201 C0 04            [24]  945 	push	ar4
+      000203 C0 03            [24]  946 	push	ar3
+      000205 12r00r00         [24]  947 	lcall	_spi_byte
+      000208 AA 82            [24]  948 	mov	r2,dpl
+      00020A D0 03            [24]  949 	pop	ar3
+      00020C D0 04            [24]  950 	pop	ar4
+      00020E D0 05            [24]  951 	pop	ar5
+      000210 D0 06            [24]  952 	pop	ar6
+      000212 D0 07            [24]  953 	pop	ar7
+      000214 8D 82            [24]  954 	mov	dpl,r5
+      000216 8E 83            [24]  955 	mov	dph,r6
+      000218 8F F0            [24]  956 	mov	b,r7
+      00021A EA               [12]  957 	mov	a,r2
+      00021B 12r00r00         [24]  958 	lcall	__gptrput
+      00021E A3               [24]  959 	inc	dptr
+      00021F AD 82            [24]  960 	mov	r5,dpl
+      000221 AE 83            [24]  961 	mov	r6,dph
+                                    962 ;	sdc.c:243: for( count=0; count<SD_DATA_SIZE; count++){
+      000223 0B               [12]  963 	inc	r3
+      000224 BB 00 01         [24]  964 	cjne	r3,#0x00,00146$
+      000227 0C               [12]  965 	inc	r4
+      000228                        966 00146$:
+      000228 8C 02            [24]  967 	mov	ar2,r4
+      00022A 74 FF            [12]  968 	mov	a,#0x100 - 0x01
+      00022C 2A               [12]  969 	add	a,r2
+      00022D 50 C9            [24]  970 	jnc	00110$
+                                    971 ;	sdc.c:248: spi_byte(0xFF);
+      00022F 75 82 FF         [24]  972 	mov	dpl,#0xff
+      000232 12r00r00         [24]  973 	lcall	_spi_byte
+                                    974 ;	sdc.c:249: spi_byte(0xFF);
+      000235 75 82 FF         [24]  975 	mov	dpl,#0xff
+      000238 12r00r00         [24]  976 	lcall	_spi_byte
+                                    977 ;	sdc.c:252: spi_disable_cs();
+      00023B 12r00r00         [24]  978 	lcall	_spi_disable_cs
+                                    979 ;	sdc.c:254: spi_byte(0xFF);
+      00023E 75 82 FF         [24]  980 	mov	dpl,#0xff
+      000241 12r00r00         [24]  981 	lcall	_spi_byte
+                                    982 ;	sdc.c:256: return SD_SUCCESS;
+      000244 90 00 00         [24]  983 	mov	dptr,#0x0000
+                                    984 ;	sdc.c:257: }
+      000247 22               [24]  985 	ret
+                                    986 ;------------------------------------------------------------
+                                    987 ;Allocation info for local variables in function 'sd_write_sector'
+                                    988 ;------------------------------------------------------------
+                                    989 ;buffer                    Allocated with name '_sd_write_sector_PARM_2'
+                                    990 ;sector_number             Allocated with name '_sd_write_sector_sector_number_65536_65'
+                                    991 ;i                         Allocated with name '_sd_write_sector_i_131072_68'
+                                    992 ;------------------------------------------------------------
+                                    993 ;	sdc.c:265: int sd_write_sector( uint16_t sector_number, const uint8_t *buffer )
+                                    994 ;	-----------------------------------------
+                                    995 ;	 function sd_write_sector
+                                    996 ;	-----------------------------------------
+      000248                        997 _sd_write_sector:
+      000248 AF 83            [24]  998 	mov	r7,dph
+      00024A E5 82            [12]  999 	mov	a,dpl
+      00024C 90r00r0A         [24] 1000 	mov	dptr,#_sd_write_sector_sector_number_65536_65
+      00024F F0               [24] 1001 	movx	@dptr,a
+      000250 EF               [12] 1002 	mov	a,r7
+      000251 A3               [24] 1003 	inc	dptr
+      000252 F0               [24] 1004 	movx	@dptr,a
+                                   1005 ;	sdc.c:268: sd_command( CMD_WRITE_SINGLE_BLOCK, sector_number << 9 );
+      000253 90r00r0A         [24] 1006 	mov	dptr,#_sd_write_sector_sector_number_65536_65
+      000256 E0               [24] 1007 	movx	a,@dptr
+      000257 FE               [12] 1008 	mov	r6,a
+      000258 A3               [24] 1009 	inc	dptr
+      000259 E0               [24] 1010 	movx	a,@dptr
+      00025A FF               [12] 1011 	mov	r7,a
+      00025B EE               [12] 1012 	mov	a,r6
+      00025C 2E               [12] 1013 	add	a,r6
+      00025D CF               [12] 1014 	xch	a,r7
+      00025E 7E 00            [12] 1015 	mov	r6,#0x00
+      000260 90r00r0D         [24] 1016 	mov	dptr,#_sd_command_PARM_2
+      000263 EE               [12] 1017 	mov	a,r6
+      000264 F0               [24] 1018 	movx	@dptr,a
+      000265 EF               [12] 1019 	mov	a,r7
+      000266 A3               [24] 1020 	inc	dptr
+      000267 F0               [24] 1021 	movx	@dptr,a
+      000268 E4               [12] 1022 	clr	a
+      000269 A3               [24] 1023 	inc	dptr
+      00026A F0               [24] 1024 	movx	@dptr,a
+      00026B A3               [24] 1025 	inc	dptr
+      00026C F0               [24] 1026 	movx	@dptr,a
+      00026D 75 82 18         [24] 1027 	mov	dpl,#0x18
+      000270 12r03r8C         [24] 1028 	lcall	_sd_command
+                                   1029 ;	sdc.c:270: if(sd_get_R1() != 0){
+      000273 12r03r29         [24] 1030 	lcall	_sd_get_R1
+      000276 E5 82            [12] 1031 	mov	a,dpl
+      000278 60 04            [24] 1032 	jz	00102$
+                                   1033 ;	sdc.c:271: return SD_ERROR;
+      00027A 90 00 01         [24] 1034 	mov	dptr,#0x0001
+      00027D 22               [24] 1035 	ret
+      00027E                       1036 00102$:
+                                   1037 ;	sdc.c:275: spi_byte( 0xFE );
+      00027E 75 82 FE         [24] 1038 	mov	dpl,#0xfe
+      000281 12r00r00         [24] 1039 	lcall	_spi_byte
+                                   1040 ;	sdc.c:277: for(int i= 0; i< 512; i++ )
+      000284 90r00r07         [24] 1041 	mov	dptr,#_sd_write_sector_PARM_2
+      000287 E0               [24] 1042 	movx	a,@dptr
+      000288 FD               [12] 1043 	mov	r5,a
+      000289 A3               [24] 1044 	inc	dptr
+      00028A E0               [24] 1045 	movx	a,@dptr
+      00028B FE               [12] 1046 	mov	r6,a
+      00028C A3               [24] 1047 	inc	dptr
+      00028D E0               [24] 1048 	movx	a,@dptr
+      00028E FF               [12] 1049 	mov	r7,a
+      00028F 7B 00            [12] 1050 	mov	r3,#0x00
+      000291 7C 00            [12] 1051 	mov	r4,#0x00
+      000293                       1052 00108$:
+      000293 C3               [12] 1053 	clr	c
+      000294 EC               [12] 1054 	mov	a,r4
+      000295 64 80            [12] 1055 	xrl	a,#0x80
+      000297 94 82            [12] 1056 	subb	a,#0x82
+      000299 50 2F            [24] 1057 	jnc	00103$
+                                   1058 ;	sdc.c:279: spi_byte(*buffer++);
+      00029B 8D 82            [24] 1059 	mov	dpl,r5
+      00029D 8E 83            [24] 1060 	mov	dph,r6
+      00029F 8F F0            [24] 1061 	mov	b,r7
+      0002A1 12r00r00         [24] 1062 	lcall	__gptrget
+      0002A4 FA               [12] 1063 	mov	r2,a
+      0002A5 A3               [24] 1064 	inc	dptr
+      0002A6 AD 82            [24] 1065 	mov	r5,dpl
+      0002A8 AE 83            [24] 1066 	mov	r6,dph
+      0002AA 8A 82            [24] 1067 	mov	dpl,r2
+      0002AC C0 07            [24] 1068 	push	ar7
+      0002AE C0 06            [24] 1069 	push	ar6
+      0002B0 C0 05            [24] 1070 	push	ar5
+      0002B2 C0 04            [24] 1071 	push	ar4
+      0002B4 C0 03            [24] 1072 	push	ar3
+      0002B6 12r00r00         [24] 1073 	lcall	_spi_byte
+      0002B9 D0 03            [24] 1074 	pop	ar3
+      0002BB D0 04            [24] 1075 	pop	ar4
+      0002BD D0 05            [24] 1076 	pop	ar5
+      0002BF D0 06            [24] 1077 	pop	ar6
+      0002C1 D0 07            [24] 1078 	pop	ar7
+                                   1079 ;	sdc.c:277: for(int i= 0; i< 512; i++ )
+      0002C3 0B               [12] 1080 	inc	r3
+      0002C4 BB 00 CC         [24] 1081 	cjne	r3,#0x00,00108$
+      0002C7 0C               [12] 1082 	inc	r4
+      0002C8 80 C9            [24] 1083 	sjmp	00108$
+      0002CA                       1084 00103$:
+                                   1085 ;	sdc.c:283: spi_byte(0xFF);
+      0002CA 75 82 FF         [24] 1086 	mov	dpl,#0xff
+      0002CD 12r00r00         [24] 1087 	lcall	_spi_byte
+                                   1088 ;	sdc.c:284: spi_byte(0xFF);
+      0002D0 75 82 FF         [24] 1089 	mov	dpl,#0xff
+      0002D3 12r00r00         [24] 1090 	lcall	_spi_byte
+                                   1091 ;	sdc.c:287: while( spi_byte( 0xFF ) != 0xFF);
+      0002D6                       1092 00104$:
+      0002D6 75 82 FF         [24] 1093 	mov	dpl,#0xff
+      0002D9 12r00r00         [24] 1094 	lcall	_spi_byte
+      0002DC AF 82            [24] 1095 	mov	r7,dpl
+      0002DE BF FF F5         [24] 1096 	cjne	r7,#0xff,00104$
+                                   1097 ;	sdc.c:291: spi_byte( 0xFF );
+      0002E1 75 82 FF         [24] 1098 	mov	dpl,#0xff
+      0002E4 12r00r00         [24] 1099 	lcall	_spi_byte
+                                   1100 ;	sdc.c:294: spi_disable_cs();
+      0002E7 12r00r00         [24] 1101 	lcall	_spi_disable_cs
+                                   1102 ;	sdc.c:295: spi_byte( 0xFF );
+      0002EA 75 82 FF         [24] 1103 	mov	dpl,#0xff
+      0002ED 12r00r00         [24] 1104 	lcall	_spi_byte
+                                   1105 ;	sdc.c:297: return SD_SUCCESS;
+      0002F0 90 00 00         [24] 1106 	mov	dptr,#0x0000
+                                   1107 ;	sdc.c:298: }
+      0002F3 22               [24] 1108 	ret
+                                   1109 ;------------------------------------------------------------
+                                   1110 ;Allocation info for local variables in function 'sd_wait_for_ready'
+                                   1111 ;------------------------------------------------------------
+                                   1112 ;i                         Allocated with name '_sd_wait_for_ready_i_65536_70'
+                                   1113 ;j                         Allocated with name '_sd_wait_for_ready_j_65536_70'
+                                   1114 ;------------------------------------------------------------
+                                   1115 ;	sdc.c:304: uint8_t sd_wait_for_ready()
+                                   1116 ;	-----------------------------------------
+                                   1117 ;	 function sd_wait_for_ready
+                                   1118 ;	-----------------------------------------
+      0002F4                       1119 _sd_wait_for_ready:
+                                   1120 ;	sdc.c:308: spi_byte( 0xFF );
+      0002F4 75 82 FF         [24] 1121 	mov	dpl,#0xff
+      0002F7 12r00r00         [24] 1122 	lcall	_spi_byte
+                                   1123 ;	sdc.c:311: do
+      0002FA 7E F4            [12] 1124 	mov	r6,#0xf4
+      0002FC 7F 01            [12] 1125 	mov	r7,#0x01
+      0002FE                       1126 00102$:
+                                   1127 ;	sdc.c:313: i = spi_byte( 0xFF );
+      0002FE 75 82 FF         [24] 1128 	mov	dpl,#0xff
+      000301 C0 07            [24] 1129 	push	ar7
+      000303 C0 06            [24] 1130 	push	ar6
+      000305 12r00r00         [24] 1131 	lcall	_spi_byte
+      000308 AD 82            [24] 1132 	mov	r5,dpl
+                                   1133 ;	sdc.c:314: delay( 1 );
+      00030A 75 82 01         [24] 1134 	mov	dpl,#0x01
+      00030D C0 05            [24] 1135 	push	ar5
+      00030F 12r04r23         [24] 1136 	lcall	_delay
+      000312 D0 05            [24] 1137 	pop	ar5
+      000314 D0 06            [24] 1138 	pop	ar6
+      000316 D0 07            [24] 1139 	pop	ar7
+                                   1140 ;	sdc.c:315: } while ((i != 0xFF) && --j);
+      000318 BD FF 02         [24] 1141 	cjne	r5,#0xff,00116$
+      00031B 80 09            [24] 1142 	sjmp	00104$
+      00031D                       1143 00116$:
+      00031D 1E               [12] 1144 	dec	r6
+      00031E BE FF 01         [24] 1145 	cjne	r6,#0xff,00117$
+      000321 1F               [12] 1146 	dec	r7
+      000322                       1147 00117$:
+      000322 EE               [12] 1148 	mov	a,r6
+      000323 4F               [12] 1149 	orl	a,r7
+      000324 70 D8            [24] 1150 	jnz	00102$
+      000326                       1151 00104$:
+                                   1152 ;	sdc.c:317: return i;
+      000326 8D 82            [24] 1153 	mov	dpl,r5
+                                   1154 ;	sdc.c:318: }
+      000328 22               [24] 1155 	ret
+                                   1156 ;------------------------------------------------------------
+                                   1157 ;Allocation info for local variables in function 'sd_get_R1'
+                                   1158 ;------------------------------------------------------------
+                                   1159 ;ret                       Allocated with name '_sd_get_R1_ret_65536_73'
+                                   1160 ;i                         Allocated with name '_sd_get_R1_i_131072_74'
+                                   1161 ;------------------------------------------------------------
+                                   1162 ;	sdc.c:326: static uint8_t sd_get_R1(void)
+                                   1163 ;	-----------------------------------------
+                                   1164 ;	 function sd_get_R1
+                                   1165 ;	-----------------------------------------
+      000329                       1166 _sd_get_R1:
+                                   1167 ;	sdc.c:328: uint8_t ret = 0;
+      000329 90r00r0C         [24] 1168 	mov	dptr,#_sd_get_R1_ret_65536_73
+      00032C E4               [12] 1169 	clr	a
+      00032D F0               [24] 1170 	movx	@dptr,a
+                                   1171 ;	sdc.c:330: for(int i=0; i<8; i++ ) {
+      00032E 7E 00            [12] 1172 	mov	r6,#0x00
+      000330 7F 00            [12] 1173 	mov	r7,#0x00
+      000332                       1174 00105$:
+      000332 C3               [12] 1175 	clr	c
+      000333 EE               [12] 1176 	mov	a,r6
+      000334 94 08            [12] 1177 	subb	a,#0x08
+      000336 EF               [12] 1178 	mov	a,r7
+      000337 64 80            [12] 1179 	xrl	a,#0x80
+      000339 94 80            [12] 1180 	subb	a,#0x80
+      00033B 50 24            [24] 1181 	jnc	00103$
+                                   1182 ;	sdc.c:332: ret = spi_byte( 0xff );
+      00033D 75 82 FF         [24] 1183 	mov	dpl,#0xff
+      000340 C0 07            [24] 1184 	push	ar7
+      000342 C0 06            [24] 1185 	push	ar6
+      000344 12r00r00         [24] 1186 	lcall	_spi_byte
+      000347 AD 82            [24] 1187 	mov	r5,dpl
+      000349 D0 06            [24] 1188 	pop	ar6
+      00034B D0 07            [24] 1189 	pop	ar7
+      00034D 90r00r0C         [24] 1190 	mov	dptr,#_sd_get_R1_ret_65536_73
+      000350 ED               [12] 1191 	mov	a,r5
+      000351 F0               [24] 1192 	movx	@dptr,a
+                                   1193 ;	sdc.c:333: if(ret != 0xff) {
+      000352 BD FF 02         [24] 1194 	cjne	r5,#0xff,00122$
+      000355 80 03            [24] 1195 	sjmp	00106$
+      000357                       1196 00122$:
+                                   1197 ;	sdc.c:335: return ret;
+      000357 8D 82            [24] 1198 	mov	dpl,r5
+      000359 22               [24] 1199 	ret
+      00035A                       1200 00106$:
+                                   1201 ;	sdc.c:330: for(int i=0; i<8; i++ ) {
+      00035A 0E               [12] 1202 	inc	r6
+      00035B BE 00 D4         [24] 1203 	cjne	r6,#0x00,00105$
+      00035E 0F               [12] 1204 	inc	r7
+      00035F 80 D1            [24] 1205 	sjmp	00105$
+      000361                       1206 00103$:
+                                   1207 ;	sdc.c:338: return ret;
+      000361 90r00r0C         [24] 1208 	mov	dptr,#_sd_get_R1_ret_65536_73
+      000364 E0               [24] 1209 	movx	a,@dptr
+                                   1210 ;	sdc.c:339: }
+      000365 F5 82            [12] 1211 	mov	dpl,a
+      000367 22               [24] 1212 	ret
+                                   1213 ;------------------------------------------------------------
+                                   1214 ;Allocation info for local variables in function 'sd_get_R2'
+                                   1215 ;------------------------------------------------------------
+                                   1216 ;r2                        Allocated with name '_sd_get_R2_r2_65536_78'
+                                   1217 ;------------------------------------------------------------
+                                   1218 ;	sdc.c:344: static uint16_t sd_get_R2(void)
+                                   1219 ;	-----------------------------------------
+                                   1220 ;	 function sd_get_R2
+                                   1221 ;	-----------------------------------------
+      000368                       1222 _sd_get_R2:
+                                   1223 ;	sdc.c:348: r2 = ((sd_get_R1())<< 8) & 0xff00;
+      000368 12r03r29         [24] 1224 	lcall	_sd_get_R1
+      00036B AE 82            [24] 1225 	mov	r6,dpl
+      00036D 7F 00            [12] 1226 	mov	r7,#0x00
+                                   1227 ;	sdc.c:349: r2 |= spi_byte( 0xff );
+      00036F 75 82 FF         [24] 1228 	mov	dpl,#0xff
+      000372 C0 07            [24] 1229 	push	ar7
+      000374 C0 06            [24] 1230 	push	ar6
+      000376 12r00r00         [24] 1231 	lcall	_spi_byte
+      000379 AD 82            [24] 1232 	mov	r5,dpl
+      00037B D0 06            [24] 1233 	pop	ar6
+      00037D D0 07            [24] 1234 	pop	ar7
+      00037F 7C 00            [12] 1235 	mov	r4,#0x00
+      000381 ED               [12] 1236 	mov	a,r5
+      000382 42 07            [12] 1237 	orl	ar7,a
+      000384 EC               [12] 1238 	mov	a,r4
+      000385 42 06            [12] 1239 	orl	ar6,a
+                                   1240 ;	sdc.c:350: return( r2 );
+      000387 8F 82            [24] 1241 	mov	dpl,r7
+      000389 8E 83            [24] 1242 	mov	dph,r6
+                                   1243 ;	sdc.c:351: }
+      00038B 22               [24] 1244 	ret
+                                   1245 ;------------------------------------------------------------
+                                   1246 ;Allocation info for local variables in function 'sd_command'
+                                   1247 ;------------------------------------------------------------
+                                   1248 ;sloc0                     Allocated with name '_sd_command_sloc0_1_0'
+                                   1249 ;arg                       Allocated with name '_sd_command_PARM_2'
+                                   1250 ;cmd                       Allocated with name '_sd_command_cmd_65536_79'
+                                   1251 ;temp                      Allocated with name '_sd_command_temp_65536_80'
+                                   1252 ;i                         Allocated with name '_sd_command_i_131072_81'
+                                   1253 ;------------------------------------------------------------
+                                   1254 ;	sdc.c:359: static int sd_command(uint8_t cmd, uint32_t arg)
+                                   1255 ;	-----------------------------------------
+                                   1256 ;	 function sd_command
+                                   1257 ;	-----------------------------------------
+      00038C                       1258 _sd_command:
+      00038C E5 82            [12] 1259 	mov	a,dpl
+      00038E 90r00r11         [24] 1260 	mov	dptr,#_sd_command_cmd_65536_79
+      000391 F0               [24] 1261 	movx	@dptr,a
+                                   1262 ;	sdc.c:364: spi_enable_cs();
+      000392 12r00r00         [24] 1263 	lcall	_spi_enable_cs
+                                   1264 ;	sdc.c:366: spi_byte( 0xFF );
+      000395 75 82 FF         [24] 1265 	mov	dpl,#0xff
+      000398 12r00r00         [24] 1266 	lcall	_spi_byte
+                                   1267 ;	sdc.c:368: spi_byte(0x40 | cmd);
+      00039B 90r00r11         [24] 1268 	mov	dptr,#_sd_command_cmd_65536_79
+      00039E E0               [24] 1269 	movx	a,@dptr
+      00039F FF               [12] 1270 	mov	r7,a
+      0003A0 74 40            [12] 1271 	mov	a,#0x40
+      0003A2 4F               [12] 1272 	orl	a,r7
+      0003A3 F5 82            [12] 1273 	mov	dpl,a
+      0003A5 C0 07            [24] 1274 	push	ar7
+      0003A7 12r00r00         [24] 1275 	lcall	_spi_byte
+      0003AA D0 07            [24] 1276 	pop	ar7
+                                   1277 ;	sdc.c:370: for(int i=3;i>=0;i--){
+      0003AC 90r00r0D         [24] 1278 	mov	dptr,#_sd_command_PARM_2
+      0003AF E0               [24] 1279 	movx	a,@dptr
+      0003B0 F5*00            [12] 1280 	mov	_sd_command_sloc0_1_0,a
+      0003B2 A3               [24] 1281 	inc	dptr
+      0003B3 E0               [24] 1282 	movx	a,@dptr
+      0003B4 F5*01            [12] 1283 	mov	(_sd_command_sloc0_1_0 + 1),a
+      0003B6 A3               [24] 1284 	inc	dptr
+      0003B7 E0               [24] 1285 	movx	a,@dptr
+      0003B8 F5*02            [12] 1286 	mov	(_sd_command_sloc0_1_0 + 2),a
+      0003BA A3               [24] 1287 	inc	dptr
+      0003BB E0               [24] 1288 	movx	a,@dptr
+      0003BC F5*03            [12] 1289 	mov	(_sd_command_sloc0_1_0 + 3),a
+      0003BE 79 03            [12] 1290 	mov	r1,#0x03
+      0003C0 7A 00            [12] 1291 	mov	r2,#0x00
+      0003C2                       1292 00103$:
+      0003C2 EA               [12] 1293 	mov	a,r2
+      0003C3 20 E7 42         [24] 1294 	jb	acc.7,00101$
+                                   1295 ;	sdc.c:371: temp = (arg >> (i * 8)) & 0xFF;
+      0003C6 C0 07            [24] 1296 	push	ar7
+      0003C8 89 00            [24] 1297 	mov	ar0,r1
+      0003CA E8               [12] 1298 	mov	a,r0
+      0003CB C4               [12] 1299 	swap	a
+      0003CC 03               [12] 1300 	rr	a
+      0003CD 54 F8            [12] 1301 	anl	a,#0xf8
+      0003CF F8               [12] 1302 	mov	r0,a
+      0003D0 88 F0            [24] 1303 	mov	b,r0
+      0003D2 05 F0            [12] 1304 	inc	b
+      0003D4 A8*00            [24] 1305 	mov	r0,_sd_command_sloc0_1_0
+      0003D6 AD*01            [24] 1306 	mov	r5,(_sd_command_sloc0_1_0 + 1)
+      0003D8 AE*02            [24] 1307 	mov	r6,(_sd_command_sloc0_1_0 + 2)
+      0003DA AF*03            [24] 1308 	mov	r7,(_sd_command_sloc0_1_0 + 3)
+      0003DC 80 0D            [24] 1309 	sjmp	00124$
+      0003DE                       1310 00123$:
+      0003DE C3               [12] 1311 	clr	c
+      0003DF EF               [12] 1312 	mov	a,r7
+      0003E0 13               [12] 1313 	rrc	a
+      0003E1 FF               [12] 1314 	mov	r7,a
+      0003E2 EE               [12] 1315 	mov	a,r6
+      0003E3 13               [12] 1316 	rrc	a
+      0003E4 FE               [12] 1317 	mov	r6,a
+      0003E5 ED               [12] 1318 	mov	a,r5
+      0003E6 13               [12] 1319 	rrc	a
+      0003E7 FD               [12] 1320 	mov	r5,a
+      0003E8 E8               [12] 1321 	mov	a,r0
+      0003E9 13               [12] 1322 	rrc	a
+      0003EA F8               [12] 1323 	mov	r0,a
+      0003EB                       1324 00124$:
+      0003EB D5 F0 F0         [24] 1325 	djnz	b,00123$
+                                   1326 ;	sdc.c:372: spi_byte(temp);
+      0003EE 88 82            [24] 1327 	mov	dpl,r0
+      0003F0 C0 07            [24] 1328 	push	ar7
+      0003F2 C0 02            [24] 1329 	push	ar2
+      0003F4 C0 01            [24] 1330 	push	ar1
+      0003F6 12r00r00         [24] 1331 	lcall	_spi_byte
+      0003F9 D0 01            [24] 1332 	pop	ar1
+      0003FB D0 02            [24] 1333 	pop	ar2
+      0003FD D0 07            [24] 1334 	pop	ar7
+                                   1335 ;	sdc.c:370: for(int i=3;i>=0;i--){
+      0003FF 19               [12] 1336 	dec	r1
+      000400 B9 FF 01         [24] 1337 	cjne	r1,#0xff,00125$
+      000403 1A               [12] 1338 	dec	r2
+      000404                       1339 00125$:
+      000404 D0 07            [24] 1340 	pop	ar7
+      000406 80 BA            [24] 1341 	sjmp	00103$
+      000408                       1342 00101$:
+                                   1343 ;	sdc.c:376: spi_byte((cmd == CMD_GO_IDLE_STATE)? 0x95:0xFF);
+      000408 EF               [12] 1344 	mov	a,r7
+      000409 70 05            [24] 1345 	jnz	00107$
+      00040B 7E 95            [12] 1346 	mov	r6,#0x95
+      00040D FF               [12] 1347 	mov	r7,a
+      00040E 80 04            [24] 1348 	sjmp	00108$
+      000410                       1349 00107$:
+      000410 7E FF            [12] 1350 	mov	r6,#0xff
+      000412 7F 00            [12] 1351 	mov	r7,#0x00
+      000414                       1352 00108$:
+      000414 8E 82            [24] 1353 	mov	dpl,r6
+      000416 12r00r00         [24] 1354 	lcall	_spi_byte
+                                   1355 ;	sdc.c:378: spi_byte( 0xFF );
+      000419 75 82 FF         [24] 1356 	mov	dpl,#0xff
+      00041C 12r00r00         [24] 1357 	lcall	_spi_byte
+                                   1358 ;	sdc.c:380: return 0;
+      00041F 90 00 00         [24] 1359 	mov	dptr,#0x0000
+                                   1360 ;	sdc.c:381: }
+      000422 22               [24] 1361 	ret
+                                   1362 ;------------------------------------------------------------
+                                   1363 ;Allocation info for local variables in function 'delay'
+                                   1364 ;------------------------------------------------------------
+                                   1365 ;count                     Allocated with name '_delay_count_65536_83'
+                                   1366 ;i                         Allocated with name '_delay_i_131072_85'
+                                   1367 ;------------------------------------------------------------
+                                   1368 ;	sdc.c:387: static void delay(uint8_t count)
+                                   1369 ;	-----------------------------------------
+                                   1370 ;	 function delay
+                                   1371 ;	-----------------------------------------
+      000423                       1372 _delay:
+      000423 E5 82            [12] 1373 	mov	a,dpl
+      000425 90r00r12         [24] 1374 	mov	dptr,#_delay_count_65536_83
+      000428 F0               [24] 1375 	movx	@dptr,a
+                                   1376 ;	sdc.c:389: for(int i=0;i<count * 1000;i++){
+      000429 E0               [24] 1377 	movx	a,@dptr
+      00042A FF               [12] 1378 	mov	r7,a
+      00042B 7D 00            [12] 1379 	mov	r5,#0x00
+      00042D 7E 00            [12] 1380 	mov	r6,#0x00
+      00042F                       1381 00103$:
+      00042F 90r00r00         [24] 1382 	mov	dptr,#__mulint_PARM_2
+      000432 EF               [12] 1383 	mov	a,r7
+      000433 F0               [24] 1384 	movx	@dptr,a
+      000434 E4               [12] 1385 	clr	a
+      000435 A3               [24] 1386 	inc	dptr
+      000436 F0               [24] 1387 	movx	@dptr,a
+      000437 90 03 E8         [24] 1388 	mov	dptr,#0x03e8
+      00043A C0 07            [24] 1389 	push	ar7
+      00043C C0 06            [24] 1390 	push	ar6
+      00043E C0 05            [24] 1391 	push	ar5
+      000440 12r00r00         [24] 1392 	lcall	__mulint
+      000443 AB 82            [24] 1393 	mov	r3,dpl
+      000445 AC 83            [24] 1394 	mov	r4,dph
+      000447 D0 05            [24] 1395 	pop	ar5
+      000449 D0 06            [24] 1396 	pop	ar6
+      00044B D0 07            [24] 1397 	pop	ar7
+      00044D C3               [12] 1398 	clr	c
+      00044E ED               [12] 1399 	mov	a,r5
+      00044F 9B               [12] 1400 	subb	a,r3
+      000450 EE               [12] 1401 	mov	a,r6
+      000451 64 80            [12] 1402 	xrl	a,#0x80
+      000453 8C F0            [24] 1403 	mov	b,r4
+      000455 63 F0 80         [24] 1404 	xrl	b,#0x80
+      000458 95 F0            [12] 1405 	subb	a,b
+      00045A 50 07            [24] 1406 	jnc	00105$
+      00045C 0D               [12] 1407 	inc	r5
+      00045D BD 00 CF         [24] 1408 	cjne	r5,#0x00,00103$
+      000460 0E               [12] 1409 	inc	r6
+      000461 80 CC            [24] 1410 	sjmp	00103$
+      000463                       1411 00105$:
+                                   1412 ;	sdc.c:392: }
+      000463 22               [24] 1413 	ret
+                                   1414 	.area CSEG    (CODE)
+                                   1415 	.area CONST   (CODE)
+                                   1416 	.area XINIT   (CODE)
+                                   1417 	.area CABS    (ABS,CODE)

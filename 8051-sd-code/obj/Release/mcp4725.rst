@@ -1,0 +1,323 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module mcp4725
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _write_i2c
+                                     12 	.globl _read_i2c
+                                     13 	.globl _send_ack
+                                     14 	.globl _stop_i2c
+                                     15 	.globl _start_i2c
+                                     16 	.globl _reset_DAC
+                                     17 	.globl _write_to_DAC
+                                     18 	.globl _write_to_DAC_and_EEPROM
+                                     19 	.globl _read_from_DAC
+                                     20 ;--------------------------------------------------------
+                                     21 ; special function registers
+                                     22 ;--------------------------------------------------------
+                                     23 	.area RSEG    (ABS,DATA)
+      000000                         24 	.org 0x0000
+                                     25 ;--------------------------------------------------------
+                                     26 ; special function bits
+                                     27 ;--------------------------------------------------------
+                                     28 	.area RSEG    (ABS,DATA)
+      000000                         29 	.org 0x0000
+                                     30 ;--------------------------------------------------------
+                                     31 ; overlayable register banks
+                                     32 ;--------------------------------------------------------
+                                     33 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                         34 	.ds 8
+                                     35 ;--------------------------------------------------------
+                                     36 ; internal ram data
+                                     37 ;--------------------------------------------------------
+                                     38 	.area DSEG    (DATA)
+                                     39 ;--------------------------------------------------------
+                                     40 ; overlayable items in internal ram
+                                     41 ;--------------------------------------------------------
+                                     42 ;--------------------------------------------------------
+                                     43 ; indirectly addressable internal ram data
+                                     44 ;--------------------------------------------------------
+                                     45 	.area ISEG    (DATA)
+                                     46 ;--------------------------------------------------------
+                                     47 ; absolute internal ram data
+                                     48 ;--------------------------------------------------------
+                                     49 	.area IABS    (ABS,DATA)
+                                     50 	.area IABS    (ABS,DATA)
+                                     51 ;--------------------------------------------------------
+                                     52 ; bit data
+                                     53 ;--------------------------------------------------------
+                                     54 	.area BSEG    (BIT)
+                                     55 ;--------------------------------------------------------
+                                     56 ; paged external ram data
+                                     57 ;--------------------------------------------------------
+                                     58 	.area PSEG    (PAG,XDATA)
+                                     59 ;--------------------------------------------------------
+                                     60 ; external ram data
+                                     61 ;--------------------------------------------------------
+                                     62 	.area XSEG    (XDATA)
+                                     63 ;--------------------------------------------------------
+                                     64 ; absolute external ram data
+                                     65 ;--------------------------------------------------------
+                                     66 	.area XABS    (ABS,XDATA)
+                                     67 ;--------------------------------------------------------
+                                     68 ; external initialized ram data
+                                     69 ;--------------------------------------------------------
+                                     70 	.area XISEG   (XDATA)
+                                     71 	.area HOME    (CODE)
+                                     72 	.area GSINIT0 (CODE)
+                                     73 	.area GSINIT1 (CODE)
+                                     74 	.area GSINIT2 (CODE)
+                                     75 	.area GSINIT3 (CODE)
+                                     76 	.area GSINIT4 (CODE)
+                                     77 	.area GSINIT5 (CODE)
+                                     78 	.area GSINIT  (CODE)
+                                     79 	.area GSFINAL (CODE)
+                                     80 	.area CSEG    (CODE)
+                                     81 ;--------------------------------------------------------
+                                     82 ; global & static initialisations
+                                     83 ;--------------------------------------------------------
+                                     84 	.area HOME    (CODE)
+                                     85 	.area GSINIT  (CODE)
+                                     86 	.area GSFINAL (CODE)
+                                     87 	.area GSINIT  (CODE)
+                                     88 ;--------------------------------------------------------
+                                     89 ; Home
+                                     90 ;--------------------------------------------------------
+                                     91 	.area HOME    (CODE)
+                                     92 	.area HOME    (CODE)
+                                     93 ;--------------------------------------------------------
+                                     94 ; code
+                                     95 ;--------------------------------------------------------
+                                     96 	.area CSEG    (CODE)
+                                     97 ;------------------------------------------------------------
+                                     98 ;Allocation info for local variables in function 'reset_DAC'
+                                     99 ;------------------------------------------------------------
+                                    100 ;	mcp4725.c:9: void reset_DAC(void)
+                                    101 ;	-----------------------------------------
+                                    102 ;	 function reset_DAC
+                                    103 ;	-----------------------------------------
+      00086E                        104 _reset_DAC:
+                           000007   105 	ar7 = 0x07
+                           000006   106 	ar6 = 0x06
+                           000005   107 	ar5 = 0x05
+                           000004   108 	ar4 = 0x04
+                           000003   109 	ar3 = 0x03
+                           000002   110 	ar2 = 0x02
+                           000001   111 	ar1 = 0x01
+                           000000   112 	ar0 = 0x00
+                                    113 ;	mcp4725.c:12: start_i2c();
+      00086E 12 00 78         [24]  114 	lcall	_start_i2c
+                                    115 ;	mcp4725.c:14: write_i2c(0x00);
+      000871 75 82 00         [24]  116 	mov	dpl,#0x00
+      000874 12 01 12         [24]  117 	lcall	_write_i2c
+                                    118 ;	mcp4725.c:16: write_i2c(0x06);
+      000877 75 82 06         [24]  119 	mov	dpl,#0x06
+      00087A 12 01 12         [24]  120 	lcall	_write_i2c
+                                    121 ;	mcp4725.c:18: stop_i2c();
+                                    122 ;	mcp4725.c:19: }
+      00087D 02 00 8B         [24]  123 	ljmp	_stop_i2c
+                                    124 ;------------------------------------------------------------
+                                    125 ;Allocation info for local variables in function 'write_to_DAC'
+                                    126 ;------------------------------------------------------------
+                                    127 ;data                      Allocated to registers r6 r7 
+                                    128 ;setting                   Allocated to registers r5 
+                                    129 ;------------------------------------------------------------
+                                    130 ;	mcp4725.c:29: void write_to_DAC(uint16_t data)
+                                    131 ;	-----------------------------------------
+                                    132 ;	 function write_to_DAC
+                                    133 ;	-----------------------------------------
+      000880                        134 _write_to_DAC:
+      000880 AE 82            [24]  135 	mov	r6,dpl
+      000882 AF 83            [24]  136 	mov	r7,dph
+                                    137 ;	mcp4725.c:32: setting |= (data >> 8) & 0x0F;
+      000884 8F 05            [24]  138 	mov	ar5,r7
+      000886 53 05 0F         [24]  139 	anl	ar5,#0x0f
+                                    140 ;	mcp4725.c:35: start_i2c();
+      000889 C0 07            [24]  141 	push	ar7
+      00088B C0 06            [24]  142 	push	ar6
+      00088D C0 05            [24]  143 	push	ar5
+      00088F 12 00 78         [24]  144 	lcall	_start_i2c
+                                    145 ;	mcp4725.c:37: write_i2c(0xC0);
+      000892 75 82 C0         [24]  146 	mov	dpl,#0xc0
+      000895 12 01 12         [24]  147 	lcall	_write_i2c
+      000898 D0 05            [24]  148 	pop	ar5
+                                    149 ;	mcp4725.c:39: write_i2c(setting);
+      00089A 8D 82            [24]  150 	mov	dpl,r5
+      00089C 12 01 12         [24]  151 	lcall	_write_i2c
+      00089F D0 06            [24]  152 	pop	ar6
+      0008A1 D0 07            [24]  153 	pop	ar7
+                                    154 ;	mcp4725.c:41: write_i2c((uint8_t)(data & 0xFF));
+      0008A3 8E 82            [24]  155 	mov	dpl,r6
+      0008A5 12 01 12         [24]  156 	lcall	_write_i2c
+                                    157 ;	mcp4725.c:43: stop_i2c();
+                                    158 ;	mcp4725.c:45: return;
+                                    159 ;	mcp4725.c:46: }
+      0008A8 02 00 8B         [24]  160 	ljmp	_stop_i2c
+                                    161 ;------------------------------------------------------------
+                                    162 ;Allocation info for local variables in function 'write_to_DAC_and_EEPROM'
+                                    163 ;------------------------------------------------------------
+                                    164 ;data                      Allocated to registers r6 r7 
+                                    165 ;temp                      Allocated to registers r6 
+                                    166 ;------------------------------------------------------------
+                                    167 ;	mcp4725.c:54: void write_to_DAC_and_EEPROM(uint16_t data)
+                                    168 ;	-----------------------------------------
+                                    169 ;	 function write_to_DAC_and_EEPROM
+                                    170 ;	-----------------------------------------
+      0008AB                        171 _write_to_DAC_and_EEPROM:
+      0008AB AE 82            [24]  172 	mov	r6,dpl
+      0008AD AF 83            [24]  173 	mov	r7,dph
+                                    174 ;	mcp4725.c:57: start_i2c();
+      0008AF C0 07            [24]  175 	push	ar7
+      0008B1 C0 06            [24]  176 	push	ar6
+      0008B3 12 00 78         [24]  177 	lcall	_start_i2c
+                                    178 ;	mcp4725.c:59: write_i2c(0xC0);
+      0008B6 75 82 C0         [24]  179 	mov	dpl,#0xc0
+      0008B9 12 01 12         [24]  180 	lcall	_write_i2c
+                                    181 ;	mcp4725.c:61: write_i2c(0x60);
+      0008BC 75 82 60         [24]  182 	mov	dpl,#0x60
+      0008BF 12 01 12         [24]  183 	lcall	_write_i2c
+      0008C2 D0 06            [24]  184 	pop	ar6
+      0008C4 D0 07            [24]  185 	pop	ar7
+                                    186 ;	mcp4725.c:63: write_i2c((data >> 4) & 0xFF);
+      0008C6 8E 04            [24]  187 	mov	ar4,r6
+      0008C8 EF               [12]  188 	mov	a,r7
+      0008C9 C4               [12]  189 	swap	a
+      0008CA CC               [12]  190 	xch	a,r4
+      0008CB C4               [12]  191 	swap	a
+      0008CC 54 0F            [12]  192 	anl	a,#0x0f
+      0008CE 6C               [12]  193 	xrl	a,r4
+      0008CF CC               [12]  194 	xch	a,r4
+      0008D0 54 0F            [12]  195 	anl	a,#0x0f
+      0008D2 CC               [12]  196 	xch	a,r4
+      0008D3 6C               [12]  197 	xrl	a,r4
+      0008D4 CC               [12]  198 	xch	a,r4
+      0008D5 8C 82            [24]  199 	mov	dpl,r4
+      0008D7 C0 07            [24]  200 	push	ar7
+      0008D9 C0 06            [24]  201 	push	ar6
+      0008DB 12 01 12         [24]  202 	lcall	_write_i2c
+      0008DE D0 06            [24]  203 	pop	ar6
+      0008E0 D0 07            [24]  204 	pop	ar7
+                                    205 ;	mcp4725.c:66: temp |= (data & 0xF) << 4;
+      0008E2 53 06 0F         [24]  206 	anl	ar6,#0x0f
+      0008E5 EE               [12]  207 	mov	a,r6
+      0008E6 C4               [12]  208 	swap	a
+      0008E7 54 F0            [12]  209 	anl	a,#0xf0
+                                    210 ;	mcp4725.c:67: write_i2c(temp);
+      0008E9 F5 82            [12]  211 	mov	dpl,a
+      0008EB 12 01 12         [24]  212 	lcall	_write_i2c
+                                    213 ;	mcp4725.c:69: stop_i2c();
+                                    214 ;	mcp4725.c:71: return;
+                                    215 ;	mcp4725.c:72: }
+      0008EE 02 00 8B         [24]  216 	ljmp	_stop_i2c
+                                    217 ;------------------------------------------------------------
+                                    218 ;Allocation info for local variables in function 'read_from_DAC'
+                                    219 ;------------------------------------------------------------
+                                    220 ;size                      Allocated to stack - _bp -4
+                                    221 ;data                      Allocated to stack - _bp +1
+                                    222 ;i                         Allocated to registers r3 r4 
+                                    223 ;------------------------------------------------------------
+                                    224 ;	mcp4725.c:83: int read_from_DAC(uint8_t *data, size_t size)
+                                    225 ;	-----------------------------------------
+                                    226 ;	 function read_from_DAC
+                                    227 ;	-----------------------------------------
+      0008F1                        228 _read_from_DAC:
+      0008F1 C0 08            [24]  229 	push	_bp
+      0008F3 85 81 08         [24]  230 	mov	_bp,sp
+      0008F6 C0 82            [24]  231 	push	dpl
+      0008F8 C0 83            [24]  232 	push	dph
+      0008FA C0 F0            [24]  233 	push	b
+                                    234 ;	mcp4725.c:85: if(size < 4){
+      0008FC E5 08            [12]  235 	mov	a,_bp
+      0008FE 24 FC            [12]  236 	add	a,#0xfc
+      000900 F8               [12]  237 	mov	r0,a
+      000901 C3               [12]  238 	clr	c
+      000902 E6               [12]  239 	mov	a,@r0
+      000903 94 04            [12]  240 	subb	a,#0x04
+      000905 08               [12]  241 	inc	r0
+      000906 E6               [12]  242 	mov	a,@r0
+      000907 94 00            [12]  243 	subb	a,#0x00
+      000909 50 05            [24]  244 	jnc	00102$
+                                    245 ;	mcp4725.c:86: return ERROR;
+      00090B 90 00 01         [24]  246 	mov	dptr,#0x0001
+      00090E 80 66            [24]  247 	sjmp	00107$
+      000910                        248 00102$:
+                                    249 ;	mcp4725.c:90: start_i2c();
+      000910 12 00 78         [24]  250 	lcall	_start_i2c
+                                    251 ;	mcp4725.c:92: write_i2c(0xC1);
+      000913 75 82 C1         [24]  252 	mov	dpl,#0xc1
+      000916 12 01 12         [24]  253 	lcall	_write_i2c
+                                    254 ;	mcp4725.c:94: for(int i=0;i<size;i++){
+      000919 7B 00            [12]  255 	mov	r3,#0x00
+      00091B 7C 00            [12]  256 	mov	r4,#0x00
+      00091D                        257 00105$:
+      00091D 8B 02            [24]  258 	mov	ar2,r3
+      00091F 8C 07            [24]  259 	mov	ar7,r4
+      000921 E5 08            [12]  260 	mov	a,_bp
+      000923 24 FC            [12]  261 	add	a,#0xfc
+      000925 F8               [12]  262 	mov	r0,a
+      000926 C3               [12]  263 	clr	c
+      000927 EA               [12]  264 	mov	a,r2
+      000928 96               [12]  265 	subb	a,@r0
+      000929 EF               [12]  266 	mov	a,r7
+      00092A 08               [12]  267 	inc	r0
+      00092B 96               [12]  268 	subb	a,@r0
+      00092C 50 42            [24]  269 	jnc	00103$
+                                    270 ;	mcp4725.c:96: data[i] = read_i2c();
+      00092E A8 08            [24]  271 	mov	r0,_bp
+      000930 08               [12]  272 	inc	r0
+      000931 EB               [12]  273 	mov	a,r3
+      000932 26               [12]  274 	add	a,@r0
+      000933 FA               [12]  275 	mov	r2,a
+      000934 EC               [12]  276 	mov	a,r4
+      000935 08               [12]  277 	inc	r0
+      000936 36               [12]  278 	addc	a,@r0
+      000937 FE               [12]  279 	mov	r6,a
+      000938 08               [12]  280 	inc	r0
+      000939 86 07            [24]  281 	mov	ar7,@r0
+      00093B C0 07            [24]  282 	push	ar7
+      00093D C0 06            [24]  283 	push	ar6
+      00093F C0 04            [24]  284 	push	ar4
+      000941 C0 03            [24]  285 	push	ar3
+      000943 C0 02            [24]  286 	push	ar2
+      000945 12 00 DA         [24]  287 	lcall	_read_i2c
+      000948 AD 82            [24]  288 	mov	r5,dpl
+      00094A D0 02            [24]  289 	pop	ar2
+      00094C D0 03            [24]  290 	pop	ar3
+      00094E D0 04            [24]  291 	pop	ar4
+      000950 D0 06            [24]  292 	pop	ar6
+      000952 D0 07            [24]  293 	pop	ar7
+      000954 8A 82            [24]  294 	mov	dpl,r2
+      000956 8E 83            [24]  295 	mov	dph,r6
+      000958 8F F0            [24]  296 	mov	b,r7
+      00095A ED               [12]  297 	mov	a,r5
+      00095B 12 38 59         [24]  298 	lcall	__gptrput
+                                    299 ;	mcp4725.c:98: send_ack();
+      00095E C0 04            [24]  300 	push	ar4
+      000960 C0 03            [24]  301 	push	ar3
+      000962 12 00 9E         [24]  302 	lcall	_send_ack
+      000965 D0 03            [24]  303 	pop	ar3
+      000967 D0 04            [24]  304 	pop	ar4
+                                    305 ;	mcp4725.c:94: for(int i=0;i<size;i++){
+      000969 0B               [12]  306 	inc	r3
+      00096A BB 00 B0         [24]  307 	cjne	r3,#0x00,00105$
+      00096D 0C               [12]  308 	inc	r4
+      00096E 80 AD            [24]  309 	sjmp	00105$
+      000970                        310 00103$:
+                                    311 ;	mcp4725.c:101: stop_i2c();
+      000970 12 00 8B         [24]  312 	lcall	_stop_i2c
+                                    313 ;	mcp4725.c:103: return SUCCESS;
+      000973 90 00 00         [24]  314 	mov	dptr,#0x0000
+      000976                        315 00107$:
+                                    316 ;	mcp4725.c:104: }
+      000976 85 08 81         [24]  317 	mov	sp,_bp
+      000979 D0 08            [24]  318 	pop	_bp
+      00097B 22               [24]  319 	ret
+                                    320 	.area CSEG    (CODE)
+                                    321 	.area CONST   (CODE)
+                                    322 	.area XINIT   (CODE)
+                                    323 	.area CABS    (ABS,CODE)

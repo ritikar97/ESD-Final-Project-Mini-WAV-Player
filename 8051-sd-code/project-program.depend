@@ -1,0 +1,239 @@
+# depslib dependency file v1.0
+1667677808 source:c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\serial.c
+	"serial.h"
+	<at89c51ed2.h>
+	<mcs51reg.h>
+
+1667576256 c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\serial.h
+
+1668574659 source:c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\main.c
+	<at89c51ed2.h>
+	<mcs51reg.h>
+	<stdint.h>
+	"serial.h"
+	"spi.h"
+	"fsm.h"
+	"mcp4802.h"
+
+1668564703 c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\spi.h
+	<stdint.h>
+	<stdlib.h>
+	<at89c51ed2.h>
+	<mcs51reg.h>
+
+1667672495 c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\fsm.h
+
+1668575907 source:c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\spi.c
+	"spi.h"
+	<stdio.h>
+
+1668574932 source:c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\fsm.c
+	"fsm.h"
+	<at89c51ed2.h>
+	<mcs51reg.h>
+	<stdio.h>
+	<stdint.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"serial.h"
+	"spi.h"
+	"mcp4802.h"
+
+1668575124 c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\mcp4802.h
+	<stdint.h>
+
+1668575142 source:c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\mcp4802.c
+	"mcp4802.h"
+	"spi.h"
+
+1668562574 source:c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\cb.c
+	<stdint.h>
+	"cb.h"
+
+1668562536 c:\users\user\desktop\esd\lab4\part3\8051_code\spi-program\spi-program\cb.h
+	<stdint.h>
+
+1669407812 source:c:\users\user\desktop\esd\project\project-program\project-program\mcp4802.c
+	"mcp4802.h"
+	"spi.h"
+
+1668575124 c:\users\user\desktop\esd\project\project-program\project-program\mcp4802.h
+	<stdint.h>
+
+1669403947 c:\users\user\desktop\esd\project\project-program\project-program\spi.h
+	<stdint.h>
+	<stdlib.h>
+	<at89c51ed2.h>
+	<mcs51reg.h>
+
+1669442230 source:c:\users\user\desktop\esd\project\project-program\project-program\serial.c
+	"serial.h"
+	<at89c51ed2.h>
+	<mcs51reg.h>
+
+1667576256 c:\users\user\desktop\esd\project\project-program\project-program\serial.h
+
+1669439081 source:c:\users\user\desktop\esd\project\project-program\project-program\main.c
+	<at89c51ed2.h>
+	<mcs51reg.h>
+	<stdint.h>
+	<stdio.h>
+	"serial.h"
+	"spi.h"
+	"sdc.h"
+	"lcd.h"
+	"timer.h"
+	"pff/source/pff.h"
+	"pff/source/diskio.h"
+
+1669438653 c:\users\user\desktop\esd\project\project-program\project-program\sdc.h
+	<stdint.h>
+
+1669403941 source:c:\users\user\desktop\esd\project\project-program\project-program\spi.c
+	"spi.h"
+	<stdio.h>
+
+1669422494 source:c:\users\user\desktop\esd\project\project-program\project-program\lcd.c
+	"lcd.h"
+	<at89c51ed2.h>
+	<mcs51reg.h>
+	<stdint.h>
+	<stdio.h>
+
+1668382922 c:\users\user\desktop\esd\project\project-program\project-program\lcd.h
+	<stdint.h>
+
+1669442245 source:c:\users\user\desktop\esd\project\project-program\project-program\timer.c
+	"time.h"
+	"lcd.h"
+	<stdint.h>
+	<at89c51ed2.h>
+	<mcs51reg.h>
+
+1669438634 source:c:\users\user\desktop\esd\project\project-program\project-program\sdc.c
+	"sdc.h"
+	"timer.h"
+	"spi.h"
+	<stdint.h>
+
+1669418564 c:\users\user\desktop\esd\project\project-program\project-program\timer.h
+
+1669418592 source:c:\users\user\desktop\esd\project\project-program\project-program\ff15\source\ff.c
+	<string.h>
+	"ff.h"
+	"diskio.h"
+	"../../timer.h"
+	<stdarg.h>
+	<math.h>
+
+1669263294 c:\users\user\desktop\esd\project\project-program\project-program\ff15\source\ff.h
+	"ffconf.h"
+	<windows.h>
+	<float.h>
+	<stdint.h>
+
+1669263294 c:\users\user\desktop\esd\project\project-program\project-program\ff15\source\ffconf.h
+
+1669263294 c:\users\user\desktop\esd\project\project-program\project-program\ff15\source\diskio.h
+
+1669263294 source:c:\users\user\desktop\esd\project\project-program\project-program\ff15\source\ffsystem.c
+	"ff.h"
+	<stdlib.h>
+	<windows.h>
+	"itron.h"
+	"kernel.h"
+	"includes.h"
+	"FreeRTOS.h"
+	"semphr.h"
+	"cmsis_os.h"
+
+1669263294 source:c:\users\user\desktop\esd\project\project-program\project-program\ff15\source\ffunicode.c
+	"ff.h"
+
+1669419158 source:c:\users\user\desktop\esd\project\project-program\project-program\ff15\source\diskio.c
+	"ff.h"
+	"diskio.h"
+	"../../sdc.h"
+	"../../spi.h"
+
+1669440436 source:c:\users\user\desktop\esd\project\project-program\project-program\pff\source\pff.c
+	"pff.h"
+	"diskio.h"
+
+1669423990 c:\users\user\desktop\esd\project\project-program\project-program\pff\source\pff.h
+	"pffconf.h"
+	<windows.h>
+	<stdint.h>
+
+1669438827 c:\users\user\desktop\esd\project\project-program\project-program\pff\source\pffconf.h
+
+1669420798 c:\users\user\desktop\esd\project\project-program\project-program\pff\source\diskio.h
+	"pff.h"
+
+1669421164 source:c:\users\user\desktop\esd\project\project-program\project-program\pff\source\diskio.c
+	"diskio.h"
+	"../../sdc.h"
+	"../../spi.h"
+
+1669573937 source:c:\users\user\desktop\esd\project\project-program\project-program\i2c.c
+	"i2c.h"
+	<at89c51ed2.h>
+	<mcs51reg.h>
+
+1669573924 c:\users\user\desktop\esd\project\project-program\project-program\i2c.h
+	<stdint.h>
+
+1669576564 source:c:\users\user\desktop\esd\project\project-program\project-program\mcp4725.c
+	"mcp4725.h"
+	"i2c.h"
+
+1669576529 c:\users\user\desktop\esd\project\project-program\project-program\mcp4725.h
+	<stdint.h>
+	<stddef.h>
+
+1669421164 source:c:\users\user\desktop\esd-mp3-player\project-program\pff\source\diskio.c
+	"diskio.h"
+	"../../sdc.h"
+	"../../spi.h"
+
+1669420798 c:\users\user\desktop\esd-mp3-player\project-program\pff\source\diskio.h
+	"pff.h"
+
+1669423990 c:\users\user\desktop\esd-mp3-player\project-program\pff\source\pff.h
+	"pffconf.h"
+	<windows.h>
+	<stdint.h>
+
+1669438827 c:\users\user\desktop\esd-mp3-player\project-program\pff\source\pffconf.h
+
+1670833714 c:\users\user\desktop\esd-mp3-player\project-program\sdc.h
+	<stdint.h>
+
+1670833786 c:\users\user\desktop\esd-mp3-player\project-program\spi.h
+	<stdint.h>
+	<stdlib.h>
+	<at89c51ed2.h>
+	<mcs51reg.h>
+
+1669440436 source:c:\users\user\desktop\esd-mp3-player\project-program\pff\source\pff.c
+	"pff.h"
+	"diskio.h"
+
+1669442230 source:c:\users\user\desktop\esd-mp3-player\project-program\serial.c
+	"serial.h"
+	<at89c51ed2.h>
+	<mcs51reg.h>
+
+1667576256 c:\users\user\desktop\esd-mp3-player\project-program\serial.h
+
+1669442245 source:c:\users\user\desktop\esd-mp3-player\project-program\timer.c
+	"time.h"
+	"lcd.h"
+	<stdint.h>
+	<at89c51ed2.h>
+	<mcs51reg.h>
+
+1670833826 c:\users\user\desktop\esd-mp3-player\project-program\lcd.h
+	<stdint.h>
+

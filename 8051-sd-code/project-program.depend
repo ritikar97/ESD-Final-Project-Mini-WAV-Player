@@ -237,3 +237,15 @@
 1670833826 c:\users\user\desktop\esd-mp3-player\project-program\lcd.h
 	<stdint.h>
 
+1670833704 source:c:\users\user\desktop\esd-mp3-player\project-program\sdc.c
+	"sdc.h"
+	"timer.h"
+	"spi.h"
+	<stdint.h>
+
+1669418564 c:\users\user\desktop\esd-mp3-player\project-program\timer.h
+
+1670833772 source:c:\users\user\desktop\esd-mp3-player\project-program\spi.c
+	"spi.h"
+	<stdio.h>
+

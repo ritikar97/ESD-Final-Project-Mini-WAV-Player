@@ -564,7 +564,7 @@
                                     564 ;------------------------------------------------------------
                                     565 ;Allocation info for local variables in function '_sdcc_external_startup'
                                     566 ;------------------------------------------------------------
-                                    567 ;	main.c:32: _sdcc_external_startup()
+                                    567 ;	main.c:36: _sdcc_external_startup()
                                     568 ;	-----------------------------------------
                                     569 ;	 function _sdcc_external_startup
                                     570 ;	-----------------------------------------
@@ -577,15 +577,15 @@
                            000002   577 	ar2 = 0x02
                            000001   578 	ar1 = 0x01
                            000000   579 	ar0 = 0x00
-                                    580 ;	main.c:35: AUXR |= (XRS1 | XRS0);
+                                    580 ;	main.c:39: AUXR |= (XRS1 | XRS0);
       000000 43 8E 0C         [24]  581 	orl	_AUXR,#0x0c
-                                    582 ;	main.c:36: AUXR &= ~(XRS2);
+                                    582 ;	main.c:40: AUXR &= ~(XRS2);
       000003 53 8E EF         [24]  583 	anl	_AUXR,#0xef
-                                    584 ;	main.c:38: init_serial();
+                                    584 ;	main.c:42: init_serial();
       000006 12r00r00         [24]  585 	lcall	_init_serial
-                                    586 ;	main.c:39: return 0;
+                                    586 ;	main.c:43: return 0;
       000009 90 00 00         [24]  587 	mov	dptr,#0x0000
-                                    588 ;	main.c:40: }
+                                    588 ;	main.c:44: }
       00000C 22               [24]  589 	ret
                                     590 ;------------------------------------------------------------
                                     591 ;Allocation info for local variables in function 'print_buffer'
@@ -593,7 +593,7 @@
                                     593 ;buff                      Allocated with name '_print_buffer_buff_65536_85'
                                     594 ;i                         Allocated with name '_print_buffer_i_131072_87'
                                     595 ;------------------------------------------------------------
-                                    596 ;	main.c:42: void print_buffer(const BYTE *buff)
+                                    596 ;	main.c:46: void print_buffer(const BYTE *buff)
                                     597 ;	-----------------------------------------
                                     598 ;	 function print_buffer
                                     599 ;	-----------------------------------------
@@ -609,7 +609,7 @@
       00001A EF               [12]  609 	mov	a,r7
       00001B A3               [24]  610 	inc	dptr
       00001C F0               [24]  611 	movx	@dptr,a
-                                    612 ;	main.c:44: for(int i=0;i<RD_BLOCK_SIZE;i++){
+                                    612 ;	main.c:48: for(int i=0;i<RD_BLOCK_SIZE;i++){
       00001D 90r00r2A         [24]  613 	mov	dptr,#_print_buffer_buff_65536_85
       000020 E0               [24]  614 	movx	a,@dptr
       000021 FD               [12]  615 	mov	r5,a
@@ -631,7 +631,7 @@
       000035 40 01            [24]  631 	jc	00122$
       000037 22               [24]  632 	ret
       000038                        633 00122$:
-                                    634 ;	main.c:45: if(((i + 1) >> 4) == 0){
+                                    634 ;	main.c:49: if(((i + 1) >> 4) == 0){
       000038 74 01            [12]  635 	mov	a,#0x01
       00003A 2B               [12]  636 	add	a,r3
       00003B F9               [12]  637 	mov	r1,a
@@ -652,7 +652,7 @@
       00004F                        652 00123$:
       00004F 49               [12]  653 	orl	a,r1
       000050 70 23            [24]  654 	jnz	00102$
-                                    655 ;	main.c:46: printf_tiny("\r\n");
+                                    655 ;	main.c:50: printf_tiny("\r\n");
       000052 C0 07            [24]  656 	push	ar7
       000054 C0 06            [24]  657 	push	ar6
       000056 C0 05            [24]  658 	push	ar5
@@ -671,7 +671,7 @@
       000071 D0 06            [24]  671 	pop	ar6
       000073 D0 07            [24]  672 	pop	ar7
       000075                        673 00102$:
-                                    674 ;	main.c:48: printf_tiny("%x ", buff[i]);
+                                    674 ;	main.c:52: printf_tiny("%x ", buff[i]);
       000075 EB               [12]  675 	mov	a,r3
       000076 2D               [12]  676 	add	a,r5
       000077 F8               [12]  677 	mov	r0,a
@@ -705,12 +705,12 @@
       0000AC D0 05            [24]  705 	pop	ar5
       0000AE D0 06            [24]  706 	pop	ar6
       0000B0 D0 07            [24]  707 	pop	ar7
-                                    708 ;	main.c:44: for(int i=0;i<RD_BLOCK_SIZE;i++){
+                                    708 ;	main.c:48: for(int i=0;i<RD_BLOCK_SIZE;i++){
       0000B2 0B               [12]  709 	inc	r3
       0000B3 BB 00 01         [24]  710 	cjne	r3,#0x00,00125$
       0000B6 0C               [12]  711 	inc	r4
       0000B7                        712 00125$:
-                                    713 ;	main.c:50: }
+                                    713 ;	main.c:54: }
       0000B7 02r00r2C         [24]  714 	ljmp	00105$
                                     715 ;------------------------------------------------------------
                                     716 ;Allocation info for local variables in function 'read_mp3_files'
@@ -721,12 +721,12 @@
                                     721 ;buff                      Allocated with name '_read_mp3_files_buff_65536_91'
                                     722 ;br                        Allocated with name '_read_mp3_files_br_65536_91'
                                     723 ;------------------------------------------------------------
-                                    724 ;	main.c:52: void read_mp3_files(void)
+                                    724 ;	main.c:56: void read_mp3_files(void)
                                     725 ;	-----------------------------------------
                                     726 ;	 function read_mp3_files
                                     727 ;	-----------------------------------------
       0000BA                        728 _read_mp3_files:
-                                    729 ;	main.c:60: res = pf_opendir(&dir, "/");
+                                    729 ;	main.c:64: res = pf_opendir(&dir, "/");
       0000BA 90r00r00         [24]  730 	mov	dptr,#_pf_opendir_PARM_2
       0000BD 74r07            [12]  731 	mov	a,#___str_2
       0000BF F0               [24]  732 	movx	@dptr,a
@@ -740,12 +740,12 @@
       0000CB 75 F0 00         [24]  740 	mov	b,#0x00
       0000CE 12r00r00         [24]  741 	lcall	_pf_opendir
       0000D1 E5 82            [12]  742 	mov	a,dpl
-                                    743 ;	main.c:61: if (res == FR_OK) {
+                                    743 ;	main.c:65: if (res == FR_OK) {
       0000D3 60 01            [24]  744 	jz	00145$
       0000D5 22               [24]  745 	ret
       0000D6                        746 00145$:
       0000D6                        747 00114$:
-                                    748 ;	main.c:64: res = pf_readdir(&dir, &fno);
+                                    748 ;	main.c:68: res = pf_readdir(&dir, &fno);
       0000D6 90r00r00         [24]  749 	mov	dptr,#_pf_readdir_PARM_2
       0000D9 74r2D            [12]  750 	mov	a,#_read_mp3_files_fno_65536_91
       0000DB F0               [24]  751 	movx	@dptr,a
@@ -759,13 +759,13 @@
       0000E6 75 F0 00         [24]  759 	mov	b,#0x00
       0000E9 12r00r00         [24]  760 	lcall	_pf_readdir
       0000EC E5 82            [12]  761 	mov	a,dpl
-                                    762 ;	main.c:65: if (res != FR_OK || fno.fname[0] == 0){
+                                    762 ;	main.c:69: if (res != FR_OK || fno.fname[0] == 0){
       0000EE 70 06            [24]  763 	jnz	00101$
       0000F0 90r00r36         [24]  764 	mov	dptr,#(_read_mp3_files_fno_65536_91 + 0x0009)
       0000F3 E0               [24]  765 	movx	a,@dptr
       0000F4 70 10            [24]  766 	jnz	00102$
       0000F6                        767 00101$:
-                                    768 ;	main.c:66: printf_tiny("No more files found\r\n");
+                                    768 ;	main.c:70: printf_tiny("No more files found\r\n");
       0000F6 74r09            [12]  769 	mov	a,#___str_3
       0000F8 C0 E0            [24]  770 	push	acc
       0000FA 74s00            [12]  771 	mov	a,#(___str_3 >> 8)
@@ -773,10 +773,10 @@
       0000FE 12r00r00         [24]  773 	lcall	_printf_tiny
       000101 15 81            [12]  774 	dec	sp
       000103 15 81            [12]  775 	dec	sp
-                                    776 ;	main.c:67: break;
+                                    776 ;	main.c:71: break;
       000105 22               [24]  777 	ret
       000106                        778 00102$:
-                                    779 ;	main.c:69: printf_tiny("reading file /%s ...\r\n",fno.fname);
+                                    779 ;	main.c:73: printf_tiny("reading file /%s ...\r\n",fno.fname);
       000106 74r36            [12]  780 	mov	a,#(_read_mp3_files_fno_65536_91 + 0x0009)
       000108 C0 E0            [24]  781 	push	acc
       00010A 74s00            [12]  782 	mov	a,#((_read_mp3_files_fno_65536_91 + 0x0009) >> 8)
@@ -791,14 +791,14 @@
       00011C E5 81            [12]  791 	mov	a,sp
       00011E 24 FB            [12]  792 	add	a,#0xfb
       000120 F5 81            [12]  793 	mov	sp,a
-                                    794 ;	main.c:72: res = pf_open(fno.fname);
+                                    794 ;	main.c:76: res = pf_open(fno.fname);
       000122 90r00r36         [24]  795 	mov	dptr,#(_read_mp3_files_fno_65536_91 + 0x0009)
       000125 75 F0 00         [24]  796 	mov	b,#0x00
       000128 12r00r00         [24]  797 	lcall	_pf_open
       00012B E5 82            [12]  798 	mov	a,dpl
-                                    799 ;	main.c:73: if (res != FR_OK){
+                                    799 ;	main.c:77: if (res != FR_OK){
       00012D 60 1D            [24]  800 	jz	00108$
-                                    801 ;	main.c:74: printf_tiny("Error: failed to open %s\r\n", fno.fname);
+                                    801 ;	main.c:78: printf_tiny("Error: failed to open %s\r\n", fno.fname);
       00012F 74r36            [12]  802 	mov	a,#(_read_mp3_files_fno_65536_91 + 0x0009)
       000131 C0 E0            [24]  803 	push	acc
       000133 74s00            [12]  804 	mov	a,#((_read_mp3_files_fno_65536_91 + 0x0009) >> 8)
@@ -813,11 +813,11 @@
       000145 E5 81            [12]  813 	mov	a,sp
       000147 24 FB            [12]  814 	add	a,#0xfb
       000149 F5 81            [12]  815 	mov	sp,a
-                                    816 ;	main.c:75: break;
-                                    817 ;	main.c:79: do{
+                                    816 ;	main.c:79: break;
+                                    817 ;	main.c:83: do{
       00014B 22               [24]  818 	ret
       00014C                        819 00108$:
-                                    820 ;	main.c:81: res = pf_read(buff, RD_BLOCK_SIZE, &br);
+                                    820 ;	main.c:85: res = pf_read(buff, RD_BLOCK_SIZE, &br);
       00014C 90r00r00         [24]  821 	mov	dptr,#_pf_read_PARM_2
       00014F 74 40            [12]  822 	mov	a,#0x40
       000151 F0               [24]  823 	movx	@dptr,a
@@ -837,9 +837,9 @@
       000165 75 F0 00         [24]  837 	mov	b,#0x00
       000168 12r00r00         [24]  838 	lcall	_pf_read
       00016B E5 82            [12]  839 	mov	a,dpl
-                                    840 ;	main.c:83: if(res != FR_OK){
+                                    840 ;	main.c:87: if(res != FR_OK){
       00016D 60 1F            [24]  841 	jz	00107$
-                                    842 ;	main.c:84: printf_tiny("Error: failed to read %s\r\n", fno.fname);
+                                    842 ;	main.c:88: printf_tiny("Error: failed to read %s\r\n", fno.fname);
       00016F 74r36            [12]  843 	mov	a,#(_read_mp3_files_fno_65536_91 + 0x0009)
       000171 C0 E0            [24]  844 	push	acc
       000173 74s00            [12]  845 	mov	a,#((_read_mp3_files_fno_65536_91 + 0x0009) >> 8)
@@ -854,14 +854,14 @@
       000185 E5 81            [12]  854 	mov	a,sp
       000187 24 FB            [12]  855 	add	a,#0xfb
       000189 F5 81            [12]  856 	mov	sp,a
-                                    857 ;	main.c:85: break;
+                                    857 ;	main.c:89: break;
       00018B 02r00rD6         [24]  858 	ljmp	00114$
       00018E                        859 00107$:
-                                    860 ;	main.c:88: print_buffer((const BYTE *)buff);
+                                    860 ;	main.c:92: print_buffer((const BYTE *)buff);
       00018E 90r00r54         [24]  861 	mov	dptr,#_read_mp3_files_buff_65536_91
       000191 75 F0 00         [24]  862 	mov	b,#0x00
       000194 12r00r0D         [24]  863 	lcall	_print_buffer
-                                    864 ;	main.c:90: }while(br == RD_BLOCK_SIZE); //exit when reached EOF
+                                    864 ;	main.c:94: }while(br == RD_BLOCK_SIZE); //exit when reached EOF
       000197 90r00r94         [24]  865 	mov	dptr,#_read_mp3_files_br_65536_91
       00019A E0               [24]  866 	movx	a,@dptr
       00019B FE               [12]  867 	mov	r6,a
@@ -873,35 +873,35 @@
       0001A5 80 A5            [24]  873 	sjmp	00108$
       0001A7                        874 00150$:
       0001A7 02r00rD6         [24]  875 	ljmp	00114$
-                                    876 ;	main.c:94: return;
-                                    877 ;	main.c:95: }
+                                    876 ;	main.c:98: return;
+                                    877 ;	main.c:99: }
       0001AA 22               [24]  878 	ret
                                     879 ;------------------------------------------------------------
                                     880 ;Allocation info for local variables in function 'main'
                                     881 ;------------------------------------------------------------
-                                    882 ;	main.c:98: void main(void)
+                                    882 ;	main.c:102: void main(void)
                                     883 ;	-----------------------------------------
                                     884 ;	 function main
                                     885 ;	-----------------------------------------
       0001AB                        886 _main:
-                                    887 ;	main.c:101: init_timer0();
+                                    887 ;	main.c:105: init_timer0();
       0001AB 12r00r00         [24]  888 	lcall	_init_timer0
-                                    889 ;	main.c:102: lcdinit();
+                                    889 ;	main.c:106: lcdinit();
       0001AE 12r00r00         [24]  890 	lcall	_lcdinit
-                                    891 ;	main.c:103: spi_init();
+                                    891 ;	main.c:107: spi_init();
       0001B1 12r00r00         [24]  892 	lcall	_spi_init
-                                    893 ;	main.c:104: reset_DAC();
+                                    893 ;	main.c:108: reset_DAC();
       0001B4 12r00r00         [24]  894 	lcall	_reset_DAC
-                                    895 ;	main.c:106: write_to_DAC_and_EEPROM(0);
+                                    895 ;	main.c:110: write_to_DAC_and_EEPROM(0);
       0001B7 90 00 00         [24]  896 	mov	dptr,#0x0000
       0001BA 12r00r00         [24]  897 	lcall	_write_to_DAC_and_EEPROM
-                                    898 ;	main.c:109: if( pf_mount(&SDCard))
+                                    898 ;	main.c:113: if( pf_mount(&SDCard))
       0001BD 90r00r00         [24]  899 	mov	dptr,#_SDCard
       0001C0 75 F0 00         [24]  900 	mov	b,#0x00
       0001C3 12r00r00         [24]  901 	lcall	_pf_mount
       0001C6 E5 82            [12]  902 	mov	a,dpl
       0001C8 60 11            [24]  903 	jz	00105$
-                                    904 ;	main.c:111: printf_tiny("Couldn't mount drive...\r\n");
+                                    904 ;	main.c:115: printf_tiny("Couldn't mount drive...\r\n");
       0001CA 74r6C            [12]  905 	mov	a,#___str_7
       0001CC C0 E0            [24]  906 	push	acc
       0001CE 74s00            [12]  907 	mov	a,#(___str_7 >> 8)
@@ -909,11 +909,11 @@
       0001D2 12r00r00         [24]  909 	lcall	_printf_tiny
       0001D5 15 81            [12]  910 	dec	sp
       0001D7 15 81            [12]  911 	dec	sp
-                                    912 ;	main.c:112: while( 1 );
+                                    912 ;	main.c:116: while( 1 );
       0001D9                        913 00102$:
       0001D9 80 FE            [24]  914 	sjmp	00102$
       0001DB                        915 00105$:
-                                    916 ;	main.c:115: printf_tiny("SD card mounted\r\n");
+                                    916 ;	main.c:119: printf_tiny("SD card mounted\r\n");
       0001DB 74r86            [12]  917 	mov	a,#___str_8
       0001DD C0 E0            [24]  918 	push	acc
       0001DF 74s00            [12]  919 	mov	a,#(___str_8 >> 8)
@@ -921,11 +921,11 @@
       0001E3 12r00r00         [24]  921 	lcall	_printf_tiny
       0001E6 15 81            [12]  922 	dec	sp
       0001E8 15 81            [12]  923 	dec	sp
-                                    924 ;	main.c:118: if( disk_initialize( ) & STA_NOINIT )
+                                    924 ;	main.c:122: if( disk_initialize( ) & STA_NOINIT )
       0001EA 12r00r00         [24]  925 	lcall	_disk_initialize
       0001ED E5 82            [12]  926 	mov	a,dpl
       0001EF 30 E0 63         [24]  927 	jnb	acc.0,00115$
-                                    928 ;	main.c:120: switch( get_card_type() )
+                                    928 ;	main.c:124: switch( get_card_type() )
       0001F2 12r00r00         [24]  929 	lcall	_get_card_type
       0001F5 AE 82            [24]  930 	mov	r6,dpl
       0001F7 AF 83            [24]  931 	mov	r7,dph
@@ -937,12 +937,12 @@
       000204 BF 00 02         [24]  937 	cjne	r7,#0x00,00156$
       000207 80 19            [24]  938 	sjmp	00107$
       000209                        939 00156$:
-                                    940 ;	main.c:122: case 0 :
+                                    940 ;	main.c:126: case 0 :
       000209 BE 02 38         [24]  941 	cjne	r6,#0x02,00109$
       00020C BF 00 35         [24]  942 	cjne	r7,#0x00,00109$
       00020F 80 22            [24]  943 	sjmp	00108$
       000211                        944 00106$:
-                                    945 ;	main.c:123: printf_tiny("Couldn't find SD card\r\n");
+                                    945 ;	main.c:127: printf_tiny("Couldn't find SD card\r\n");
       000211 74r98            [12]  946 	mov	a,#___str_9
       000213 C0 E0            [24]  947 	push	acc
       000215 74s00            [12]  948 	mov	a,#(___str_9 >> 8)
@@ -950,11 +950,11 @@
       000219 12r00r00         [24]  950 	lcall	_printf_tiny
       00021C 15 81            [12]  951 	dec	sp
       00021E 15 81            [12]  952 	dec	sp
-                                    953 ;	main.c:124: break;
-                                    954 ;	main.c:125: case 1 :
+                                    953 ;	main.c:128: break;
+                                    954 ;	main.c:129: case 1 :
       000220 80 31            [24]  955 	sjmp	00112$
       000222                        956 00107$:
-                                    957 ;	main.c:126: printf_tiny("Card type is MMC - Can't use this type\r\n");
+                                    957 ;	main.c:130: printf_tiny("Card type is MMC - Can't use this type\r\n");
       000222 74rB0            [12]  958 	mov	a,#___str_10
       000224 C0 E0            [24]  959 	push	acc
       000226 74s00            [12]  960 	mov	a,#(___str_10 >> 8)
@@ -962,11 +962,11 @@
       00022A 12r00r00         [24]  962 	lcall	_printf_tiny
       00022D 15 81            [12]  963 	dec	sp
       00022F 15 81            [12]  964 	dec	sp
-                                    965 ;	main.c:127: break;
-                                    966 ;	main.c:128: case 2 :
+                                    965 ;	main.c:131: break;
+                                    966 ;	main.c:132: case 2 :
       000231 80 20            [24]  967 	sjmp	00112$
       000233                        968 00108$:
-                                    969 ;	main.c:129: printf_tiny("Couldn't initialize SD Card drive...\r\n");
+                                    969 ;	main.c:133: printf_tiny("Couldn't initialize SD Card drive...\r\n");
       000233 74rD9            [12]  970 	mov	a,#___str_11
       000235 C0 E0            [24]  971 	push	acc
       000237 74s00            [12]  972 	mov	a,#(___str_11 >> 8)
@@ -974,11 +974,11 @@
       00023B 12r00r00         [24]  974 	lcall	_printf_tiny
       00023E 15 81            [12]  975 	dec	sp
       000240 15 81            [12]  976 	dec	sp
-                                    977 ;	main.c:130: break;
-                                    978 ;	main.c:131: default :
+                                    977 ;	main.c:134: break;
+                                    978 ;	main.c:135: default :
       000242 80 0F            [24]  979 	sjmp	00112$
       000244                        980 00109$:
-                                    981 ;	main.c:132: printf_tiny("Unknown Card Type error...\r\n");
+                                    981 ;	main.c:136: printf_tiny("Unknown Card Type error...\r\n");
       000244 74r00            [12]  982 	mov	a,#___str_12
       000246 C0 E0            [24]  983 	push	acc
       000248 74s01            [12]  984 	mov	a,#(___str_12 >> 8)
@@ -986,11 +986,11 @@
       00024C 12r00r00         [24]  986 	lcall	_printf_tiny
       00024F 15 81            [12]  987 	dec	sp
       000251 15 81            [12]  988 	dec	sp
-                                    989 ;	main.c:135: while( 1 );
+                                    989 ;	main.c:139: while( 1 );
       000253                        990 00112$:
       000253 80 FE            [24]  991 	sjmp	00112$
       000255                        992 00115$:
-                                    993 ;	main.c:138: printf_tiny("SD card initialized\r\n");
+                                    993 ;	main.c:142: printf_tiny("SD card initialized\r\n");
       000255 74r1D            [12]  994 	mov	a,#___str_13
       000257 C0 E0            [24]  995 	push	acc
       000259 74s01            [12]  996 	mov	a,#(___str_13 >> 8)
@@ -998,7 +998,7 @@
       00025D 12r00r00         [24]  998 	lcall	_printf_tiny
       000260 15 81            [12]  999 	dec	sp
       000262 15 81            [12] 1000 	dec	sp
-                                   1001 ;	main.c:141: printf_tiny("Finished reading files\r\n");
+                                   1001 ;	main.c:145: printf_tiny("Finished reading files\r\n");
       000264 74r33            [12] 1002 	mov	a,#___str_14
       000266 C0 E0            [24] 1003 	push	acc
       000268 74s01            [12] 1004 	mov	a,#(___str_14 >> 8)
@@ -1006,11 +1006,11 @@
       00026C 12r00r00         [24] 1006 	lcall	_printf_tiny
       00026F 15 81            [12] 1007 	dec	sp
       000271 15 81            [12] 1008 	dec	sp
-                                   1009 ;	main.c:142: read_mp3_files();
+                                   1009 ;	main.c:146: read_mp3_files();
       000273 12r00rBA         [24] 1010 	lcall	_read_mp3_files
-                                   1011 ;	main.c:143: while( 1 );
+                                   1011 ;	main.c:147: while( 1 );
       000276                       1012 00117$:
-                                   1013 ;	main.c:144: }
+                                   1013 ;	main.c:148: }
       000276 80 FE            [24] 1014 	sjmp	00117$
                                    1015 	.area CSEG    (CODE)
                                    1016 	.area CONST   (CODE)

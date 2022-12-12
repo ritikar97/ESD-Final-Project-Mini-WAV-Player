@@ -3,9 +3,13 @@
  * @file main.c
  * @author Shuran Xu (shxu6388@colorado.edu)
  * @brief main( ) implements a test program for accessing the SD card.
- * @reference http://elm-chan.org/fsw/ff/pf/readdir.html
+ * @reference
+ * 1. Petit FAT readdir( ) tutorial page:
+ * http://elm-chan.org/fsw/ff/pf/readdir.html
  * @code leverage: The MP3 test function is implemented based on the example code from the readdir( ) info
  * page of the Petit FAT file system tutorial page.
+ * 2. The entire pff library is taken from the Petit FAT filesystem tutorial page at:
+ * http://elm-chan.org/fsw/ff/00index_p.html
  * @version 0.1
  * @date 2022-12-12
  * @copyright Copyright (c) 2022

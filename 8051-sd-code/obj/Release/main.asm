@@ -564,7 +564,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function '_sdcc_external_startup'
 ;------------------------------------------------------------
-;	main.c:32: _sdcc_external_startup()
+;	main.c:36: _sdcc_external_startup()
 ;	-----------------------------------------
 ;	 function _sdcc_external_startup
 ;	-----------------------------------------
@@ -577,15 +577,15 @@ __sdcc_external_startup:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	main.c:35: AUXR |= (XRS1 | XRS0);
+;	main.c:39: AUXR |= (XRS1 | XRS0);
 	orl	_AUXR,#0x0c
-;	main.c:36: AUXR &= ~(XRS2);
+;	main.c:40: AUXR &= ~(XRS2);
 	anl	_AUXR,#0xef
-;	main.c:38: init_serial();
+;	main.c:42: init_serial();
 	lcall	_init_serial
-;	main.c:39: return 0;
+;	main.c:43: return 0;
 	mov	dptr,#0x0000
-;	main.c:40: }
+;	main.c:44: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'print_buffer'
@@ -593,7 +593,7 @@ __sdcc_external_startup:
 ;buff                      Allocated with name '_print_buffer_buff_65536_85'
 ;i                         Allocated with name '_print_buffer_i_131072_87'
 ;------------------------------------------------------------
-;	main.c:42: void print_buffer(const BYTE *buff)
+;	main.c:46: void print_buffer(const BYTE *buff)
 ;	-----------------------------------------
 ;	 function print_buffer
 ;	-----------------------------------------
@@ -609,7 +609,7 @@ _print_buffer:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:44: for(int i=0;i<RD_BLOCK_SIZE;i++){
+;	main.c:48: for(int i=0;i<RD_BLOCK_SIZE;i++){
 	mov	dptr,#_print_buffer_buff_65536_85
 	movx	a,@dptr
 	mov	r5,a
@@ -631,7 +631,7 @@ _print_buffer:
 	jc	00122$
 	ret
 00122$:
-;	main.c:45: if(((i + 1) >> 4) == 0){
+;	main.c:49: if(((i + 1) >> 4) == 0){
 	mov	a,#0x01
 	add	a,r3
 	mov	r1,a
@@ -652,7 +652,7 @@ _print_buffer:
 00123$:
 	orl	a,r1
 	jnz	00102$
-;	main.c:46: printf_tiny("\r\n");
+;	main.c:50: printf_tiny("\r\n");
 	push	ar7
 	push	ar6
 	push	ar5
@@ -671,7 +671,7 @@ _print_buffer:
 	pop	ar6
 	pop	ar7
 00102$:
-;	main.c:48: printf_tiny("%x ", buff[i]);
+;	main.c:52: printf_tiny("%x ", buff[i]);
 	mov	a,r3
 	add	a,r5
 	mov	r0,a
@@ -705,12 +705,12 @@ _print_buffer:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	main.c:44: for(int i=0;i<RD_BLOCK_SIZE;i++){
+;	main.c:48: for(int i=0;i<RD_BLOCK_SIZE;i++){
 	inc	r3
 	cjne	r3,#0x00,00125$
 	inc	r4
 00125$:
-;	main.c:50: }
+;	main.c:54: }
 	ljmp	00105$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'read_mp3_files'
@@ -721,12 +721,12 @@ _print_buffer:
 ;buff                      Allocated with name '_read_mp3_files_buff_65536_91'
 ;br                        Allocated with name '_read_mp3_files_br_65536_91'
 ;------------------------------------------------------------
-;	main.c:52: void read_mp3_files(void)
+;	main.c:56: void read_mp3_files(void)
 ;	-----------------------------------------
 ;	 function read_mp3_files
 ;	-----------------------------------------
 _read_mp3_files:
-;	main.c:60: res = pf_opendir(&dir, "/");
+;	main.c:64: res = pf_opendir(&dir, "/");
 	mov	dptr,#_pf_opendir_PARM_2
 	mov	a,#___str_2
 	movx	@dptr,a
@@ -740,12 +740,12 @@ _read_mp3_files:
 	mov	b,#0x00
 	lcall	_pf_opendir
 	mov	a,dpl
-;	main.c:61: if (res == FR_OK) {
+;	main.c:65: if (res == FR_OK) {
 	jz	00145$
 	ret
 00145$:
 00114$:
-;	main.c:64: res = pf_readdir(&dir, &fno);
+;	main.c:68: res = pf_readdir(&dir, &fno);
 	mov	dptr,#_pf_readdir_PARM_2
 	mov	a,#_read_mp3_files_fno_65536_91
 	movx	@dptr,a
@@ -759,13 +759,13 @@ _read_mp3_files:
 	mov	b,#0x00
 	lcall	_pf_readdir
 	mov	a,dpl
-;	main.c:65: if (res != FR_OK || fno.fname[0] == 0){
+;	main.c:69: if (res != FR_OK || fno.fname[0] == 0){
 	jnz	00101$
 	mov	dptr,#(_read_mp3_files_fno_65536_91 + 0x0009)
 	movx	a,@dptr
 	jnz	00102$
 00101$:
-;	main.c:66: printf_tiny("No more files found\r\n");
+;	main.c:70: printf_tiny("No more files found\r\n");
 	mov	a,#___str_3
 	push	acc
 	mov	a,#(___str_3 >> 8)
@@ -773,10 +773,10 @@ _read_mp3_files:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:67: break;
+;	main.c:71: break;
 	ret
 00102$:
-;	main.c:69: printf_tiny("reading file /%s ...\r\n",fno.fname);
+;	main.c:73: printf_tiny("reading file /%s ...\r\n",fno.fname);
 	mov	a,#(_read_mp3_files_fno_65536_91 + 0x0009)
 	push	acc
 	mov	a,#((_read_mp3_files_fno_65536_91 + 0x0009) >> 8)
@@ -791,14 +791,14 @@ _read_mp3_files:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	main.c:72: res = pf_open(fno.fname);
+;	main.c:76: res = pf_open(fno.fname);
 	mov	dptr,#(_read_mp3_files_fno_65536_91 + 0x0009)
 	mov	b,#0x00
 	lcall	_pf_open
 	mov	a,dpl
-;	main.c:73: if (res != FR_OK){
+;	main.c:77: if (res != FR_OK){
 	jz	00108$
-;	main.c:74: printf_tiny("Error: failed to open %s\r\n", fno.fname);
+;	main.c:78: printf_tiny("Error: failed to open %s\r\n", fno.fname);
 	mov	a,#(_read_mp3_files_fno_65536_91 + 0x0009)
 	push	acc
 	mov	a,#((_read_mp3_files_fno_65536_91 + 0x0009) >> 8)
@@ -813,11 +813,11 @@ _read_mp3_files:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	main.c:75: break;
-;	main.c:79: do{
+;	main.c:79: break;
+;	main.c:83: do{
 	ret
 00108$:
-;	main.c:81: res = pf_read(buff, RD_BLOCK_SIZE, &br);
+;	main.c:85: res = pf_read(buff, RD_BLOCK_SIZE, &br);
 	mov	dptr,#_pf_read_PARM_2
 	mov	a,#0x40
 	movx	@dptr,a
@@ -837,9 +837,9 @@ _read_mp3_files:
 	mov	b,#0x00
 	lcall	_pf_read
 	mov	a,dpl
-;	main.c:83: if(res != FR_OK){
+;	main.c:87: if(res != FR_OK){
 	jz	00107$
-;	main.c:84: printf_tiny("Error: failed to read %s\r\n", fno.fname);
+;	main.c:88: printf_tiny("Error: failed to read %s\r\n", fno.fname);
 	mov	a,#(_read_mp3_files_fno_65536_91 + 0x0009)
 	push	acc
 	mov	a,#((_read_mp3_files_fno_65536_91 + 0x0009) >> 8)
@@ -854,14 +854,14 @@ _read_mp3_files:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	main.c:85: break;
+;	main.c:89: break;
 	ljmp	00114$
 00107$:
-;	main.c:88: print_buffer((const BYTE *)buff);
+;	main.c:92: print_buffer((const BYTE *)buff);
 	mov	dptr,#_read_mp3_files_buff_65536_91
 	mov	b,#0x00
 	lcall	_print_buffer
-;	main.c:90: }while(br == RD_BLOCK_SIZE); //exit when reached EOF
+;	main.c:94: }while(br == RD_BLOCK_SIZE); //exit when reached EOF
 	mov	dptr,#_read_mp3_files_br_65536_91
 	movx	a,@dptr
 	mov	r6,a
@@ -873,35 +873,35 @@ _read_mp3_files:
 	sjmp	00108$
 00150$:
 	ljmp	00114$
-;	main.c:94: return;
-;	main.c:95: }
+;	main.c:98: return;
+;	main.c:99: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;	main.c:98: void main(void)
+;	main.c:102: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	main.c:101: init_timer0();
+;	main.c:105: init_timer0();
 	lcall	_init_timer0
-;	main.c:102: lcdinit();
+;	main.c:106: lcdinit();
 	lcall	_lcdinit
-;	main.c:103: spi_init();
+;	main.c:107: spi_init();
 	lcall	_spi_init
-;	main.c:104: reset_DAC();
+;	main.c:108: reset_DAC();
 	lcall	_reset_DAC
-;	main.c:106: write_to_DAC_and_EEPROM(0);
+;	main.c:110: write_to_DAC_and_EEPROM(0);
 	mov	dptr,#0x0000
 	lcall	_write_to_DAC_and_EEPROM
-;	main.c:109: if( pf_mount(&SDCard))
+;	main.c:113: if( pf_mount(&SDCard))
 	mov	dptr,#_SDCard
 	mov	b,#0x00
 	lcall	_pf_mount
 	mov	a,dpl
 	jz	00105$
-;	main.c:111: printf_tiny("Couldn't mount drive...\r\n");
+;	main.c:115: printf_tiny("Couldn't mount drive...\r\n");
 	mov	a,#___str_7
 	push	acc
 	mov	a,#(___str_7 >> 8)
@@ -909,11 +909,11 @@ _main:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:112: while( 1 );
+;	main.c:116: while( 1 );
 00102$:
 	sjmp	00102$
 00105$:
-;	main.c:115: printf_tiny("SD card mounted\r\n");
+;	main.c:119: printf_tiny("SD card mounted\r\n");
 	mov	a,#___str_8
 	push	acc
 	mov	a,#(___str_8 >> 8)
@@ -921,11 +921,11 @@ _main:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:118: if( disk_initialize( ) & STA_NOINIT )
+;	main.c:122: if( disk_initialize( ) & STA_NOINIT )
 	lcall	_disk_initialize
 	mov	a,dpl
 	jnb	acc.0,00115$
-;	main.c:120: switch( get_card_type() )
+;	main.c:124: switch( get_card_type() )
 	lcall	_get_card_type
 	mov	r6,dpl
 	mov	r7,dph
@@ -937,12 +937,12 @@ _main:
 	cjne	r7,#0x00,00156$
 	sjmp	00107$
 00156$:
-;	main.c:122: case 0 :
+;	main.c:126: case 0 :
 	cjne	r6,#0x02,00109$
 	cjne	r7,#0x00,00109$
 	sjmp	00108$
 00106$:
-;	main.c:123: printf_tiny("Couldn't find SD card\r\n");
+;	main.c:127: printf_tiny("Couldn't find SD card\r\n");
 	mov	a,#___str_9
 	push	acc
 	mov	a,#(___str_9 >> 8)
@@ -950,11 +950,11 @@ _main:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:124: break;
-;	main.c:125: case 1 :
+;	main.c:128: break;
+;	main.c:129: case 1 :
 	sjmp	00112$
 00107$:
-;	main.c:126: printf_tiny("Card type is MMC - Can't use this type\r\n");
+;	main.c:130: printf_tiny("Card type is MMC - Can't use this type\r\n");
 	mov	a,#___str_10
 	push	acc
 	mov	a,#(___str_10 >> 8)
@@ -962,11 +962,11 @@ _main:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:127: break;
-;	main.c:128: case 2 :
+;	main.c:131: break;
+;	main.c:132: case 2 :
 	sjmp	00112$
 00108$:
-;	main.c:129: printf_tiny("Couldn't initialize SD Card drive...\r\n");
+;	main.c:133: printf_tiny("Couldn't initialize SD Card drive...\r\n");
 	mov	a,#___str_11
 	push	acc
 	mov	a,#(___str_11 >> 8)
@@ -974,11 +974,11 @@ _main:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:130: break;
-;	main.c:131: default :
+;	main.c:134: break;
+;	main.c:135: default :
 	sjmp	00112$
 00109$:
-;	main.c:132: printf_tiny("Unknown Card Type error...\r\n");
+;	main.c:136: printf_tiny("Unknown Card Type error...\r\n");
 	mov	a,#___str_12
 	push	acc
 	mov	a,#(___str_12 >> 8)
@@ -986,11 +986,11 @@ _main:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:135: while( 1 );
+;	main.c:139: while( 1 );
 00112$:
 	sjmp	00112$
 00115$:
-;	main.c:138: printf_tiny("SD card initialized\r\n");
+;	main.c:142: printf_tiny("SD card initialized\r\n");
 	mov	a,#___str_13
 	push	acc
 	mov	a,#(___str_13 >> 8)
@@ -998,7 +998,7 @@ _main:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:141: printf_tiny("Finished reading files\r\n");
+;	main.c:145: printf_tiny("Finished reading files\r\n");
 	mov	a,#___str_14
 	push	acc
 	mov	a,#(___str_14 >> 8)
@@ -1006,11 +1006,11 @@ _main:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:142: read_mp3_files();
+;	main.c:146: read_mp3_files();
 	lcall	_read_mp3_files
-;	main.c:143: while( 1 );
+;	main.c:147: while( 1 );
 00117$:
-;	main.c:144: }
+;	main.c:148: }
 	sjmp	00117$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

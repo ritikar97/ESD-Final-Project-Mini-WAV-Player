@@ -1,0 +1,65 @@
+# depslib dependency file v1.0
+1668614762 source:c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\main.c
+	"common_defines.h"
+	"i2c.h"
+	"serial.h"
+
+1667773973 c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\common_defines.h
+	<mcs51/8051.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<mcs51reg.h>
+	<at89c51ed2.h>
+
+1669675093 c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\i2c.h
+	"common_defines.h"
+
+1667318704 c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\serial.h
+	"common_defines.h"
+
+1667773922 source:c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\serial.c
+	"serial.h"
+
+1669674735 source:c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\mp3_decoder.c
+	"mp3_decoder.h"
+	"i2c.h"
+
+1669674756 c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\mp3_decoder.h
+	"common_defines.h"
+
+1669675086 source:c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\i2c.c
+	"i2c.h"
+
+1669679391 source:c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\esd-mp3-player\mp3_decoder\i2c.c
+	"i2c.h"
+
+1669679397 c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\esd-mp3-player\mp3_decoder\i2c.h
+	"common_defines.h"
+
+1667773973 c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\esd-mp3-player\mp3_decoder\common_defines.h
+	<mcs51/8051.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<mcs51reg.h>
+	<at89c51ed2.h>
+
+1669679415 source:c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\esd-mp3-player\mp3_decoder\main.c
+	"common_defines.h"
+	"i2c.h"
+	"serial.h"
+
+1667318704 c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\esd-mp3-player\mp3_decoder\serial.h
+	"common_defines.h"
+
+1667773922 source:c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\esd-mp3-player\mp3_decoder\serial.c
+	"serial.h"
+
+1669928386 source:c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\esd-mp3-player\mp3_decoder\mp3_decoder.c
+	"mp3_decoder.h"
+	"i2c.h"
+
+1669674756 c:\users\ritik\desktop\cub_sem_1\esd\labs\lab4\mp3_decoder\esd-mp3-player\mp3_decoder\mp3_decoder.h
+	"common_defines.h"
+

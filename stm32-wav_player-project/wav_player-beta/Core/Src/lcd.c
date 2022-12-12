@@ -18,6 +18,9 @@
  *  1.The HD44780U datasheet:
  *  https://www.alldatasheet.com/datasheet-pdf/pdf/63673/HITACHI/HD44780.html
  *  2.ST open-source HAL GPIO drivers
+ *  3. https://www.youtube.com/watch?v=ITTBWSQTi3c
+ *  @Code Leverage: The initialization routine and the delay function
+ *  are implemented based on the tutorial video.
  *
  *  @Author: Shuran Xu
  *

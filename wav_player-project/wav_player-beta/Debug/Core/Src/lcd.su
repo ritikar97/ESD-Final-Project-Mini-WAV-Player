@@ -1,0 +1,8 @@
+../Core/Src/lcd.c:48:13:delay_us	16	static
+../Core/Src/lcd.c:60:13:lcd_write	16	static
+../Core/Src/lcd.c:88:13:lcd_send_cmd	16	static
+../Core/Src/lcd.c:101:13:lcd_send_data	16	static
+../Core/Src/lcd.c:113:6:lcd_clear	8	static
+../Core/Src/lcd.c:124:6:lcd_update_cur	16	static
+../Core/Src/lcd.c:143:6:lcd_init	8	static
+../Core/Src/lcd.c:201:6:lcd_write_string	16	static
